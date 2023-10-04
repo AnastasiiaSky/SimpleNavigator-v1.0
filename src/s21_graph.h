@@ -16,6 +16,7 @@ namespace s21 {
         private:
         int size;
         std::vector<std::vector<int>> AdjacencyMatrix;
+        std::vector<std::vector<int>> AdjacencyMatrix; 
     };
 
 } //namespace s21

@@ -14,7 +14,7 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   if (!ifs.is_open()) {
     std::cout << "Error opening file";
     return;
-  }
+  } 
 
   ifs >> size; // read the graph size from file
   AdjacencyMatrix.resize(size, std::vector<int>(size)); // change the matrix size
