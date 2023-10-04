@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "s21_graph.h"
-
+ 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix()
 {
     if (AdjacencyMatrix.size() < 1) return std::vector<std::vector<int>>();
@@ -45,7 +45,7 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 
   ofs.close();
 }
-
+ 
 int main() {
   s21::s21_Graph graph;
   std::string inputFile = "graph_1.txt";
