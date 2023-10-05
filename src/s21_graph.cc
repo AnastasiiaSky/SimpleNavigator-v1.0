@@ -68,36 +68,8 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 
   ofs.close();
 }
- 
 
-int main() {
-  s21::s21_Graph graph;
-  std::string InputFileName = "graph_2.txt";
-  graph.LoadGraphFromFile(InputFileName);
-  std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
-  std::cout << "EdgesList:\n";
-  for (int i = 0; i < edgesList.size(); ++i) {
-    std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second << ")\n";
-  }
-  std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
-  std::cout << "AdjacencyList:\n";
-  for (int i = 0; i < adjacencyList.size(); ++i) {
-    std::cout << i << ": ";
-    for (int j = 0; j < adjacencyList[i].size(); ++j) {
-      std::cout << adjacencyList[i][j] << " ";
-    }
-    std::cout << "\n";
-  }
-   std::string outputFile = "output.dot";
-   graph.ExportGraphToDot(outputFile);
-  return 0;
+bool s21::s21_Graph::isAdjacent(int vertex1, int vertex2) {
+    return AdjacencyMatrix_[vertex1][vertex2] == 1;
 }
 
-// int main() {
-//   s21::s21_Graph graph;
-//   std::string inputFile = "graph_1.txt";
-//   std::string outputFile = "output.dot";
-//   graph.LoadGraphFromFile(inputFile);
-//   graph.ExportGraphToDot(outputFile);
-//   return 0;
-// }

@@ -16,6 +16,8 @@ namespace s21 {
 
         void LoadGraphFromFile(std::string filename);
         void ExportGraphToDot(std::string filename);
+        int getSize() {return size_;}
+        bool isAdjacent(int vertex1, int vertex2); 
 
     private:
         int size_;
