@@ -2,12 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include "s21_graph.h"
+
  
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix()
 {
     if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
     return AdjacencyMatrix_;
 }
+
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
@@ -19,6 +21,11 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
     }
   }
   return edgesList_;
+}
+
+int s21::s21_Graph::get_graph_size()
+{
+return size_;
 }
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
@@ -70,28 +77,39 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 }
  
 
-int main() {
-  s21::s21_Graph graph;
-  std::string InputFileName = "graph_2.txt";
-  graph.LoadGraphFromFile(InputFileName);
-  std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
-  std::cout << "EdgesList:\n";
-  for (int i = 0; i < edgesList.size(); ++i) {
-    std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second << ")\n";
-  }
-  std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
-  std::cout << "AdjacencyList:\n";
-  for (int i = 0; i < adjacencyList.size(); ++i) {
-    std::cout << i << ": ";
-    for (int j = 0; j < adjacencyList[i].size(); ++j) {
-      std::cout << adjacencyList[i][j] << " ";
-    }
-    std::cout << "\n";
-  }
-   std::string outputFile = "output.dot";
-   graph.ExportGraphToDot(outputFile);
-  return 0;
-}
+// int main() {
+//   s21::s21_Graph graph;
+//   s21::GraphAlgorithms algo;
+
+//   std::string InputFileName = "graph_2.txt";
+//   graph.LoadGraphFromFile(InputFileName);
+//   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
+//   std::cout << "EdgesList:\n";
+//   for (int i = 0; i < edgesList.size(); ++i) {
+//     std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second << ")\n";
+//   }
+//   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
+//   std::cout << "AdjacencyList:\n";
+//   for (int i = 0; i < adjacencyList.size(); ++i) {
+//     std::cout << i << ": ";
+//     for (int j = 0; j < adjacencyList[i].size(); ++j) {
+//       std::cout << adjacencyList[i][j] << " ";
+//     }
+//     std::cout << "\n";
+//   }
+//    std::string outputFile = "output.dot";
+//    graph.ExportGraphToDot(outputFile);
+
+//    int start = 0;
+//    std::list<int> visited_vertexes;
+//     // visited_vertexes = algo.DepthFirstSearch(graph, start);
+
+//    for(auto element : visited_vertexes) {
+//     std::cout << element << " ";
+//    }
+//    std::cout << std::endl;
+//   return 0;
+// }
 
 // int main() {
 //   s21::s21_Graph graph;
