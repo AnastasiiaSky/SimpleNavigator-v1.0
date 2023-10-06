@@ -17,6 +17,9 @@
 /// является вектор посещенных точек
 std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
                                                         int start_vertex) {
+  if(start_vertex > graph.get_graph_size() || start_vertex < 0) {
+    throw std::length_error("Start vertex is incorrect");
+  }
   std::vector<int> visited_vertices;
   std::stack<int> vertex_stack;
   std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
@@ -46,7 +49,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
 /// @brief Метод проверки посещенных точек, в которм происходит итерация по
 /// эллементам вектора посещенных точек и сравнение с текущей точкой.
 bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
-                                        int current_vertix) {
+                                        int current_vertix) noexcept{
   for (int it = 0; it < visited_vertices.size(); ++it) {
     if (visited_vertices[it] == current_vertix) {
       return false;
@@ -56,7 +59,7 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 }
 
 void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
-    std::vector<int> visited_vertices) {
+    std::vector<int> visited_vertices) noexcept{
   for (int it = 0; it < visited_vertices.size(); ++it) {
     if (it == visited_vertices.size() - 1) {
       std::cout << visited_vertices[it] << std::endl;

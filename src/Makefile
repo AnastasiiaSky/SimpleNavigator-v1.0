@@ -41,6 +41,10 @@ clean:
 	@rm -rf navigator_tests
 	@rm -rf ./s21_graph/*.dot
 	@rm -rf *.a
+	@rm -rf navigator_tests
+	@rm -rf *.gcda
+	@rm -rf *.gcno
+
 
 
 
