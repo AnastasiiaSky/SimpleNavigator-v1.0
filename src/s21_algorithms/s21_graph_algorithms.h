@@ -17,11 +17,12 @@ namespace s21 {
             std::vector<int> visited_vertices;
 
             void DepthFirstSearch(s21_Graph graph, int start_vertex); // главный метод алгоритма поиска в глумину
+            void BreadthFirstSearch(s21::s21_Graph graph, int start_vertex); // главный метод алгоритма поиска в ширину
             bool CheckVisited(std::list<int> visited_vertices, int current_vertix); // метод проверки посещенных точек
-            bool CheckViseted(std::queue<int> visited_vertices, int current_vertix);
+            bool CheckViseted(std::vector<int> visited_vertices, int current_vertix);
             void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices); // метод вывода результата
             void PrintResultOfDepthFirstSearch(std::list<int> visited_vertices); // метод вывода результата
-            void BreadthFirstSearch(s21::s21_Graph graph, int start_vertex);
+
 
     };
 
