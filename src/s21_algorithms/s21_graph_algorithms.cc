@@ -1,7 +1,7 @@
 #include "s21_graph_algorithms.h"
 
 
-void s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_vertex)
+std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_vertex)
 {
   if(start_vertex > graph.get_graph_size() || start_vertex < 0) {
     throw std::length_error("Start vertex is incorrect");
@@ -27,7 +27,9 @@ void s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_ve
         }
     }
   }
-  PrintResultOfDepthFirstSearch(visited_vertices);
+  // PrintResultOfDepthFirstSearch(visited_vertices);
+  visited_vertices.shrink_to_fit();
+  return visited_vertices;
 }
 
 
@@ -35,12 +37,8 @@ void s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph, int start_vertex)
 {
   std::list<int> visited_vertices; // создаем пустой список пройденных точек
   std::stack<int> vertex_stack; // создаем пустой стэк для работы с точками
-  // vertex_stack.push(start_vertex); 
   std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList(); // получаем список смежных вершин из класса Graph
-
-
-  vertex_stack.push(start_vertex); // добавляем в стэе стартовую точку с которой начинаем обход по графц
-
+  vertex_stack.push(start_vertex); // добавляем в стэк стартовую точку с которой начинаем обход по графц
 
   while (!vertex_stack.empty()) { // пока стэе не пуст проверяем точки
     int current_vertex = vertex_stack.top(); // берем текущую точку из стэка

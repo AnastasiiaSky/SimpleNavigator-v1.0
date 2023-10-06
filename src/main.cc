@@ -32,8 +32,8 @@ int main() {
 
    int start = 0;
   //  algo.DepthFirstSearch(graph, start);
-  algo.BreadthFirstSearch(graph, start);
-
+  std::vector<int> result = algo.BreadthFirstSearch(graph, start);
+  algo.PrintResultOfDepthFirstSearch(result);
 
   return 0;
 }
