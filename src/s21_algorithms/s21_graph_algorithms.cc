@@ -10,8 +10,8 @@ void s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_ve
   while(!queue_vertices_add.empty()){
     int current_vertex = queue_vertices_add.front();  //извлекаем из очереди текущую вершину
         queue_vertices_add.pop();
-        visited_vertices.push_back(current_vertex);
-        int i = 1;
+        visited_vertices.push_back(current_vertex); // Пушим в вектор посещенных
+        int i = 2;
         int adjacent_vertices = i;
     while(!CheckViseted(queue_vertices_add, current_vertex) && adjacency_list[current_vertex][i] == 1) { // заходим если вершину не посешали и текущая и новая смежные
         // current_vertex = 5;// забираем из графа следующую вершину
