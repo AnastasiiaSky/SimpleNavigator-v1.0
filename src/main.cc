@@ -34,9 +34,9 @@ int main() {
   int start = 2;
   // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
   std::vector<int> result = algo.BreadthFirstSearch(graph, start);
-  algo.PrintResultOfDepthFirstSearch(result);  
+  algo.PrintResultOfDepthFirstSearch(result);
 
-  /*std::vector<int> */result = algo.DepthFirstSearch(graph, start);
+  /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
   algo.PrintResultOfDepthFirstSearch(result);
   return 0;
 }
