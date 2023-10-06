@@ -30,7 +30,7 @@ s21_graph_algorithms.a:
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CFLAGS) $(COVER) test/tests.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) test/tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
 stylecheck:
