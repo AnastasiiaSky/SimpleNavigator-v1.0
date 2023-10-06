@@ -8,6 +8,7 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
   if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
   return AdjacencyMatrix_;
 }
+/// \file
 
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {

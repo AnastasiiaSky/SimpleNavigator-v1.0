@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "./s21_graph/s21_graph.cc"
-#include "./s21_algorithms/s21_graph_algorithms.cc"
+#include "../s21_graph/s21_graph.cc"
+#include "../s21_algorithms/s21_graph_algorithms.cc"
 
 
 namespace s21 {

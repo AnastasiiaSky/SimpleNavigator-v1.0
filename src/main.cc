@@ -8,10 +8,10 @@
 
 using namespace s21;
 int main() {
-  s21_Graph graph;
+  s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
@@ -32,9 +32,12 @@ int main() {
   graph.ExportGraphToDot(outputFile);
 
   int start = 2;
-  std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
-  algo.PrintResultOfDepthFirstSearch(visited_vertices);
+  // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
+  std::vector<int> result = algo.BreadthFirstSearch(graph, start);
+  algo.PrintResultOfDepthFirstSearch(result);
 
+  /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
+  algo.PrintResultOfDepthFirstSearch(result);
   return 0;
 }
 

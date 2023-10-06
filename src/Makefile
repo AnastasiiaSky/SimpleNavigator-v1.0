@@ -1,5 +1,5 @@
-CC = g++
-CFLAGS=-lstdc++ -std=c++17
+CXX = g++
+CXXFLAGS=-lstdc++ -std=c++17
 TFLAGS=-g -c -Wall -Werror -Wextra -g -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
 GTEST=-lgtest -lgtest_main -pthread
 ASAN=-fsanitize=address
@@ -9,25 +9,28 @@ COVFLAGS = -fprofile-arcs -ftest-coverage
 VGFLAGS=--trace-children=yes --track-fds=all  --leak-check=full --show-leak-kinds=all --track-origins=yes
 VAR = $(shell pkg-config --cflags --libs check)
 
+SRCS = *.cc s21_*/*.cc
+OBJS = $(SRCS:.c=.o) 
+
 .PHONY: all clean s21_graph.a s21_graph_algorithms.a tests leaks gcov_report stylecheck
 
 all: clean s21_graph.a s21_algorithms.a
 
 s21_graph.a:
-	$(CC) $(TFLAGS) ./s21_graph/s21_graph.cc
+	$(CXX) $(TFLAGS) ./s21_graph/s21_graph.cc
 	ar rcs s21_graph.a *.o
 	ranlib s21_graph.a
 	rm -rf *.o *.dSYM
 
 
 s21_graph_algorithms.a:
-	$(CC) $(TFLAGS) ./s21_algorithms/s21_graph_algorithms.cc
+	$(CXX) $(TFLAGS) ./s21_algorithms/s21_graph_algorithms.cc
 	ar rcs s21_algorithms.a *.o
 	ranlib s21_algorithms.a
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CFLAGS) $(COVER) tests.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
 stylecheck:
@@ -45,8 +48,9 @@ clean:
 	@rm -rf *.gcda
 	@rm -rf *.gcno
 
-
-
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS)
+	./a.out
 
 
 
