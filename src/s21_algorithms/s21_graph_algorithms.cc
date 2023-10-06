@@ -14,6 +14,7 @@ void s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_ve
   int adjacent_vertices;
   queue_vertices_add.push(start_vertex);
   while(!queue_vertices_add.empty()){
+    // std::cout << "№0" << std::endl;
     int current_vertex = queue_vertices_add.front();  //извлекаем из очереди текущую вершину
         queue_vertices_add.pop();
         if (CheckViseted(visited_vertices, current_vertex)) {
