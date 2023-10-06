@@ -12,9 +12,9 @@ namespace s21 {
      class s21_Graph;
     class GraphAlgorithms {
         public:
-            void DepthFirstSearch(s21_Graph graph, int start_vertex);
-            bool CheckViseted(std::list<int> visited_vertices, int current_vertix);
-            void PrintResultOfDepthFirstSearch(std::list<int> visited_vertices);
+            void DepthFirstSearch(s21_Graph graph, int start_vertex); // главный метод алгоритма поиска в глумину
+            bool CheckViseted(std::list<int> visited_vertices, int current_vertix); // метод проверки посещенных точек
+            void PrintResultOfDepthFirstSearch(std::list<int> visited_vertices); // метод вывода результата
 
     };
 
