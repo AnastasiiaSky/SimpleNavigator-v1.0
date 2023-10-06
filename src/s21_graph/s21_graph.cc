@@ -1,19 +1,18 @@
-#include <vector>
-#include <iostream>
-#include <fstream>
 #include "s21_graph.h"
 
- 
-std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix()
-{
-    if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
-    return AdjacencyMatrix_;
+#include <fstream>
+#include <iostream>
+#include <vector>
+
+std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
+  if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
+  return AdjacencyMatrix_;
 }
 
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
-      //go thru cells and see if they don't include '0'
+      // go thru cells and see if they don't include '0'
       if (AdjacencyMatrix_[i][j] != 0) {
         // if (they): push the position number into the edgesList
         edgesList_.push_back(std::make_pair(i, j));
@@ -23,10 +22,7 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   return edgesList_;
 }
 
-int s21::s21_Graph::get_graph_size()
-{
-  return size_;
-}
+int s21::s21_Graph::get_graph_size() { return size_; }
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
   std::vector<std::vector<int>> adjacencyList_(size_);
@@ -45,12 +41,15 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   if (!ifs.is_open()) {
     std::cout << "Error opening file";
     return;
-  } 
-  ifs >> size_; // read the graph size from file
-  AdjacencyMatrix_.resize(size_, std::vector<int>(size_)); // change the matrix size
+  }
+  ifs >> size_;  // read the graph size from file
+  AdjacencyMatrix_.resize(size_,
+                          std::vector<int>(size_));  // change the matrix size
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
-      ifs >> AdjacencyMatrix_[i][j]; // take the values from the files to the  matrix
+      ifs >>
+          AdjacencyMatrix_[i]
+                          [j];  // take the values from the files to the  matrix
     }
   }
   ifs.close();
@@ -75,7 +74,6 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 
   ofs.close();
 }
- 
 
 // int main() {
 //   s21::s21_Graph graph;
@@ -86,7 +84,8 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 //   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
 //   std::cout << "EdgesList:\n";
 //   for (int i = 0; i < edgesList.size(); ++i) {
-//     std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second << ")\n";
+//     std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second <<
+//     ")\n";
 //   }
 //   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
 //   std::cout << "AdjacencyList:\n";
