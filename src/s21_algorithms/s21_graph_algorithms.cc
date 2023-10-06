@@ -43,6 +43,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
       }
     }
   }
+  visited_vertices.shrink_to_fit();
   return visited_vertices;
 }
 
