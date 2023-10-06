@@ -11,7 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "../s21_graph/graph_2.txt";
+  std::string InputFileName = "./s21_graph/examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
@@ -31,8 +31,14 @@ int main() {
    graph.ExportGraphToDot(outputFile);
 
    int start = 0;
-   algo.DepthFirstSearch(graph, start);
+  //  algo.DepthFirstSearch(graph, start);
+  algo.BreadthFirstSearch(graph, start);
 
 
   return 0;
 }
+
+// ./s21_graph/examples/graph_3_vert_simply.txt
+// ./s21_graph/examples/graph_4_vert_simply.txt
+// ./s21_graph/examples/graph_5_vert_simply.txt
+// ./s21_graph/examples/graph_7_vert_simply.txt
