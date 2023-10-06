@@ -58,6 +58,8 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
   return true;
 }
 
+
+/// @brief Метод вывода результата работы алгоритма 
 void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
     std::vector<int> visited_vertices) noexcept{
   for (int it = 0; it < visited_vertices.size(); ++it) {
