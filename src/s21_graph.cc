@@ -13,7 +13,7 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
     std::cout << "Error opening file";
-    return;
+    return; // может ф-я, должна возвращать)).
   }
 
   ifs >> size; // read the graph size from file
