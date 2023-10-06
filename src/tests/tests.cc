@@ -241,6 +241,55 @@ namespace s21 {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
     }
+TEST(Graph, getAjacencyMatrix) {
+s21::s21_Graph graph;
+
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+        graph.LoadGraphFromFile(InputFileName);
+
+    // Получение матрицы смежности из графа
+    std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
+    std::vector<std::vector<int>> expected {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
+    //  std::vector<int> expected = {0, 1, 3, 4, 2, 5, 6};
+
+    ASSERT_EQ(adjacencyMatrix, expected);
+
+}
+
+TEST(Graph, getEdgeList) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    std::vector<std::pair<int, int>> GetedgesList = graph.getEdgesList(); 
+    std::vector<std::pair<int, int>> expected {{0, 1}, {0, 2}, {1, 0}, {1, 2}, {2, 0}, {2, 1}};
+    ASSERT_EQ(GetedgesList, expected);
+}
+
+TEST(Graph, errorOpeningFile) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_155_vert_simply.txt";
+    graph.LoadGraphFromFile(InputFileName);
+}
+TEST(Graph, DOT) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    std::string outputFile = "output.dot";
+    graph.ExportGraphToDot(outputFile);
+}
+TEST(Graph, Graph_DOTerror_Test) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    // graph.LoadGraphFromFile(InputFileName);
+    std::string outputFile = "output1.dot";
+    graph.ExportGraphToDot(outputFile);
+}
+
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
