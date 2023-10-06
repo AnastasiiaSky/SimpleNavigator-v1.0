@@ -83,9 +83,59 @@ namespace s21 {
 
     }
 
-    // TEST(Test, test_DepthFirstSearch_3) {
+    TEST(Test, test_DepthFirstSearch_directed_graph_8_vert) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_8_vert_direct.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int start = 1;
+        std::vector<int> visited_vertices;
+        std::vector<int> result;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
 
-    // }
+        result = {1, 2, 0, 3, 4, 6, 7, 5};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+
+        start = 5;
+        visited_vertices.clear();
+        result.clear();
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {5, 4, 6, 0, 3, 7, 2, 1};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+
+    }
+
+        TEST(Test, test_DepthFirstSearch_directed_graph_21_vert) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_21_vert_direct.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int start = 0;
+        std::vector<int> visited_vertices;
+        std::vector<int> result;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+
+
+        result = {0, 1, 11, 16, 10, 18, 17, 19, 13, 12, 15, 14, 2, 3, 4, 5, 6, 8, 7, 9, 20};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+
+        start = 14;
+        visited_vertices.clear();
+        result.clear();
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {14, 2, 3, 4, 5, 10, 18, 17, 16, 13, 12, 15, 19, 11, 6, 8, 7, 9, 20};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+
+    }
+
 
     // TEST(Test, test_DepthFirstSearch_4) {
 
