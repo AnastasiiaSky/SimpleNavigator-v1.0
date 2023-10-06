@@ -69,7 +69,7 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int s
     throw std::length_error("Start vertex is incorrect");
   }
 
-  std::cout << "Algorithm Breadth First Search" << std::endl;
+  // std::cout << "Algorithm Breadth First Search" << std::endl;
   std::vector<int> visited_vertices;
   std::queue<int> queue_vertices_add;
   std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
