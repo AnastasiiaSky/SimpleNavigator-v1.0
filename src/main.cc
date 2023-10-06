@@ -1,10 +1,10 @@
-#include <stack>
-#include <list>
-#include <vector>
 #include <iostream>
+#include <list>
+#include <stack>
+#include <vector>
 
-#include "./s21_graph/s21_graph.h"
 #include "./s21_algorithms/s21_graph_algorithms.h"
+#include "./s21_graph/s21_graph.h"
 
 using namespace s21;
 int main() {
@@ -16,7 +16,8 @@ int main() {
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
   for (int i = 0; i < edgesList.size(); ++i) {
-    std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second << ")\n";
+    std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second
+              << ")\n";
   }
   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
   std::cout << "AdjacencyList:\n";
@@ -27,12 +28,11 @@ int main() {
     }
     std::cout << "\n";
   }
-   std::string outputFile = "output.dot";
-   graph.ExportGraphToDot(outputFile);
+  std::string outputFile = "output.dot";
+  graph.ExportGraphToDot(outputFile);
 
-   int start = 0;
-   algo.DepthFirstSearch(graph, start);
-
+  int start = 0;
+  algo.DepthFirstSearch(graph, start);
 
   return 0;
 }
