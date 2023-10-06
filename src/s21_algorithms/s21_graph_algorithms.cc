@@ -10,27 +10,30 @@ void s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph, int start_vertex)
 
   vertex_stack.push(start_vertex); // добавляем в стэе стартовую точку с которой начинаем обход по графц
 
+
   while (!vertex_stack.empty()) { // пока стэе не пуст проверяем точки
     int current_vertex = vertex_stack.top(); // берем текущую точку из стэка
     vertex_stack.pop(); // удаляем ее из стэка
 
-    if(!CheckViseted(visited_vertices, current_vertex)) { // если текущая точка уже посещена переходим к следующей итерации цикла
+    if(CheckVisited(visited_vertices, current_vertex) == false) { // если текущая точка уже посещена переходим к следующей итерации цикла
         continue;
     }
 
-    visited_vertices.push_back(current_vertex); // если не посещена добавляем текущую точку в список песещенных точек
     std::vector<int> adjacent_vertices = adjacency_list[current_vertex]; // создаем свектор со смежными точками для текущей точки
+    visited_vertices.push_back(current_vertex); // если не посещена добавляем текущую точку в список песещенных точек
 
-    for (int it = 0; it < adjacent_vertices.size(); ++it) { // проходим в цикле по вектору смежных вершин 
-      if (CheckViseted(visited_vertices, adjacent_vertices[it])) { // и если в векторе смежных вершин имеются еще не посещенные ранее точки
-        vertex_stack.push(adjacent_vertices[it]); // добавляем их ыв стэк
-      }
+
+    for (int it = adjacent_vertices.size() - 1; it >= 0; --it) { // проходим в цикле по вектору смежных вершин 
+      if (CheckVisited(visited_vertices, adjacent_vertices[it]) == true) { // и если в векторе смежных вершин имеются еще не посещенные ранее точки
+        vertex_stack.push(adjacent_vertices[it]); // добавляем их в стэк
+        std::cout << "adjacent_vertex in if  " << adjacent_vertices[it] << std::endl;
+      } 
     }
   }
   PrintResultOfDepthFirstSearch(visited_vertices); // после всех предыдущих манипуляций печатаем результат
 }
 
-bool s21::GraphAlgorithms::CheckViseted(std::list<int> visited_vertices, int current_vertix)
+bool s21::GraphAlgorithms::CheckVisited(std::list<int> visited_vertices, int current_vertix)
 {
   std::list<int> copy_list = visited_vertices;
 
@@ -77,7 +80,6 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(std::list<int> visited_
         // std::cout << "adjacent_vertex " << adjacent_vertices[it] << std::endl;
 
 
-        // std::cout << "adjacent_vertex in if " << adjacent_vertices[it] << std::endl;
 
             // std::cout << visited_vertices.front() << std::endl;
     // std::cout << visited_vertices.size() << std::endl;

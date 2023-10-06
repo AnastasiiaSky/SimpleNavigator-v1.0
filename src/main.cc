@@ -11,7 +11,7 @@ int main() {
   s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./s21_graph/examples/graph_5_vert_simply.txt";
+  std::string InputFileName = "./s21_graph/examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
