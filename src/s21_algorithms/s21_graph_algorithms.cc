@@ -31,10 +31,10 @@ void s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph, int start_vertex)
         // std::cout << "adjacent_vertex " << adjacency_list[current_vertex].size() << std::endl;
 
     for (int it = 0; it < adjacent_vertices.size(); ++it) {
-        std::cout << "adjacent_vertex " << adjacent_vertices[it] << std::endl;
-
-      if (!CheckViseted(visited_vertices, adjacent_vertices[it])) {
         // std::cout << "adjacent_vertex " << adjacent_vertices[it] << std::endl;
+
+      if (CheckViseted(visited_vertices, adjacent_vertices[it])) {
+        // std::cout << "adjacent_vertex in if " << adjacent_vertices[it] << std::endl;
         vertex_stack.push(adjacent_vertices[it]);
       }
     }
