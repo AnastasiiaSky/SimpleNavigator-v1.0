@@ -25,7 +25,7 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
 
 int s21::s21_Graph::get_graph_size()
 {
-return size_;
+  return size_;
 }
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {

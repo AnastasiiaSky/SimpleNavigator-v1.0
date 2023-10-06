@@ -3,23 +3,28 @@
 
 void s21::GraphAlgorithms::BreadthFirstSearch(s21::s21_Graph graph, int start_vertex)
 {
+  if(start_vertex > graph.get_graph_size() || start_vertex < 0) {
+    throw std::length_error("Start vertex is incorrect");
+  }
+  
   std::cout << "Algorithm Breadth First Search" << std::endl;
+  std::vector<int> visited_vertices;
   std::queue<int> queue_vertices_add;
   std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
+  int adjacent_vertices;
   queue_vertices_add.push(start_vertex);
   while(!queue_vertices_add.empty()){
     int current_vertex = queue_vertices_add.front();  //извлекаем из очереди текущую вершину
         queue_vertices_add.pop();
-        visited_vertices.push_back(current_vertex); // Пушим в вектор посещенных
-        int i = 2;
-        int adjacent_vertices = i;
-    while(!CheckViseted(queue_vertices_add, current_vertex) && adjacency_list[current_vertex][i] == 1) { // заходим если вершину не посешали и текущая и новая смежные
-        // current_vertex = 5;// забираем из графа следующую вершину
-        if(!CheckViseted(queue_vertices_add, adjacent_vertices)){
-          queue_vertices_add.push(adjacent_vertices); // пушим ее в очередь
+        if (CheckViseted(visited_vertices, current_vertex)) {
+          visited_vertices.push_back(current_vertex); // Пушим в вектор посещенных
+        }
+    for(int j = 0; j < adjacency_list[current_vertex].size(); j++) { // заходим если вершину не посешали и текущая и новая смежные
+        adjacent_vertices = adjacency_list[current_vertex][j]; // забираем из графа следующую вершину
+        if(CheckViseted(visited_vertices, adjacent_vertices)){
+          queue_vertices_add.push(adjacent_vertices); // Пушим ее в очередь
         }
     }
-
   }
   PrintResultOfDepthFirstSearch(visited_vertices);
 }
@@ -71,17 +76,16 @@ bool s21::GraphAlgorithms::CheckVisited(std::list<int> visited_vertices, int cur
     return true; 
 }
 
-bool s21::GraphAlgorithms::CheckViseted(std::queue<int> visited_vertices, int current_vertix)
+bool s21::GraphAlgorithms::CheckViseted(std::vector<int> visited_vertices, int current_vertix)
 {
-  for (auto it = 0; it < visited_vertices.size(); it++){
-    // if(visited_vertices.emplace() == current_vertix){
-    //   continue;
-    // } else {
-    //   return false;
-    // }
-    
-  }
-    return false;
+  std::vector<int> copy_list = visited_vertices;
+
+  for(auto it = visited_vertices.begin(); it != visited_vertices.end(); ++it) {
+      if(*it == current_vertix) {
+        return false;
+      }
+    }
+  return true; 
 }
 
 void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(std::list<int> visited_vertices)
@@ -110,27 +114,4 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(std::vector<int> visite
     std::cout << std::endl;
 }
 
-
-
-
-
-    // std::cout << adjacency_list[0].size() << std::endl;
-    // visited_vertices.push_front(start_vertex);
-
-
-    // std::cout << visited_vertices.size() << std::endl;
-
-
-
-        // std::cout << "current " << current_vertex << std::endl;
-
-
-        // std::cout << "adjacent_vertex " << adjacency_list[current_vertex].size() << std::endl;
-
-        // std::cout << "adjacent_vertex " << adjacent_vertices[it] << std::endl;
-
-
-
-            // std::cout << visited_vertices.front() << std::endl;
-    // std::cout << visited_vertices.size() << std::endl;
 
