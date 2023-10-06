@@ -134,21 +134,113 @@ namespace s21 {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
 
+        visited_vertices.clear();
+        result.clear();
     }
 
 
-    // TEST(Test, test_DepthFirstSearch_4) {
+    TEST(Test, test_DepthFirstSearch_weighted_graph_9_vert) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/weighted_graph_9_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int start = 8;
+        std::vector<int> visited_vertices;
+        std::vector<int> result;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {8, 0, 1, 2, 3, 4, 5, 6, 7};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 3;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {3, 0, 1, 2, 5, 4, 6, 7, 8};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 0;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+    }
+   
 
-    // }
-
-    // TEST(Test, test_DepthFirstSearch_5) {
-
-    // }
-
-    // TEST(Test, test_DepthFirstSearch_6) {
-
-    // }
-
+    TEST(Test, test_DepthFirstSearch_weighted_directed_graph_8_vert) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int start = 0;
+        std::vector<int> visited_vertices;
+        std::vector<int> result;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {0, 1, 2, 5, 4, 3, 6, 7};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 1;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {1, 2, 5, 4, 3, 6};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 2;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {2, 5, 4, 3, 6};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 3;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {3, 2, 5, 4, 6};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 4;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {4, 3, 2, 5, 6};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 5;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {5, 4, 3, 2, 6};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 6;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {6, 3, 2, 5, 4};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 7;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {7, 6, 3, 2, 5, 4};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+    }
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
