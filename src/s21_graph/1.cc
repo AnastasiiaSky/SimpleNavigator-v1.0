@@ -65,8 +65,8 @@ void DFSWrap(HashMap<Integer, Node> graph) {
 //поиск в глубину = через циклы
 //создаем структуру данных стек, кидаем туда самый первый узел с которого начинается обход и 
 //крутим цикл до тех пор пока стек полностью не опустеет
-// void DFS(Node node, HashSet<Node> passed) {
-    void DFS(Node node, HashSet<Node> passed) {
+void DFS(Node node, HasgSet<Node> passed) {
+    void DFS(Node node, HasgSet<Node> passed) {
         Stack<Node> stack=new Stack<>();
         stack.push(node);
         while(stack.size() !=0) {
@@ -86,7 +86,7 @@ void DFSWrap(HashMap<Integer, Node> graph) {
             if(!hasChildren) stack.pop();
         }
     }
-// }
+}
 
 boolean getPath(Node start, Node end, HashSet<Node> passed, LinkedList<Node> path) {
     if(start==end) {path.addFirst(start); return true;}
