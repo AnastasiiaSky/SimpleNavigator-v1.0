@@ -16,7 +16,7 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
       // go thru cells and see if they don't include '0'
       if (AdjacencyMatrix_[i][j] != 0) {
         // if (they): push the position number into the edgesList
-        edgesList_.push_back(std::make_pair(i, j));
+        edgesList_.push_back(std::make_pair(i + 1, j + 1));
       }
     }
   }
@@ -44,13 +44,13 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
     return;
   }
   ifs >> size_;  // read the graph size from file
-  AdjacencyMatrix_.resize(size_,
-                          std::vector<int>(size_));  // change the matrix size
+  // change the matrix size
+  AdjacencyMatrix_.resize(size_, std::vector<int>(size_));  
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
       ifs >>
-          AdjacencyMatrix_[i]
-                          [j];  // take the values from the files to the  matrix
+      // take the values from the files to the  matrix
+          AdjacencyMatrix_[i][j];  
     }
   }
   ifs.close();
