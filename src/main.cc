@@ -11,7 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
+  std::string InputFileName = "./examples/graph_5_for_dijkstra.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
@@ -31,13 +31,20 @@ int main() {
   std::string outputFile = "output.dot";
   graph.ExportGraphToDot(outputFile);
 
-  int start = 2;
+  // int start = 2;
   // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
-  std::vector<int> result = algo.BreadthFirstSearch(graph, start);
-  algo.PrintResultOfDepthFirstSearch(result);
+  //   std::vector<int> result = algo.BreadthFirstSearch(graph, start);
+  //   algo.PrintResultOfDepthFirstSearch(result);
 
-  /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
-  algo.PrintResultOfDepthFirstSearch(result);
+  int vertex1 = 1;  // начало пути
+  int vertex2 = 4;  // конец пути
+  int shortestDistance =
+      algo.GetShortestPathBetweenVertices(graph, vertex1, vertex2);
+
+  std::cout << "Shortest Distance from Vertex " << vertex1 << " to Vertex "
+            << vertex2 << ": " << shortestDistance << std::endl;
+  //   /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
+  //   algo.PrintResultOfDepthFirstSearch(result);
   return 0;
 }
 

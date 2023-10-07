@@ -55,16 +55,18 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
 /// смежности adjacency_list из класса s21_Graph 4) Добавляем в очередь первую
 /// точку - start_vertex. 5) Далее в цикле, условием выхода из которого является
 /// опустошение очереди, проверяем, является ли вершина с вершины очереди
-/// посещенной, а так же удаляем эту вершину из очереди. 6) Если вершина еще 
-/// не посещена была, пушим в пройденный путь. 7) В цикле поочереди забираем 
-/// из листа смежности следующую вершину, если мы ее не посещали, то пушим в очередь.
+/// посещенной, а так же удаляем эту вершину из очереди. 6) Если вершина еще
+/// не посещена была, пушим в пройденный путь. 7) В цикле поочереди забираем
+/// из листа смежности следующую вершину, если мы ее не посещали, то пушим в
+/// очередь.
 
 /// @param graph - текущий граф.
 /// @param start_vertex - точка начала происка пути.
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 
-std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int start_vertex) {
+std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph,
+                                                          int start_vertex) {
   if (start_vertex > graph.get_graph_size() || start_vertex < 0) {
     throw std::length_error("Start vertex is incorrect");
   }
@@ -76,27 +78,26 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int s
   int adjacent_vertices;
   queue_vertices_add.push(start_vertex);
   while (!queue_vertices_add.empty()) {
-     // Извлекаем из очереди текущую вершину
-    int current_vertex = queue_vertices_add.front(); 
+    // Извлекаем из очереди текущую вершину
+    int current_vertex = queue_vertices_add.front();
     queue_vertices_add.pop();
     if (CheckVisited(visited_vertices, current_vertex)) {
       visited_vertices.push_back(current_vertex);  // Пушим в вектор посещенных
     }
     // Ищем по листу проходим по смежным вершинам
-    for (int j = 0; j < adjacency_list[current_vertex].size(); j++) {  
+    for (int j = 0; j < adjacency_list[current_vertex].size(); j++) {
       // Забираем из графа следующую вершину
-      adjacent_vertices = adjacency_list[current_vertex] [j];  
+      adjacent_vertices = adjacency_list[current_vertex][j];
       // Если мы ее не посещали, то пушим ее в очередь
       if (CheckVisited(visited_vertices, adjacent_vertices)) {
-        queue_vertices_add.push(adjacent_vertices);  
+        queue_vertices_add.push(adjacent_vertices);
       }
     }
   }
-  visited_vertices.shrink_to_fit(); // Освобождаем лишнюю память, при создание вектора 
+  visited_vertices
+      .shrink_to_fit();  // Освобождаем лишнюю память, при создание вектора
   return visited_vertices;
 }
-
-
 
 /// @brief Метод проверки посещенных точек, в которм происходит итерация по
 /// эллементам вектора посещенных точек и сравнение с текущей точкой.
@@ -129,7 +130,6 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 //   return true;
 // }
 
-
 /// @brief Метод отображения пройденного пути в графе
 
 /// @param visited_vertices - результатом работы алгоритмов,
@@ -141,7 +141,9 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
     if (it == visited_vertices.size() - 1) {
       std::cout << visited_vertices[it] << std::endl;
     } else {
-      std::cout << visited_vertices[it] << " " << "->" << " ";
+      std::cout << visited_vertices[it] << " "
+                << "->"
+                << " ";
     }
   }
 }
@@ -159,3 +161,69 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 //     }
 //     std::cout << std::endl;
 // }
+
+/// @brief Метод для поиска кратчайшего пути между двумя вершинами в графе с
+/// использованием алгоритма Дейкстры.
+///
+/// Алгоритм Дейкстры используется для нахождения кратчайшего пути от одной
+/// вершины графа до другой.
+///
+/// Алгоритм работает следующим образом:
+/// 1. Создаем массив distances для хранения расстояний от начальной вершины до
+/// всех остальных вершин графа.
+///    Начальное расстояние до начальной вершины устанавливаем как 0, а до всех
+///    остальных вершин - как бесконечность (inf).
+/// 2. Создаем массив visited для отслеживания посещенных вершин. Начально все
+/// вершины помечены как не посещенные.
+/// 3. Основной цикл алгоритма выполняется до тех пор, пока есть непосещенные
+/// вершины.
+/// 4. Находим вершину с наименьшим расстоянием из массива distances, которую
+/// еще не посетили.
+/// 5. Помечаем эту вершину как посещенную и обновляем расстояния до всех её
+/// смежных вершин, если новое расстояние короче.
+/// 6. Повторяем шаги 4-5 до тех пор, пока все вершины не будут посещены или не
+/// найдено кратчайшее расстояние до целевой вершины.
+/// 7. Возвращаем кратчайшее расстояние до целевой вершины.
+///
+/// @param graph - ссылка на объект графа.
+/// @param vertex1 - номер первой вершины (начальная вершина).
+/// @param vertex2 - номер второй вершины (целевая вершина).
+/// @return int - кратчайшее расстояние между вершинами vertex1 и vertex2.
+/// @throw std::invalid_argument если vertex1 или vertex2 не являются
+/// допустимыми вершинами графа.
+
+int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
+                                                         int vertex1,
+                                                         int vertex2) {
+  int graphSize = graph.get_graph_size();
+  if (vertex1 < 1 || vertex2 < 1 || vertex1 > graphSize ||
+      vertex2 > graphSize) {
+    throw std::invalid_argument("Incorrect input vertices");
+  }
+  std::vector<int> distances(graphSize, INF);
+  distances[vertex1 - 1] = 0;
+  std::vector<bool> visited(graphSize - 1, false);
+  for (int i = 0; i < graphSize - 1; ++i) {
+    int minDistance = INF;
+    int minVertex = -1;
+
+    for (int v = 0; v < graphSize; ++v) {
+      if (!visited[v] && distances[v] < minDistance) {
+        minDistance = distances[v];
+        minVertex = v;
+      }
+    }
+    if (minVertex == -1) {
+      break;
+    }
+    visited[minVertex] = true;
+    for (int v = 0; v < graphSize; ++v) {
+      int weight = graph.getAdjacencyMatrix()[minVertex][v];
+      if (weight > 0 && !visited[v] && distances[minVertex] != INF &&
+          distances[minVertex] + weight < distances[v]) {
+        distances[v] = distances[minVertex] + weight;
+      }
+    }
+  }
+  return distances[vertex2 - 1];
+}

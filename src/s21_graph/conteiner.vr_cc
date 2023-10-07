@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "./s21_Containers/s21_list.h"
-// конспект https://www.youtube.com/watch?v=VehB3eglQMQ&t=27s
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ https://www.youtube.com/watch?v=VehB3eglQMQ&t=27s
 class Edge {
   Node adjacentNode;
   int weight;
@@ -43,7 +43,7 @@ Hashmap<Integer, Node> createGraph(int[][] graphData) {
   return graph;
 }
 
-// в глубину только для связного графа
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
 void DFS(Node node, HashSet<Node> passed) {
   print(node.value);
@@ -52,7 +52,7 @@ void DFS(Node node, HashSet<Node> passed) {
     if (!passed.contains(edge.adjacentNode)) DFS(edge.adjacentNode, passed);
 }
 
-// поиск в глубину - обертка. Будем перебирать все узлы без исключения
+// пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 void DFSWrap(HashMap<Integer, Node> graph) {
   HashSet<Node> passed = new HasgSet<>();
@@ -62,9 +62,9 @@ void DFSWrap(HashMap<Integer, Node> graph) {
   }
 }
 
-// поиск в глубину = через циклы
-// создаем структуру данных стек, кидаем туда самый первый узел с которого
-// начинается обход и крутим цикл до тех пор пока стек полностью не опустеет
+// пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ = пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void DFS(Node node, HasgSet<Node> passed) {
   void DFS(Node node, HasgSet<Node> passed) {
     Stack<Node> stack = new Stack<>();
@@ -78,14 +78,14 @@ void DFS(Node node, HasgSet<Node> passed) {
       boolean hasChildren = false;
       for (Edge edge : node.edges) {
         if (!passed.contains(
-                edge.adjacentNode)) {     // отправим первого найденного ребенка
-                                          // которого не посещали
-          stack.push(edge.adjacentNode);  // в стек
+                edge.adjacentNode)) {     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                                          // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+          stack.push(edge.adjacentNode);  // пїЅ пїЅпїЅпїЅпїЅ
           hasChildren = true;
           break;
         }
-      }  // если дошли до конца (у крайнего узла нет дедей) то удаляем его из
-         // стека и поднимается выше
+      }  // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ) пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ
+         // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
       if (!hasChildren) stack.pop();
     }
   }
@@ -108,7 +108,7 @@ boolean getPath(Node start, Node end, HashSet<Node> passed,
   }
 }
 
-// поиск всех путей
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
 void getPath(Node start, Node end, LinkedHashSet<Node> passed,
              List<LinkedHashSet<Node>> paths) {
@@ -121,12 +121,12 @@ void getPath(Node start, Node end, LinkedHashSet<Node> passed,
     if (!passed.contains(edge.adjacentNode)) {
       getPathAll(edge.adjacentNode, end, passed, paths);
     }
-  }  // как только мы прошли всех детей какого то узла то мы удаляем их из
-     // списка посещенных
+  }  // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
+     // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   passed.remove(start);
 }
 
-// вширину
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 void BFS(Node node, HashSet<Node> visitingOrPassed) {
   LinkedLislt<Node> queue = new LinkedList<>();
@@ -144,8 +144,8 @@ void BFS(Node node, HashSet<Node> visitingOrPassed) {
   }
 }
 
-// обертка для поиска в ширину которая гарантированно пройдет вширину  даже не
-// связанные узлы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅ пїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 void BFSWrap(HashMap<Integer, Node> graph) {
   HashSet<Node> visitingOrPassed = new HashSet<>();
   for (Map.Entry<Integer, Node> entry : graph.entrySet()) {
@@ -154,7 +154,7 @@ void BFSWrap(HashMap<Integer, Node> graph) {
   }
 }
 
-// поиск крайтчайшего пути
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 PathNode findShortestPath(Node start, Node end) {
   HashSet<Node> visitingOrPassed = new HashSet<>();
@@ -175,7 +175,7 @@ PathNode findShortestPath(Node start, Node end) {
   return null;
 }
 
-// в очередь добавляем не сами элементы а специальную обертку
+// пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 class PathNode {
  public
@@ -189,7 +189,7 @@ class PathNode {
   }
 }
 
-// распаковка пути
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 LinkedList<Node>
 extractPath(PathNode endNode) {
