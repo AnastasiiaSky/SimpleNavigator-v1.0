@@ -5,9 +5,6 @@
 
 
 namespace s21 {
-    
-    // std::cout << "Algorithm Depth First Search" << std::endl;
-
     // TEST(Test, test_DepthFirstSearch_simple_graph_size_3) {
     //     s21_Graph graph;
     //     s21::GraphAlgorithms algo;
@@ -244,8 +241,8 @@ namespace s21 {
     //         ASSERT_EQ(visited_vertices[it], result[it]);
     //     }
     // }
-    
-    // // std::cout << "Algorithm Breadth First Search" << std::endl;
+
+// // std::cout << "Algorithm Breadth First Search" << std::endl;
 
     // TEST(Test, test_BreadFirstSearch_simple_graph_size_3) {
     //     s21_Graph graph;
@@ -416,81 +413,57 @@ namespace s21 {
     //         ASSERT_EQ(visited_vertices[it], result[it]);
     //     }
     // }
-   
 
-    // TEST(Test, test_BreadFirstSearch_weighted_directed_graph_8_vert) {
-    //     s21_Graph graph;
-    //     s21::GraphAlgorithms algo;
-    //     std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
-    //     graph.LoadGraphFromFile(InputFileName);
-        
-    //     int start = 0;
-    //     std::vector<int> visited_vertices;
-    //     std::vector<int> result;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {0, 1, 7, 2, 6, 5, 3, 4};
-    //     // algo.PrintResultOfDepthFirstSearch(visited_vertices);
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]); 
-    //     }
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 1;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {1, 2, 5, 6, 4, 3};        
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]); 
-    //     }
-        
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 2;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {2, 5, 6, 4, 3};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]); 
-    //     }       
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 3;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {3, 2, 5, 6, 4};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]); 
-    //     }
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 4;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {4, 3, 2, 5, 6};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]);  
-    //     }
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 5;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {5, 4, 6, 3, 2};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]);  
-    //     }
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 6;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {6, 3, 2, 5, 4};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]);  
-    //     }
-    //     visited_vertices.clear();
-    //     result.clear();
-    //     start = 7;
-    //     visited_vertices = algo.BreadthFirstSearch(graph, start);
-    //     result = {7, 6, 3, 2, 5, 4};
-    //     for(int it = 0; it < result.size(); ++it) {
-    //         ASSERT_EQ(visited_vertices[it], result[it]);  
-    //     }
-    // }
+
+// TEST(Graph, getAjacencyMatrix) {
+// s21::s21_Graph graph;
+
+//     s21::GraphAlgorithms algo;
+//     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+//         graph.LoadGraphFromFile(InputFileName);
+
+//     // Ïîëó÷åíèå ìàòðèöû ñìåæíîñòè èç ãðàôà
+//     std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
+//     std::vector<std::vector<int>> expected {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
+//     //  std::vector<int> expected = {0, 1, 3, 4, 2, 5, 6};
+
+//     ASSERT_EQ(adjacencyMatrix, expected);
+
+// }
+
+// TEST(Graph, getEdgeList) {
+// s21::s21_Graph graph;
+//     s21::GraphAlgorithms algo;
+//     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+//     graph.LoadGraphFromFile(InputFileName);
+//     std::vector<std::pair<int, int>> GetedgesList = graph.getEdgesList(); 
+//     std::vector<std::pair<int, int>> expected {{0, 1}, {0, 2}, {1, 0}, {1, 2}, {2, 0}, {2, 1}};
+//     ASSERT_EQ(GetedgesList, expected);
+// }
+
+// TEST(Graph, errorOpeningFile) {
+// s21::s21_Graph graph;
+//     s21::GraphAlgorithms algo;
+//     std::string InputFileName = "./examples/graph_155_vert_simply.txt";
+//     graph.LoadGraphFromFile(InputFileName);
+// }
+// TEST(Graph, DOT) {
+// s21::s21_Graph graph;
+//     s21::GraphAlgorithms algo;
+//     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+//     graph.LoadGraphFromFile(InputFileName);
+//     std::string outputFile = "output.dot";
+//     graph.ExportGraphToDot(outputFile);
+// }
+// TEST(Graph, Graph_DOTerror_Test) {
+// s21::s21_Graph graph;
+//     s21::GraphAlgorithms algo;
+//     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+//     // graph.LoadGraphFromFile(InputFileName);
+//     std::string outputFile = "output1.dot";
+//     graph.ExportGraphToDot(outputFile);
+// }
+
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
