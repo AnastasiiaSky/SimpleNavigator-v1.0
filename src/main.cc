@@ -11,7 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
+  std::string InputFileName = "./examples/graph_4_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
@@ -22,22 +22,22 @@ int main() {
   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
   std::cout << "AdjacencyList:\n";
   for (int i = 0; i < adjacencyList.size(); ++i) {
-    std::cout << i << ": ";
+    std::cout << i + 1 << ": ";
     for (int j = 0; j < adjacencyList[i].size(); ++j) {
       std::cout << adjacencyList[i][j] << " ";
     }
     std::cout << "\n";
   }
   std::string outputFile = "output.dot";
-  graph.ExportGraphToDot(outputFile);
-
-  int start = 2;
+  // graph.ExportGraphToDot(outputFile);
+  std::cout << "Поиск:\n";
+  int start = 1;
   // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
   std::vector<int> result = algo.BreadthFirstSearch(graph, start);
   algo.PrintResultOfDepthFirstSearch(result);
 
-  /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
-  algo.PrintResultOfDepthFirstSearch(result);
+  // /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
+  // algo.PrintResultOfDepthFirstSearch(result);
   return 0;
 }
 

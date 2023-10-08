@@ -65,7 +65,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
 /// является вектор посещенных точек
 
 std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int start_vertex) {
-  if (start_vertex > graph.get_graph_size() || start_vertex < 0) {
+  if (start_vertex > graph.get_graph_size() || start_vertex <= 0) {
     throw std::length_error("Start vertex is incorrect");
   }
 
@@ -83,9 +83,9 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int s
       visited_vertices.push_back(current_vertex);  // Пушим в вектор посещенных
     }
     // Ищем по листу проходим по смежным вершинам
-    for (int j = 0; j < adjacency_list[current_vertex].size(); j++) {  
+    for (int j = 0; j < adjacency_list[current_vertex-1].size(); j++) {  
       // Забираем из графа следующую вершину
-      adjacent_vertices = adjacency_list[current_vertex] [j];  
+      adjacent_vertices = adjacency_list[current_vertex-1] [j];  
       // Если мы ее не посещали, то пушим ее в очередь
       if (CheckVisited(visited_vertices, adjacent_vertices)) {
         queue_vertices_add.push(adjacent_vertices);  
