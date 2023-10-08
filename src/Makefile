@@ -52,18 +52,6 @@ gcov_report: tests
 	@rm -rf *.gcda
 	@rm -rf *.gcno
 
-
-
-
-
-
-# gcov_report: tests
-# 	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
-# 	genhtml coverage.info -o ./coverage
-# 	open coverage/index.html
-# 	@rm -rf *.gcda
-# 	@rm -rf *.gcno
-
  leaks: tests
 	leaks -atExit -- ./navigator_tests
 #	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.cc *.h s21_graph/*.cc s21_graph/*.h  s21_algorithms/*.cc 21_algorithms/*.h 

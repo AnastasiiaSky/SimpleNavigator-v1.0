@@ -392,9 +392,11 @@ s21::s21_Graph graph;
     EXPECT_TRUE(captured_stdout.find("Dimension must be > 0") != std::string::npos);
 }
 
-int main(int argc, char** argv) {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+int main(int argc, char* argv[]) {
+  ::testing::InitGoogleTest(&argc, argv);
+  int result = RUN_ALL_TESTS();
+  free(__cxxabiv1::__cxa_get_globals());
+  return result;
 }
 
 } // namespace s21
