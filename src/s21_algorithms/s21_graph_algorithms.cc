@@ -199,8 +199,8 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
   }
   std::vector<int> distances(graphSize, INF);
   distances[vertex1 - 1] = 0;
-  std::vector<bool> visited(graphSize - 1, false);
-  for (int i = 0; i < graphSize - 1; ++i) {
+  std::vector<bool> visited(graphSize, false);
+  for (int i = 0; i < graphSize; ++i) {
     int minDistance = INF;
     int minVertex = -1;
 
