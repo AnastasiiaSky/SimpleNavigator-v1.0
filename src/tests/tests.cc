@@ -10,29 +10,29 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 0;
+        int start = 1;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {0, 1, 2};
+        result = {1, 2, 3};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
   
-        start = 1;
-        visited_vertices.clear();
-        result.clear();
-        visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {1, 0, 2};
-        for(int it = 0; it < result.size(); ++it) {
-            ASSERT_EQ(visited_vertices[it], result[it]);
-        }
-
         start = 2;
         visited_vertices.clear();
         result.clear();
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {2, 0, 1};
+        result = {2, 1, 3};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+
+        start = 3;
+        visited_vertices.clear();
+        result.clear();
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {3, 1, 2};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -51,23 +51,23 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_13_vert_simply.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 0;
+        int start = 1;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
 
-        result = {0, 1, 3, 2, 11, 6, 7, 8, 12, 4, 5, 9, 10};
+        result = {1, 2, 4, 3, 12, 7, 8, 9, 13, 5, 6, 10, 11};
 
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
 
 
-        start = 8;
+        start = 9;
         visited_vertices.clear();
         result.clear();
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {8, 0, 1, 3, 2, 11, 6, 7, 10, 12, 4, 5, 9};
+        result = {9, 1, 2, 4, 3, 12, 7, 8, 11, 13, 5, 6, 10};
 
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
@@ -88,21 +88,21 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_8_vert_direct.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 1;
+        int start = 2;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
 
-        result = {1, 2, 0, 3, 4, 6, 7, 5};
+        result = {2, 3, 1, 4, 5, 7, 8, 6};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
 
-        start = 5;
+        start = 6;
         visited_vertices.clear();
         result.clear();
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {5, 4, 6, 0, 3, 7, 2, 1};
+        result = {6, 5, 7, 1, 4, 8, 3, 2};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -114,22 +114,22 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_21_vert_direct.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 0;
+        int start = 1;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
 
 
-        result = {0, 1, 11, 16, 10, 18, 17, 19, 13, 12, 15, 14, 2, 3, 4, 5, 6, 8, 7, 9, 20};
+        result = {1, 2, 12, 17, 11, 19, 18, 20, 14, 13, 16, 15, 3, 4, 5, 6, 7, 9, 8, 10, 21};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
 
-        start = 14;
+        start = 15;
         visited_vertices.clear();
         result.clear();
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {14, 2, 3, 4, 5, 10, 18, 17, 16, 13, 12, 15, 19, 11, 6, 8, 7, 9, 20};
+        result = {15, 3, 4, 5, 6, 11, 19, 18, 17, 14, 13, 16, 20, 12, 7, 9, 8, 10, 21};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -144,27 +144,27 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_graph_9_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 8;
+        int start = 9;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {8, 0, 1, 2, 3, 4, 5, 6, 7};
+        result = {9, 1, 2, 3, 4, 5, 6, 7, 8};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
         visited_vertices.clear();
         result.clear();
-        start = 3;
+        start = 4;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {3, 0, 1, 2, 5, 4, 6, 7, 8};
+        result = {4, 1, 2, 3, 6, 5, 7, 8, 9};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
         visited_vertices.clear();
         result.clear();
-        start = 0;
+        start = 1;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+        result = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -176,19 +176,11 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int start = 0;
+        int start = 1;
         std::vector<int> visited_vertices;
         std::vector<int> result;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {0, 1, 2, 5, 4, 3, 6, 7};
-        for(int it = 0; it < result.size(); ++it) {
-            ASSERT_EQ(visited_vertices[it], result[it]);
-        }
-        visited_vertices.clear();
-        result.clear();
-        start = 1;
-        visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {1, 2, 5, 4, 3, 6};
+        result = {1, 2, 3, 6, 5, 4, 7, 8};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -196,7 +188,7 @@ namespace s21 {
         result.clear();
         start = 2;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {2, 5, 4, 3, 6};
+        result = {2, 3, 6, 5, 4, 7};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -204,7 +196,7 @@ namespace s21 {
         result.clear();
         start = 3;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {3, 2, 5, 4, 6};
+        result = {3, 6, 5, 4, 7};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -212,7 +204,7 @@ namespace s21 {
         result.clear();
         start = 4;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {4, 3, 2, 5, 6};
+        result = {4, 3, 6, 5, 7};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -220,7 +212,7 @@ namespace s21 {
         result.clear();
         start = 5;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {5, 4, 3, 2, 6};
+        result = {5, 4, 3, 6, 7};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -228,7 +220,7 @@ namespace s21 {
         result.clear();
         start = 6;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {6, 3, 2, 5, 4};
+        result = {6, 5, 4, 3, 7};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -236,7 +228,15 @@ namespace s21 {
         result.clear();
         start = 7;
         visited_vertices = algo.DepthFirstSearch(graph, start);
-        result = {7, 6, 3, 2, 5, 4};
+        result = {7, 4, 3, 6, 5};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+        visited_vertices.clear();
+        result.clear();
+        start = 8;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {8, 7, 4, 3, 6, 5};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }
@@ -248,7 +248,7 @@ s21::s21_Graph graph;
     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
         graph.LoadGraphFromFile(InputFileName);
 
-    // Получение матрицы смежности из графа
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
     std::vector<std::vector<int>> expected {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
     //  std::vector<int> expected = {0, 1, 3, 4, 2, 5, 6};

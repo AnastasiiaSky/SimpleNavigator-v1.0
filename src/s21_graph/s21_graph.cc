@@ -30,9 +30,10 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
       if (AdjacencyMatrix_[i][j] != 0) {
-        adjacencyList_[i].push_back(j);
+        adjacencyList_[i].push_back(j + 1);
       }
     }
+    std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
   }
   return adjacencyList_;
 }
