@@ -206,7 +206,15 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
   }
 
   std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
-  vertex1--;  // в 0
+  // std::cout << "Adjacency Matrix:" << std::endl;
+  // for (int i = 0; i < graphSize; ++i) {
+  //   for (int j = 0; j < graphSize; ++j) {
+  //     std::cout << adjacencyMatrix[i][j] << " ";
+  //   }
+  //   std::cout << std::endl;
+  // }
+  // std::cout << vertex1 << " " << vertex2 << std::endl;
+  vertex1--;  // в 0 чтобы использовать как индексы
   vertex2--;
 
   std::vector<int> distances(graphSize, INF);
@@ -235,6 +243,8 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
   if (distances[vertex2] == INF) {
     throw std::invalid_argument("No path exists between the vertices");
   }
-
+  // for (int i = 0; i < graphSize; ++i) {
+  //   std::cout << distances[i] << " ";
+  // }
   return distances[vertex2];
 }
