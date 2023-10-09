@@ -26,14 +26,17 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
 int s21::s21_Graph::get_graph_size() { return size_; }
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
+  std::cout << "Start " << std::endl;
   std::vector<std::vector<int>> adjacencyList_(size_);
   for (int i = 0; i < size_; ++i) {
+    std::cout << "Size_1 " << adjacencyList_[i].size() << std::endl;
     for (int j = 0; j < size_; ++j) {
+      std::cout << "Size_2 " << adjacencyList_[i].size() << std::endl;
       if (AdjacencyMatrix_[i][j] != 0) {
         adjacencyList_[i].push_back(j + 1);
       }
     }
-    // std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
+    std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
   }
   return adjacencyList_;
 }
