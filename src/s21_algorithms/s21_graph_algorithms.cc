@@ -225,7 +225,7 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
   q.push({0, vertex1});
 
   while (!q.empty()) {
-  //  std::cout << q.top().first << std::endl;
+  //  std::cout << q.top().first  << ":" << q.top().second << std::endl;
     int len = -q.top().first;
     int v = q.top().second;
     q.pop();
