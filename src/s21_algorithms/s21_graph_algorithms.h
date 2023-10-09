@@ -6,6 +6,7 @@
 #include <queue>
 #include <stack>
 #include <vector>
+#include <stdexcept>
 
 #include "../s21_graph/s21_graph.h"
 

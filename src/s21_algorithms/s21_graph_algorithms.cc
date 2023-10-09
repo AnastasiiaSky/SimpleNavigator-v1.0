@@ -166,28 +166,35 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 /// использованием алгоритма Дейкстры.
 ///
 /// Алгоритм работает следующим образом:
-/// 1. Создаем массив distances для хранения расстояний от начальной вершины до
-/// всех остальных вершин графа.
-///    Начальное расстояние до начальной вершины устанавливаем как 0, а до всех
-///    остальных вершин - как бесконечность (inf).
-/// 2. Создаем массив visited для отслеживания посещенных вершин. Начально все
-/// вершины помечены как не посещенные.
-/// 3. Основной цикл алгоритма выполняется до тех пор, пока есть непосещенные
-/// вершины.
-/// 4. Находим вершину с наименьшим расстоянием из массива distances, которую
-/// еще не посетили.
-/// 5. Помечаем эту вершину как посещенную и обновляем расстояния до всех её
-/// смежных вершин, если новое расстояние короче.
-/// 6. Повторяем шаги 4-5 до тех пор, пока все вершины не будут посещены или не
-/// найдено кратчайшее расстояние до целевой вершины.
-/// 7. Возвращаем кратчайшее расстояние до целевой вершины.
+/// 1. Проверяем корректность входных вершин (vertex1 и vertex2) и получаем
+///    размер графа (graphSize).
+/// 2. Инициализируем матрицу смежности (adjacencyMatrix) из объекта графа.
+/// 3. Преобразуем индексы вершин vertex1 и vertex2 в 0
+/// 4. Создаем массив distances для хранения расстояний от начальной вершины до
+///    всех остальных вершин графа. Исходное расстояние до начальной вершины
+///    устанавливается как 0, а до всех остальных вершин - как бесконечность
+///    (INF).
+/// 5. Создаем массив visited для отслеживания посещенных вершин. Начально все
+///    вершины помечены как не посещенные.
+/// 6. Создаем приоритетную очередь q для выбора вершины с наименьшим
+/// расстоянием.
+/// 7. Добавляем начальную вершину vertex1 в очередь q с расстоянием 0.
+/// 8. Основной цикл алгоритма выполняется до тех пор, пока очередь q не пуста.
+/// 9. Извлекаем вершину с наименьшим расстоянием из очереди q.
+/// 10. Проверяем, если текущее расстояние до вершины v короче, чем сохраненное
+///     расстояние в массиве distances, то продолжаем выполнение.
+/// 11. Перебираем смежные вершины (to) и обновляем расстояния до них, если
+///     новое расстояние короче текущего.
+/// 12. Если кратчайший путь до вершины vertex2 равен бесконечности (INF), то
+///     выбрасываем исключение с сообщением об отсутствии пути между вершинами.
+/// 13. Возвращаем кратчайшее расстояние до вершины vertex2.
 ///
 /// @param graph - ссылка на объект графа.
-/// @param vertex1 - номер первой вершины (начальная вершина).
-/// @param vertex2 - номер второй вершины (целевая вершина).
+/// @param vertex1 - номер первой вершины
+/// @param vertex2 - номер второй вершины
 /// @return int - кратчайшее расстояние между вершинами vertex1 и vertex2.
-/// @throw std::invalid_argument если vertex1 или vertex2 не являются
-/// допустимыми вершинами графа.
+/// @throw std::invalid_argument если vertex1, vertex2 не являются
+/// допустимыми вершинами графа или отсутствует путь между ними.
 
 int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
                                                          int vertex1,
@@ -197,30 +204,37 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
       vertex2 > graphSize) {
     throw std::invalid_argument("Incorrect input vertices");
   }
-  std::vector<int> distances(graphSize, INF);
-  distances[vertex1 - 1] = 0;
-  std::vector<bool> visited(graphSize, false);
-  for (int i = 0; i < graphSize; ++i) {
-    int minDistance = INF;
-    int minVertex = -1;
 
-    for (int v = 0; v < graphSize; ++v) {
-      if (!visited[v] && distances[v] < minDistance) {
-        minDistance = distances[v];
-        minVertex = v;
-      }
-    }
-    if (minVertex == -1) {
-      break;
-    }
-    visited[minVertex] = true;
-    for (int v = 0; v < graphSize; ++v) {
-      int weight = graph.getAdjacencyMatrix()[minVertex][v];
-      if (weight > 0 && !visited[v] && distances[minVertex] != INF &&
-          distances[minVertex] + weight < distances[v]) {
-        distances[v] = distances[minVertex] + weight;
+  std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
+  vertex1--;  // в 0
+  vertex2--;
+
+  std::vector<int> distances(graphSize, INF);
+  distances[vertex1] = 0;
+  std::vector<bool> visited(graphSize, false);
+
+  std::priority_queue<std::pair<int, int>> q;
+  q.push({0, vertex1});
+
+  while (!q.empty()) {
+    int len = -q.top().first;
+    int v = q.top().second;
+    q.pop();
+
+    if (len > distances[v]) continue;
+
+    for (int to = 0; to < graphSize; ++to) {
+      int length = adjacencyMatrix[v][to];
+      if (length > 0 && distances[to] > distances[v] + length) {
+        distances[to] = distances[v] + length;
+        q.push({-distances[to], to});
       }
     }
   }
-  return distances[vertex2 - 1];
+
+  if (distances[vertex2] == INF) {
+    throw std::invalid_argument("No path exists between the vertices");
+  }
+
+  return distances[vertex2];
 }
