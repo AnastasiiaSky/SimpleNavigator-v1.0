@@ -12,14 +12,16 @@ int main() {
   s21::GraphAlgorithms algo;
 
   std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+  
   graph.LoadGraphFromFile(InputFileName);
-  std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
+  // std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   // std::cout << "EdgesList:\n";
   // for (int i = 0; i < edgesList.size(); ++i) {
   //   std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second
   //             << ")\n";
   // }
   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
+  // std::cout << "Start:\n";
   // std::cout << "AdjacencyList:\n";
   // for (int i = 0; i < adjacencyList.size(); ++i) {
   //   std::cout << i << ": ";

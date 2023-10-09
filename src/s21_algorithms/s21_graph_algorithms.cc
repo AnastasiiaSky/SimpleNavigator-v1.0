@@ -143,20 +143,20 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
 
   int size = graph.get_graph_size();  
   for (int v = 0; v < size; v++){
-    // std::cout << v << " V_1: "  << std::endl;
+    std::cout << v << " V_1: "  << std::endl;
     for (int i = 0; i < size; i++){
-      // std::cout << i << " I_: "  << std::endl;
+      std::cout << i << " I_: "  << std::endl;
       for (int j = 0; j < size; j++){
-        // std::cout << j << " J_: "  << minimum_distance[i][j] << std::endl;
+        std::cout << j << " J_: "  << minimum_distance[i][j] << std::endl;
         if (v == 0) {
           if(minimum_distance[i][j] == 0) {
             // std::cout << "V_0: " << infinity << std::endl;
             minimum_distance[i][j] = inf;         
             std::cout << "V_0: " << minimum_distance[i][j] << std::endl;
-            PrintAdjacencyMatrix(minimum_distance);
+            // PrintAdjacencyMatrix(minimum_distance);
           }
         } else {
-          if(i != j && (v - 1) != i && (v - 1) != j) {
+          if((i != j && (v - 1) != i && (v - 1) != j) && (minimum_distance[i][v - 1] != inf && minimum_distance[v - 1][j] != inf)) {
             std::cout << j << " K_: "  << minimum_distance[i][v - 1] << " " << minimum_distance[v - 1][j] << std::endl;
             minimum_distance[i][j] = std::min(minimum_distance[i][j], minimum_distance[i][v - 1] + minimum_distance[v - 1][j]);
             // std::cout << "V_: " << minimum_distance[i][j] << std::endl;
@@ -165,7 +165,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
       }
     }
   }
-  // std::cout << "Pre_Result_ : "  << std::endl;
+  std::cout << "Pre_Result_ : "  << std::endl;
   for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
           if(minimum_distance[i][j] == inf ) {
@@ -175,7 +175,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
           }
       }
     }
-  // PrintAdjacencyMatrix(minimum_distance);
+  PrintAdjacencyMatrix(minimum_distance);
 
   // cout << "################### "<< std::min(2, inf) << endl;
   return minimum_distance;
