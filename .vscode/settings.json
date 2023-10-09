@@ -80,6 +80,12 @@
         "memory_resource": "cpp",
         "ranges": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "__tree": "cpp",
+        "any": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "variant": "cpp",
+        "cinttypes": "cpp"
     }
 }

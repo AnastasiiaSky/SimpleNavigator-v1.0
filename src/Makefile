@@ -1,7 +1,8 @@
 CXX = g++
 CXXFLAGS=-lstdc++ -std=c++17
-TFLAGS=-g -c -Wall -Werror -Wextra -g -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
-GTEST=-lgtest -lgtest_main -pthread
+TFLAGS=-g -c -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
+RFLAGS=-Wall -Werror -Wextra
+GTEST=-lgtest -lgtest_main -pthread 
 ASAN=-fsanitize=address
 COVER=-fprofile-arcs -ftest-coverage
 COVFLAGS = -fprofile-arcs -ftest-coverage
@@ -23,7 +24,7 @@ s21_graph.a:
 	rm -rf *.o *.dSYM
 
 
-s21_graph_algorithms.a:
+s21_algorithms.a:
 	$(CXX) $(TFLAGS) ./s21_algorithms/s21_graph_algorithms.cc
 	ar rcs s21_algorithms.a *.o
 	ranlib s21_algorithms.a

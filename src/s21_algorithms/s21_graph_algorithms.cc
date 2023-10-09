@@ -84,7 +84,7 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int s
     // Ищем по листу проходим по смежным вершинам
     for (int j = 0; j < adjacency_list[current_vertex - 1].size(); j++) {  
       // Забираем из графа следующую вершину
-      adjacent_vertices = adjacency_list[current_vertex - 1] [j];  
+      adjacent_vertices = adjacency_list[current_vertex - 1][j];  
       // Если мы ее не посещали, то пушим ее в очередь
       if (CheckVisited(visited_vertices, adjacent_vertices)) {
         queue_vertices_add.push(adjacent_vertices);  
