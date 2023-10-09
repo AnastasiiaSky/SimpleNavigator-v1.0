@@ -11,8 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  // std::string InputFileName = "./examples/graph_4_vert_simply.txt";
-  std::string InputFileName = "./examples/graph_21_vert_direct.txt";
+  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   std::cout << "EdgesList:\n";
@@ -23,7 +22,7 @@ int main() {
   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
   std::cout << "AdjacencyList:\n";
   for (int i = 0; i < adjacencyList.size(); ++i) {
-    std::cout << i + 1 << ": ";
+    std::cout << i << ": ";
     for (int j = 0; j < adjacencyList[i].size(); ++j) {
       std::cout << adjacencyList[i][j] << " ";
     }
