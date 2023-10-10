@@ -18,7 +18,7 @@ class s21_Graph;
 class GraphAlgorithms {
  public:
 
-  const int inf = 2147483647; 
+  const int inf = std::numeric_limits<int>::max();;  // !!! Перенести в класс, наверное
 
   // Главный метод алгоритма поиска в глубину
   std::vector<int> DepthFirstSearch(s21_Graph graph, int start_vertex);  

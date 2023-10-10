@@ -133,39 +133,43 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 
 std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph graph)
 {
+  // std::cout << "FloydWarshall:" << std::endl;
   std::vector<std::vector<int>> minimum_distance = graph.getAdjacencyMatrix();
-  // std::cout << "Start_Matrix:" << std::endl;
-  // PrintAdjacencyMatrix(graph.getAdjacencyMatrix());
-  std::cout << "FloydWarshall:" << std::endl;
+  std::vector<std::vector<int>> copy_minimum_distance = minimum_distance; // временно
+
+
+
   // int infinity = std::numeric_limits<int>::max(); //!!!  Добавить для обших как константа
   // double infinity = std::numeric_limits<double>::infinity();
   // int infinity = INT_MAX;
 
   int size = graph.get_graph_size();  
-  for (int v = 0; v < size; v++){
-    std::cout << v << " V_1: "  << std::endl;
+  for (int v = 0; v <= size; v++){
     for (int i = 0; i < size; i++){
-      std::cout << i << " I_: "  << std::endl;
       for (int j = 0; j < size; j++){
-        std::cout << j << " J_: "  << minimum_distance[i][j] << std::endl;
         if (v == 0) {
           if(minimum_distance[i][j] == 0) {
-            // std::cout << "V_0: " << infinity << std::endl;
             minimum_distance[i][j] = inf;         
-            std::cout << "V_0: " << minimum_distance[i][j] << std::endl;
-            // PrintAdjacencyMatrix(minimum_distance);
           }
         } else {
           if((i != j && (v - 1) != i && (v - 1) != j) && (minimum_distance[i][v - 1] != inf && minimum_distance[v - 1][j] != inf)) {
-            std::cout << j << " K_: "  << minimum_distance[i][v - 1] << " " << minimum_distance[v - 1][j] << std::endl;
             minimum_distance[i][j] = std::min(minimum_distance[i][j], minimum_distance[i][v - 1] + minimum_distance[v - 1][j]);
-            // std::cout << "V_: " << minimum_distance[i][j] << std::endl;
           }
         }
       }
     }
+
+    // for (int i = 0; i < size; i++){  // !!! Для сдачи не нужен удалить
+    //   for (int j = 0; j < size; j++){
+    //       if(minimum_distance[i][j] == inf ) {
+    //         copy_minimum_distance[i][j] = 0; 
+    //       } else {
+    //         copy_minimum_distance[i][j] = minimum_distance[i][j];
+    //       }
+    //   }
+    // }
   }
-  std::cout << "Pre_Result_ : "  << std::endl;
+  // Пребразует бесконечность в 0
   for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
           if(minimum_distance[i][j] == inf ) {
@@ -175,9 +179,6 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
           }
       }
     }
-  PrintAdjacencyMatrix(minimum_distance);
-
-  // cout << "################### "<< std::min(2, inf) << endl;
   return minimum_distance;
 }
 
