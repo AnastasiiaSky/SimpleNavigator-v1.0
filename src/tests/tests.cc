@@ -94,15 +94,15 @@ namespace s21 {
     // }
     
     
-    // TEST(Graph, CheckFile1) {
-    // s21::s21_Graph graph;
-    //     s21::GraphAlgorithms algo;
-    //     std::string InputFileName = "./examples/graph_2_vert_char.txt";
-    //     graph.LoadGraphFromFile(InputFileName);
-    //     bool result = graph.checkFile(InputFileName);
-    //     bool expected = false;
-    //     ASSERT_EQ(result, expected);
-    // }
+    TEST(Graph, CheckFile1) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_2_vert_char.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        bool result = graph.checkFile(InputFileName);
+        bool expected = false;
+        ASSERT_EQ(result, expected);
+    }
 
 
     // TEST(Graph, CheckFile2) {
