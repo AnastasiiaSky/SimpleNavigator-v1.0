@@ -619,7 +619,7 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weight_graph_4_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph);
+        std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph);
         std::vector<std::vector<int>> result {{0, 2, 3, 3}, {2, 0, 5, 1}, {3, 5, 0, 6}, {3, 1, 6, 0}};
         ASSERT_EQ(minimum_distance, result);
     }
@@ -630,7 +630,7 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph);
+        std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph);
         std::vector<std::vector<int>> result {
             {0, 1, 4, 1}, 
             {7, 0, 3, 8}, 
@@ -646,7 +646,7 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_3_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph);
+        std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph);
         std::vector<std::vector<int>> result {
             {0, 4, 6}, 
             {0, 0, 3}, 
@@ -661,7 +661,7 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph);
+        std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph);
         std::vector<std::vector<int>> result {
             {0, 3, 6, 13, 16, 13, 6, 3},  // сыпиться здесь
             {0, 0, 3, 16, 13, 10, 13, 0}, 
@@ -681,7 +681,7 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_21_vert_direct.txt";
         graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph);
+        std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph);
         std::vector<std::vector<int>> result {
             {0, 1, 3, 4, 5, 6, 5, 7, 6, 4, 4, 2, 1, 4, 2, 2, 3, 6, 5, 5, 5}, 
             {0, 0, 2, 3, 4, 5, 4, 6, 5, 3, 3, 1, 4, 3, 1, 5, 2, 5, 4, 4, 4}, 
@@ -707,9 +707,6 @@ namespace s21 {
         }; 
         ASSERT_EQ(minimum_distance, result);
     }
-
-
-
 
 
 int main(int argc, char** argv) {

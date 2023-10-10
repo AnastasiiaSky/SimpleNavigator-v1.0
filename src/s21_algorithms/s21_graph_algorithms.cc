@@ -64,7 +64,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 
-std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph graph, int start_vertex) {
+std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph, int start_vertex) {
   if (start_vertex > graph.get_graph_size() || start_vertex <= 0) {
     throw std::length_error("Start vertex is incorrect");
   }
@@ -130,30 +130,38 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 // }
 
 
+/// @brief Метод поиска минимального пути между всеми вершинами графа.
+/// Алгоритм метода таков: 1) Создаем матрицу смежности графа 
+/// 2) Заменяем все "0" максимальным значением 3) В первом цикле путь проходит через
+/// каждую промежуточную вершину V, начиная с положение, когда нет промежуточной 
+/// вершины  V = 0 3) Находим минимальное значение между (Значением между двумя  
+/// вершина в текущем положение  и Суммой значений между стартовой точкой и 
+/// промежуточной V и значением между промежуточной вершиной V и конечной вершиной 
+/// 4) Преобразуем результирующую матрицу: Заменяем максимальное значение 0 
 
-std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph graph)
+/// @param graph - текущий граф.
+/// @return std::vector<std::vector<int>> min_distance - результатом работы метода 
+/// в виде матрицы смежности
+/// является вектор посещенных точек
+
+std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph)
 {
   // std::cout << "FloydWarshall:" << std::endl;
-  std::vector<std::vector<int>> minimum_distance = graph.getAdjacencyMatrix();
-  std::vector<std::vector<int>> copy_minimum_distance = minimum_distance; // временно
-
-
-
-  // int infinity = std::numeric_limits<int>::max(); //!!!  Добавить для обших как константа
-  // double infinity = std::numeric_limits<double>::infinity();
-  // int infinity = INT_MAX;
+  std::vector<std::vector<int>> min_distance = graph.getAdjacencyMatrix();
+  // std::vector<std::vector<int>> copy_min_distance = min_distance; // временно
 
   int size = graph.get_graph_size();  
   for (int v = 0; v <= size; v++){
     for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
         if (v == 0) {
-          if(minimum_distance[i][j] == 0) {
-            minimum_distance[i][j] = inf;         
+          if(min_distance[i][j] == 0) {
+            min_distance[i][j] = inf;         
           }
         } else {
-          if((i != j && (v - 1) != i && (v - 1) != j) && (minimum_distance[i][v - 1] != inf && minimum_distance[v - 1][j] != inf)) {
-            minimum_distance[i][j] = std::min(minimum_distance[i][j], minimum_distance[i][v - 1] + minimum_distance[v - 1][j]);
+          // !!! Возможно условие вывести в отдельную функцию
+          if((i != j && (v - 1) != i && (v - 1) != j) && (min_distance[i][v - 1] != inf && min_distance[v - 1][j] != inf)) { 
+            min_distance[i][j] = std::min(min_distance[i][j], min_distance[i][v - 1] + min_distance[v - 1][j]);
           }
         }
       }
@@ -161,10 +169,10 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
 
     // for (int i = 0; i < size; i++){  // !!! Для сдачи не нужен удалить
     //   for (int j = 0; j < size; j++){
-    //       if(minimum_distance[i][j] == inf ) {
-    //         copy_minimum_distance[i][j] = 0; 
+    //       if(min_distance[i][j] == inf ) {
+    //         copy_min_distance[i][j] = 0; 
     //       } else {
-    //         copy_minimum_distance[i][j] = minimum_distance[i][j];
+    //         copy_min_distance[i][j] = min_distance[i][j];
     //       }
     //   }
     // }
@@ -172,14 +180,14 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::FloydWarshall(s21_Graph grap
   // Пребразует бесконечность в 0
   for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
-          if(minimum_distance[i][j] == inf ) {
-            minimum_distance[i][j] = 0; 
+          if(min_distance[i][j] == inf ) {
+            min_distance[i][j] = 0; 
             // std::cout << "P1: "  << std::endl;        
-            // PrintAdjacencyMatrix(minimum_distance);
+            // PrintAdjacencyMatrix(min_distance);
           }
       }
     }
-  return minimum_distance;
+  return min_distance;
 }
 
 
@@ -213,6 +221,9 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 //     std::cout << std::endl;
 // }
 
+
+
+// !!! Нужно описание
 void s21::GraphAlgorithms::PrintAdjacencyMatrix(std::vector<std::vector<int>> adjacency_matrix) noexcept
 {
   std::cout << "AdjacencyMatrix:" << std::endl;
