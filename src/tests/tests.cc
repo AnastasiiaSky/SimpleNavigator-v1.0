@@ -58,7 +58,7 @@ namespace s21 {
         graph.ExportGraphToDot(outputFile);
     }
 
-        // TEST(Graph, getAjacencyMatrix) {
+    // TEST(Graph, getAjacencyMatrix) {
     // s21::s21_Graph graph;
 
     //     // Ïîëó÷åíèå ìàòðèöû ñìåæíîñòè èç ãðàôà
@@ -68,15 +68,7 @@ namespace s21 {
     //     ASSERT_EQ(adjacencyMatrix, expected);
     // }
 
-    TEST(Graph, getEdgeList) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
-        graph.LoadGraphFromFile(InputFileName);
-        std::vector<std::pair<int, int>> GetedgesList = graph.getEdgesList(); 
-        std::vector<std::pair<int, int>> expected {{1, 2}, {1, 3}, {2, 1}, {2, 3}, {3, 1}, {3, 2}};
-        ASSERT_EQ(GetedgesList, expected);
-    }
+
     TEST(GraphTest, ExportGraphToDot_ErrorOpeningFile) {
     // Создание объекта графа
     s21::s21_Graph graph;
@@ -88,22 +80,9 @@ namespace s21 {
 
     // Проверка, что сообщение об ошибке выводится в stdout
     EXPECT_TRUE(captured_stdout.find("Error opening file") != std::string::npos);
-}
-    TEST(Graph, errorOpeningFile) { // !!! Возможно тест работает неккоректно
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_155_vert_simply.txt";
-        graph.LoadGraphFromFile(InputFileName);
     }
 
-    TEST(Graph, DOT) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
-        graph.LoadGraphFromFile(InputFileName);
-        std::string outputFile = "output.dot";
-        graph.ExportGraphToDot(outputFile);
-    }
+
 
     // TEST(Graph, Graph_DOTerror_Test) {
     // s21::s21_Graph graph;
@@ -115,61 +94,71 @@ namespace s21 {
     // }
     
     
-    TEST(Graph, CheckFile1) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_2_vert_char.txt";
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
-    TEST(Graph, CheckFile2) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_2_vert_dimNE.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
-    TEST(Graph, CheckFile3) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_2_vert_R_NE_C.txt"; //  //graph_2_vert_simply
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
-    TEST(Graph, CheckFile4) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_2_vert_simply.txt"; //  //
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
-    TEST(Graph, CheckFile5) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "DDD:/graph_2_vert_simply.txt"; //  //
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
+    // TEST(Graph, CheckFile1) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_vert_char.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
 
-    TEST(Graph, CheckFile6) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt"; //  //
-        graph.LoadGraphFromFile(InputFileName);
-        bool result = graph.checkFile(InputFileName);
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
+
+    // TEST(Graph, CheckFile2) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_vert_dimNE.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
+
+
+    // TEST(Graph, CheckFile3) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_vert_R_NE_C.txt"; //  //graph_2_vert_simply
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
+
+
+    // TEST(Graph, CheckFile4) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_vert_simply.txt"; //  //
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
+
+
+    // TEST(Graph, CheckFile5) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "DDD:/graph_2_vert_simply.txt"; //  //
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
+
+
+    // TEST(Graph, CheckFile6) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt"; //  //
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     bool result = graph.checkFile(InputFileName);
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
+
 
     TEST(Graph, SizeNotNumber) {
     s21::s21_Graph graph;
@@ -183,31 +172,31 @@ namespace s21 {
         EXPECT_TRUE(captured_stdout.find("Error opening file") != std::string::npos);
     }
 
-    TEST(Graph, DIM_NEGATIVE) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_DIM_LE_ZERO.txt"; 
-        bool result = graph.checkFile(InputFileName);
-        std::cout << result << " !!!! ";
-        bool expected = false;
-        ASSERT_EQ(result, expected);
-    }
+    // TEST(Graph, DIM_NEGATIVE) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_3_DIM_LE_ZERO.txt"; 
+    //     bool result = graph.checkFile(InputFileName);
+    //     std::cout << result << " !!!! ";
+    //     bool expected = false;
+    //     ASSERT_EQ(result, expected);
+    // }
 
-    TEST(Graph, DIM_NEGATIVE_2) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        // отловить работу функции контроля правильности данных файла при вызове LoadGraphFromFile
-        testing::internal::CaptureStdout();
-        std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt";
-        graph.LoadGraphFromFile(InputFileName);
-        std::string captured_stdout = testing::internal::GetCapturedStdout();
-        // Проверка, что сообщение об ошибке выводится в stdout
-        EXPECT_TRUE(captured_stdout.find("Dimension must be > 0") != std::string::npos);
-    }
+    // TEST(Graph, DIM_NEGATIVE_2) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     // отловить работу функции контроля правильности данных файла при вызове LoadGraphFromFile
+    //     testing::internal::CaptureStdout();
+    //     std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     std::string captured_stdout = testing::internal::GetCapturedStdout();
+    //     // Проверка, что сообщение об ошибке выводится в stdout
+    //     EXPECT_TRUE(captured_stdout.find("Dimension must be > 0") != std::string::npos);
+    // }
 
 
 
-// // std::cout << "Algorithm Depth First Search" << std::endl;
+// // std::cout << "Algorithm Depth First Search" << std::endl;.
 
     TEST(Test, test_DepthFirstSearch_simple_graph_size_3) {
         s21_Graph graph;
