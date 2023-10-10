@@ -182,12 +182,20 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
       for (int j = 0; j < size; j++){
           if(min_distance[i][j] == inf ) {
             min_distance[i][j] = 0; 
-            // std::cout << "P1: "  << std::endl;        
-            // PrintAdjacencyMatrix(min_distance);
           }
       }
     }
   return min_distance;
+}
+
+
+
+
+s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
+{
+
+  
+  return TsmResult();
 }
 
 

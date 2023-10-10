@@ -708,6 +708,12 @@ namespace s21 {
         ASSERT_EQ(minimum_distance, result);
     }
 
+    // 0, 3, 5, 0, 0, 
+// 3, 0, 3, 5, 3, 
+// 5, 3, 0, 2, 0, 
+// 0, 5, 2, 0, 7, 
+// 0, 3, 0, 7, 0, 
+
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
