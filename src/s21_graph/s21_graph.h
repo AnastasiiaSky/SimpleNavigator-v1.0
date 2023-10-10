@@ -21,6 +21,7 @@ class s21_Graph {
   std::vector<std::pair<int, int>>
   getEdgesList();  // геттер списка инцидентности(списка ребер)
   int get_graph_size();
+  bool checkFile(const std::string& filename);
 
   void LoadGraphFromFile(std::string filename);  // загрузка графа из файла
   void ExportGraphToDot(std::string filename);  // выгрузка графа в файл

@@ -492,7 +492,18 @@ namespace s21 {
         std::vector<std::pair<int, int>> expected {{1, 2}, {1, 3}, {2, 1}, {2, 3}, {3, 1}, {3, 2}};
         ASSERT_EQ(GetedgesList, expected);
     }
+    TEST(GraphTest, ExportGraphToDot_ErrorOpeningFile) {
+    // Создание объекта графа
+    s21::s21_Graph graph;
 
+    // Вызов метода ExportGraphToDot с несуществующим именем файла
+    testing::internal::CaptureStdout();
+    graph.ExportGraphToDot("DD:/nonexistent_file.dot");
+    std::string captured_stdout = testing::internal::GetCapturedStdout();
+
+    // Проверка, что сообщение об ошибке выводится в stdout
+    EXPECT_TRUE(captured_stdout.find("Error opening file") != std::string::npos);
+}
     TEST(Graph, errorOpeningFile) { // !!! Возможно тест работает неккоректно
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
@@ -509,14 +520,104 @@ namespace s21 {
         graph.ExportGraphToDot(outputFile);
     }
 
-    TEST(Graph, Graph_DOTerror_Test) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
-        // graph.LoadGraphFromFile(InputFileName);
-        std::string outputFile = "output1.dot";
-        graph.ExportGraphToDot(outputFile);
-    }
+    // TEST(Graph, Graph_DOTerror_Test) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    //     // graph.LoadGraphFromFile(InputFileName);
+    //     std::string outputFile = "output1.dot";
+    //     graph.ExportGraphToDot(outputFile);
+    // }
+    TEST(Graph, CheckFile1) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_2_vert_char.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+TEST(Graph, CheckFile2) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_2_vert_dimNE.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+TEST(Graph, CheckFile3) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_2_vert_R_NE_C.txt"; //  //graph_2_vert_simply
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+TEST(Graph, CheckFile4) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_2_vert_simply.txt"; //  //
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+TEST(Graph, CheckFile5) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "DDD:/graph_2_vert_simply.txt"; //  //
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+
+TEST(Graph, CheckFile6) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt"; //  //
+    graph.LoadGraphFromFile(InputFileName);
+    bool result = graph.checkFile(InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+
+TEST(Graph, SizeNotNumber) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+      // Необходимо отловить работу функции контроля правильности данных файла при вызове LoadGraphFromFile
+    testing::internal::CaptureStdout();
+    std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt";
+     graph.LoadGraphFromFile(InputFileName);
+     std::string captured_stdout = testing::internal::GetCapturedStdout();
+      // Проверка, что сообщение об ошибке выводится в stdout
+    EXPECT_TRUE(captured_stdout.find("Error opening file") != std::string::npos);
+}
+
+TEST(Graph, DIM_NEGATIVE) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_DIM_LE_ZERO.txt"; 
+    bool result = graph.checkFile(InputFileName);
+    std::cout << result << " !!!! ";
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+
+TEST(Graph, DIM_NEGATIVE_2) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+      // отловить работу функции контроля правильности данных файла при вызове LoadGraphFromFile
+    testing::internal::CaptureStdout();
+    std::string InputFileName = "./examples/graph_2_DIM_NOT_NUM.txt";
+     graph.LoadGraphFromFile(InputFileName);
+     std::string captured_stdout = testing::internal::GetCapturedStdout();
+      // Проверка, что сообщение об ошибке выводится в stdout
+    EXPECT_TRUE(captured_stdout.find("Dimension must be > 0") != std::string::npos);
+}
+
 
 
 int main(int argc, char** argv) {
