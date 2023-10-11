@@ -238,7 +238,9 @@ int s21::GraphAlgorithms::GetSpanningTreeWeigt(std::vector<std::vector<int>> lea
       result += least_spanning_tree[i][j];
     }
   }
+  if(result != 0) {
   result /= 2;
+  }
   return result;
 }
 
