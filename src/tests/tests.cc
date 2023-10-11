@@ -644,13 +644,13 @@ TEST(GraphAlgorithmsTest, ShortestPathCase3) {
 }
 
 TEST(GraphAlgorithmsTest, ShortestPathCase4) {
-  s21::s21_Graph graph(5);
+  s21::s21_Graph graph(4);
   s21::GraphAlgorithms algo;
   std::string InputFileName = "./examples/graph_4_for_dijkstra.txt";
   graph.LoadGraphFromFile(InputFileName);
 
-  int shortestDistance = algo.GetShortestPathBetweenVertices(graph, 5, 2);
-  EXPECT_EQ(shortestDistance, 5);
+  int shortestDistance = algo.GetShortestPathBetweenVertices(graph, 4, 2);
+  EXPECT_EQ(shortestDistance, 2);
 }
 
 TEST(GraphAlgorithmsTest, InvalidVertices) {
