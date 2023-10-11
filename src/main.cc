@@ -41,7 +41,7 @@ int main() {
   // /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
 
-  adjacencyList = algo.FloydWarshall(graph);
+  adjacencyList = algo.GetShortestPathsBetweenAllVertices(graph);
   std::cout << "Resultat:\n";
   algo.PrintAdjacencyMatrix(adjacencyList);
 
