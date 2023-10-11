@@ -30,6 +30,7 @@ class GraphAlgorithms {
 
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
   bool IsAllVisited(std::vector<bool> visited_of_not);
+  std::vector<std::vector<int>> ConvertToUndirected(std::vector<std::vector<int>> graph_matrix);
   std::pair<int, int> GetMinCoordinats(
       std::vector<std::vector<int>> working_matrix);
   int GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree);

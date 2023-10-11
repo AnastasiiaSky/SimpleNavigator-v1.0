@@ -150,6 +150,8 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     s21_Graph& graph) {
   std::vector<std::vector<int>> graph_matrix = graph.getAdjacencyMatrix();
+  graph_matrix = ConvertToUndirected(graph_matrix);
+
   std::vector<bool> visited_or_not(graph.get_graph_size(), false);
   std::vector<std::vector<int>> result_matrix(
       graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), 0));
@@ -195,6 +197,22 @@ bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
   }
   return true;
 }
+
+std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(const std::vector<std::vector<int>> graph_matrix)
+{
+    int n = graph_matrix.size();
+    std::vector<std::vector<int>> undirected_adj_matrix(n, std::vector<int>(n, 0));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (graph_matrix[i][j] != 0) {
+                undirected_adj_matrix[i][j] = undirected_adj_matrix[j][i] = graph_matrix[i][j];
+            }
+        }
+    }
+
+    return undirected_adj_matrix;
+}
+
 
 std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
     std::vector<std::vector<int>> working_matrix) {
