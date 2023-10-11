@@ -2,6 +2,7 @@
 
 #include "s21_graph_algorithms.h"
 using namespace std; //  !!!  Потом убрать
+// std::vector<std::vector<int>> !!! Заменить на Matrix
 
 /// @brief Метод поиска пути в глубину в графе.
 /// Алгоритм метода таков: 1) Создаем списое пройденныйх точек типа
@@ -143,7 +144,6 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 /// @param graph - текущий граф.
 /// @return std::vector<std::vector<int>> min_distance - результатом работы метода 
 /// в виде матрицы смежности
-/// является вектор посещенных точек
 
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph)
 {

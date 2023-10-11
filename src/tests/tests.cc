@@ -641,7 +641,7 @@ namespace s21 {
     }
      
 
-     TEST(Test, FloidWarshall_weighted_directed_graph_3_vert) {
+    TEST(Test, FloidWarshall_weighted_directed_graph_3_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_3_vert.txt";
@@ -714,6 +714,16 @@ namespace s21 {
 // 0, 5, 2, 0, 7, 
 // 0, 3, 0, 7, 0, 
 
+TEST(Test, Ant_algo_weighted_graph_11_vert) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        s21::TsmResult result = algo.SolveTravelingSalesmanProblem(graph);
+        
+        ASSERT_EQ(result.vertices, 1); 
+        ASSERT_EQ(result.distance, 253);
+    }
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
