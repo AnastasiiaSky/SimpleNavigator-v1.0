@@ -33,7 +33,7 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
         adjacencyList_[i].push_back(j + 1);
       }
     }
-    std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
+    // std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
   }
   return adjacencyList_;
 }
