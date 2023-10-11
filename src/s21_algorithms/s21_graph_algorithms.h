@@ -36,6 +36,10 @@ class GraphAlgorithms {
   // Метод проверки посещенных точек
   bool CheckVisited(std::vector<int> visited_vertices,int current_vertix) noexcept;
 
+  // Дейкстра
+  int GetShortestPathBetweenVertices(s21_Graph &graph, int vertex1,
+                                     int vertex2);
+
   // Метод поиска пути по алгоритму Флойда Уошера
   std::vector<std::vector<int>> GetShortestPathsBetweenAllVertices(s21_Graph &graph);
 
