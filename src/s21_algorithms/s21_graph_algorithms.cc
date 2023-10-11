@@ -177,15 +177,13 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     }
 
     if (visited_or_not[min_coordinats.second] == false) {
-      result_matrix[min_coordinats.first][min_coordinats.second] = 1;
-      result_matrix[min_coordinats.second][min_coordinats.first] = 1;
+      result_matrix[min_coordinats.first][min_coordinats.second] = working_matrix[min_coordinats.first][min_coordinats.second];
+      result_matrix[min_coordinats.second][min_coordinats.first] = working_matrix[min_coordinats.first][min_coordinats.second];
       working_matrix[min_coordinats.first][min_coordinats.second] = inf;
 
       visited_or_not[min_coordinats.second] = true;
     }
   }
-
-  
   return result_matrix;
 }
 
@@ -211,6 +209,18 @@ std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
     }
   }
   std::pair<int, int> result(res_i, res_j);
+  return result;
+}
+
+int s21::GraphAlgorithms::GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree)
+{
+  int result = 0;
+  for(int i = 0; i < least_spanning_tree.size(); ++i) {
+    for(int j = 0; j < least_spanning_tree.size(); ++j) {
+      result += least_spanning_tree[i][j];
+    }
+  }
+  result /= 2;
   return result;
 }
 

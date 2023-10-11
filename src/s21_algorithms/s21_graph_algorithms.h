@@ -27,10 +27,15 @@ class GraphAlgorithms {
   void PrintResultOfDepthFirstSearch(
       std::vector<int> visited_vertices) noexcept;
 
+
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
   bool IsAllVisited(std::vector<bool> visited_of_not);
   std::pair<int, int> GetMinCoordinats(
       std::vector<std::vector<int>> working_matrix);
+  int GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree);
+
+
+  
 };
 
 }  // namespace s21

@@ -290,6 +290,15 @@ s21::s21_Graph graph;
     graph.ExportGraphToDot(outputFile);
 }
 
+TEST(Test, GetLeastSpanningTree_test_1) {
+s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    std::string outputFile = "output.dot";
+    graph.ExportGraphToDot(outputFile);
+}
+
 
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
