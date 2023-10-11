@@ -23,7 +23,7 @@ class s21_Graph;
 class GraphAlgorithms {
  public:
 
-  const int inf = std::numeric_limits<int>::max();;  // !!! Перенести в класс, наверное
+  const int inf = std::numeric_limits<int>::max();  // !!! Перенести в класс, наверное
 
 
 
