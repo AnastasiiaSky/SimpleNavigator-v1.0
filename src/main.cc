@@ -11,8 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
-  
+  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   // std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   // std::cout << "EdgesList:\n";
@@ -20,20 +19,19 @@ int main() {
   //   std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second
   //             << ")\n";
   // }
-  std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
-  // std::cout << "Start:\n";
+  // std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
   // std::cout << "AdjacencyList:\n";
   // for (int i = 0; i < adjacencyList.size(); ++i) {
-  //   std::cout << i << ": ";
+  //   std::cout << i + 1 << ": ";
   //   for (int j = 0; j < adjacencyList[i].size(); ++j) {
   //     std::cout << adjacencyList[i][j] << " ";
   //   }
   //   std::cout << "\n";
   // }
-  std::string outputFile = "output.dot";
+  // std::string outputFile = "output.dot";
   // graph.ExportGraphToDot(outputFile);
-  std::cout << "Поиск:\n";
-  int start = 1;
+
+  // int start = 2;
   // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
   // std::vector<int> result = algo.BreadthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
@@ -41,29 +39,27 @@ int main() {
   // /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
 
-  adjacencyList = algo.GetShortestPathsBetweenAllVertices(graph);
-  std::cout << "Resultat:\n";
-  algo.PrintAdjacencyMatrix(adjacencyList);
+//   std::vector<std::vector<int>> answer = algo.ConvertToUndirected(graph.getAdjacencyMatrix());
+// for(int it = 0; it < answer.size(); ++it) {
+//   for(int j = 0; j < answer.size(); ++j) {
+//     std::cout << answer[it][j] << " ";
+//   }
+//   std::cout << std::endl;
+// }
 
-// 0, 2, 3, 3, 
-// 2, 0, 5, 1, 
-// 3, 5, 0, 6, 
-// 3, 1, 6, 0, 
 
-
-  // std::vector<std::vector<int>> answer = algo.GetLeastSpanningTree(graph);
-  // for (int it = 0; it < answer.size(); ++it) {
-  //   for (int j = 0; j < answer.size(); ++j) {
-  //     std::cout << answer[it][j] << " ";
-  //   }
-  //   std::cout << std::endl;
-  // }
-
+std::vector<std::vector<int>> answer = algo.GetLeastSpanningTree(graph);
+for(int it = 0; it < answer.size(); ++it) {
+  for(int j = 0; j < answer.size(); ++j) {
+    std::cout << answer[it][j] << " ";
+  }
+  std::cout << std::endl;
+}
   return 0;
 }
+
 
 // ./s21_graph/examples/graph_3_vert_simply.txt
 // ./s21_graph/examples/graph_4_vert_simply.txt
 // ./s21_graph/examples/graph_5_vert_simply.txt
 // ./s21_graph/examples/graph_7_vert_simply.txt
-
