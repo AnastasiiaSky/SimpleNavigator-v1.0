@@ -52,11 +52,6 @@ main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS)
 	./a.out
 
-debag: $(OBJS)
-	$(CXX) $(CXXFLAGS) -g $(OBJS)
-
-
-
 
 
 # gcov_report: tests
