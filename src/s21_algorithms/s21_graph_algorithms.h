@@ -1,18 +1,32 @@
 #ifndef SRC_S21_ALGORITHMS_S21_GRAPH_ALGORITHMS_H_
 #define SRC_S21_ALGORITHMS_S21_GRAPH_ALGORITHMS_H_
+
+#include <algorithm> // !!! возможно не надо
 #include <iostream>
-#include <list>
-#include <queue>
-#include <stack>
-#include <vector>
+#include <list> /// Заменить на самописные
+#include <queue> /// Заменить на самописные
+#include <stack> /// Заменить на самописные
+#include <vector> /// Заменить на самописные
+// #include <limits> // !!! возможно не надо
+// #include <limits.h> // !!! возможно не надо
 
 #include "../s21_graph/s21_graph.h"
 
 namespace s21 {
+
+  struct TsmResult {
+    int* vertices;    // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
+    double distance;  // длина этого маршрута
+  };
+
 class s21_Graph;
 class GraphAlgorithms {
  public:
-  const int inf = 2147483647;
+
+  const int inf = std::numeric_limits<int>::max();  // !!! Перенести в класс, наверное
+
+
+
   // Главный метод алгоритма поиска в глубину
   std::vector<int> DepthFirstSearch(s21_Graph graph, int start_vertex);
   // перегрузка для проверки связности
@@ -20,31 +34,28 @@ class GraphAlgorithms {
                                     int start_point);
 
   // Главный метод алгоритма поиска в ширину
-  std::vector<int> BreadthFirstSearch(s21_Graph graph, int start_vertex);
+  std::vector<int> BreadthFirstSearch(s21_Graph &graph, int start_vertex); 
 
   // Метод проверки посещенных точек
   bool CheckVisited(std::vector<int> visited_vertices,
                     int current_vertix) noexcept;
 
-  // Метод вывода результата
-  void PrintResultOfDepthFirstSearch(
-      std::vector<int> visited_vertices) noexcept;
-  // Метод проверки связный ли граф или нет
-  bool IsGraphConnected(std::vector<std::vector<int>> adjacency_list);
+  // Дейкстра
+  int GetShortestPathBetweenVertices(s21_Graph &graph, int vertex1,
+                                     int vertex2);
 
-  // Метод поиска минимального оставного дерева
-  std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
-  // Метод проверки все ли вершины посещены
-  bool IsAllVisited(std::vector<bool> visited_of_not);
-  // Метод преобразования направленного графа в ненаправленный
-  std::vector<std::vector<int>> ConvertToUndirected(
-      std::vector<std::vector<int>> graph_matrix);
-  // Метод получения минимального веса ребра для построения минимально остовного
-  // дерева
-  std::pair<int, int> GetMinCoordinats(
-      std::vector<std::vector<int>> working_matrix);
-  // Метод получения веса минимального оставного дерева
-  int GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree);
+  // Метод поиска пути по алгоритму Флойда Уошера
+  std::vector<std::vector<int>> GetShortestPathsBetweenAllVertices(s21_Graph &graph);
+
+
+  TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
+
+  // Метод вывода результата пути 
+  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept;  
+
+  // Метод ввывода матрицы смежности
+  void PrintAdjacencyMatrix(std::vector<std::vector<int>> adjacency_matrix) noexcept;
+
 };
 
 }  // namespace s21
