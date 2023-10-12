@@ -19,7 +19,7 @@ using namespace std; //  !!!  Потом убрать
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 
-std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
+std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
                                                         int start_vertex) {
   if (start_vertex > graph.get_graph_size() || start_vertex < 0) {
     throw std::length_error("Start vertex is incorrect");
