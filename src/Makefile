@@ -1,5 +1,6 @@
 CXX = g++
 CXXFLAGS=-lstdc++ -std=c++17
+# !!! Переписать все через флаги, разделить их
 TFLAGS=-g -c -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
 RFLAGS=-Wall -Werror -Wextra
 GTEST=-lgtest -lgtest_main -pthread 
@@ -31,8 +32,12 @@ s21_algorithms.a:
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/tests.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/*.cc -o navigator_tests $(GTEST)
 	./navigator_tests
+
+testa: clean
+	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests_tmp.cc -o ant_tests $(GTEST)
+	./ant_tests	
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 

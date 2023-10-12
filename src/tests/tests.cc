@@ -7,7 +7,11 @@
 namespace s21 {
 
     // // std::cout << "Class Graph" << std::endl;
-    
+    // !!! Добавить тест и пример на не связный граф  где 
+        // - 2 графа полноценных 
+        // - где второй граф только 1 вершина
+        // - когда все вершина направлены в одну вершину
+        // - когда 2 вершины и ребра из одного графа направлены во второй граф
     
         // TEST(Graph, getAjacencyMatrix) {
     // s21::s21_Graph graph;
@@ -439,7 +443,7 @@ namespace s21 {
 
 // // std::cout << "Algorithm Breadth First Search" << std::endl;
 
-    TEST(Test, test_BreadFirstSearch_simple_graph_size_3) {
+    TEST(Test, test_th_simple_graph_size_3) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
@@ -485,7 +489,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_BreadFirstSearch_simple_graph_size_13) {
+    TEST(Test, test_th_simple_graph_size_13) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_13_vert_simply.txt";
@@ -521,7 +525,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_BreadFirstSearch_directed_graph_8_vert) {
+    TEST(Test, test_th_directed_graph_8_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_8_vert_direct.txt";
@@ -549,7 +553,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_BreadFirstSearch_directed_graph_21_vert) {
+    TEST(Test, test_th_directed_graph_21_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_21_vert_direct.txt";
@@ -580,7 +584,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_BreadFirstSearch_weighted_graph_9_vert) {
+    TEST(Test, test_BreadthFirstSearch_weighted_graph_9_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_graph_9_vert.txt";
