@@ -147,6 +147,7 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph)
 {
   // std::cout << "FloydWarshall:" << std::endl;
+  // !!! Проверка на связность и другие ограничения
   std::vector<std::vector<int>> min_distance = graph.getAdjacencyMatrix();
   // std::vector<std::vector<int>> copy_min_distance = min_distance; // временно
 
@@ -269,16 +270,16 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     }    
   }
 
-  int s21::GraphAlgorithms::random(int min, int max) const {
+  int s21::GraphAlgorithms::Vertex_random(int min, int max) const {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distribution(min, max);
     return distribution(gen);
   }
 
-  int s21::GraphAlgorithms::SelectNextVertex (list<double> probability_list){ // !!! const // возможно надо подать матрицу вероятностей
+  int s21::GraphAlgorithms::SelectNextVertex (std::list<double> probability_list){ // !!! const // возможно надо подать матрицу вероятностей
       // Запускаем функцию рандома
-      int random_c = random(1, 100); // !!! обределиться вероятность 0,3  или 30%
+      int random_c = Vertex_random(1, 100); // !!! обределиться вероятность 0,3  или 30%
       std::list<double>::iterator it = probability_list.begin();
       int sum_probability = *it;
       // Находим вершину, в которую упал наш рандом

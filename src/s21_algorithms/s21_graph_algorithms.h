@@ -50,7 +50,7 @@ class GraphAlgorithms {
   // Метод ввывода матрицы смежности
   void PrintAdjacencyMatrix(std::vector<std::vector<int>> adjacency_matrix) noexcept;
 
-  private:
+  // private:
     // Рассчитывает вероятность прохождения по текущему ребру
     void CreateProbabilityMatrix (std::vector<std::vector<double>> &pobability_list,
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency);
@@ -59,10 +59,10 @@ class GraphAlgorithms {
     void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, int distance);
 
     // Генерируем рандомное число в заданном диапозоне
-    int random(int min, int max) const;
+    int Vertex_random(int min, int max) const;
 
     // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (list<double> probability_list);
+    int SelectNextVertex (std::list<double> probability_list);
 
     
 
