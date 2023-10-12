@@ -28,13 +28,17 @@ class GraphAlgorithms {
 
 
   // Главный метод алгоритма поиска в глубину
-  std::vector<int> DepthFirstSearch(s21_Graph graph, int start_vertex);  
-      
+  std::vector<int> DepthFirstSearch(s21_Graph &graph, int start_vertex);
+  // перегрузка для проверки связности
+  std::vector<int> DepthFirstSearch(std::vector<std::vector<int>> graph_matrix,
+                                    int start_point);
+
   // Главный метод алгоритма поиска в ширину
   std::vector<int> BreadthFirstSearch(s21_Graph &graph, int start_vertex); 
 
   // Метод проверки посещенных точек
-  bool CheckVisited(std::vector<int> visited_vertices,int current_vertix) noexcept;
+  bool CheckVisited(std::vector<int> visited_vertices,
+                    int current_vertix) noexcept;
 
   // Дейкстра
   int GetShortestPathBetweenVertices(s21_Graph &graph, int vertex1,
@@ -47,9 +51,19 @@ class GraphAlgorithms {
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
 
   // Метод вывода результата пути 
-  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept;  
+  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept;
+  // Алгоритм Прима
+  std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph & graph);
+  // Все ли точки посещены
+  bool IsAllVisited(std::vector<bool> visited_of_not);
+  // Преобразование направленной матрицы в ненаправленную
+  std::vector<std::vector<int>> ConvertToUndirected(const std::vector<std::vector<int>> graph_matrix);
+  // Получение минимальных координат
+  std::pair<int,int> GetMinCoordinats(std::vector<std::vector<int>> working_matrix);  
+ // Получение веса остовного дерева
+  int GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree);
 
-  // Метод ввывода матрицы смежности
+// Метод ввывода матрицы смежности
   void PrintAdjacencyMatrix(std::vector<std::vector<int>> adjacency_matrix) noexcept;
 
 };
