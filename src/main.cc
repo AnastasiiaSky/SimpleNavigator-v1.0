@@ -11,7 +11,7 @@ int main() {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/weighted_directed_graph_7_vert.txt";
+  std::string InputFileName = "./examples/graph_7_vert_simply.txt";
   graph.LoadGraphFromFile(InputFileName);
   // std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   // std::cout << "EdgesList:\n";
@@ -39,25 +39,24 @@ int main() {
   // /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
 
-//   std::vector<std::vector<int>> answer = algo.ConvertToUndirected(graph.getAdjacencyMatrix());
-// for(int it = 0; it < answer.size(); ++it) {
-//   for(int j = 0; j < answer.size(); ++j) {
-//     std::cout << answer[it][j] << " ";
-//   }
-//   std::cout << std::endl;
-// }
-
+  //   std::vector<std::vector<int>> answer =
+  //   algo.ConvertToUndirected(graph.getAdjacencyMatrix());
+  // for(int it = 0; it < answer.size(); ++it) {
+  //   for(int j = 0; j < answer.size(); ++j) {
+  //     std::cout << answer[it][j] << " ";
+  //   }
+  //   std::cout << std::endl;
+  // }
 
   std::vector<std::vector<int>> answer = algo.GetLeastSpanningTree(graph);
-for(int it = 0; it < answer.size(); ++it) {
-  for(int j = 0; j < answer.size(); ++j) {
-    std::cout << answer[it][j] << " ";
+  for (int it = 0; it < answer.size(); ++it) {
+    for (int j = 0; j < answer.size(); ++j) {
+      std::cout << answer[it][j] << " ";
+    }
+    std::cout << std::endl;
   }
-  std::cout << std::endl;
-}
   return 0;
 }
-
 
 // ./s21_graph/examples/graph_3_vert_simply.txt
 // ./s21_graph/examples/graph_4_vert_simply.txt

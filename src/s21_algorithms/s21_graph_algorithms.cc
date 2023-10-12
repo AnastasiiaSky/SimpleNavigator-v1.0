@@ -48,6 +48,37 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph graph,
   return visited_vertices;
 }
 
+// std::vector<int>
+// s21::GraphAlgorithms::DepthFirstSearch(std::vector<std::vector<int>>
+// adjacency_list, int start_point)
+// {
+//   if (start_point > adjacency_list.size() || start_point < 0) {
+//     throw std::length_error("Start vertex is incorrect");
+//   }
+//   std::vector<int> visited_vertices;
+//   std::stack<int> vertex_stack;
+
+//   vertex_stack.push(start_point);
+
+//   while (!vertex_stack.empty()) {
+//     int current_vertex = vertex_stack.top();
+//     vertex_stack.pop();
+//     if (CheckVisited(visited_vertices, current_vertex) == false) {
+//       continue;
+//     }
+
+//     std::vector<int> adjacent_vertices = adjacency_list[current_vertex - 1];
+//     visited_vertices.push_back(current_vertex);
+
+//     for (int it = adjacent_vertices.size() - 1; it >= 0; --it) {
+//       if (CheckVisited(visited_vertices, adjacent_vertices[it]) == true) {
+//         vertex_stack.push(adjacent_vertices[it]);
+//       }
+//     }
+//   }
+//   return visited_vertices;
+// }
+
 /// @brief Метод поиска пути в ширину в графе.
 /// Алгоритм метода таков: 1) Создаем списое пройденныйх точек типа
 /// std::vector<int> 2) Создаем очередь для работы с точками. 3) Получаем список
@@ -115,20 +146,6 @@ bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
   return true;
 }
 
-// bool s21::GraphAlgorithms::CheckViseted(std::vector<int> visited_vertices,
-// int current_vertix)
-// {
-//   std::vector<int> copy_list = visited_vertices;
-
-//   for(auto it = visited_vertices.begin(); it != visited_vertices.end(); ++it)
-//   {
-//       if(*it == current_vertix) {
-//         return false;
-//       }
-//     }
-//   return true;
-// }
-
 /// @brief Метод отображения пройденного пути в графе
 
 /// @param visited_vertices - результатом работы алгоритмов,
@@ -147,11 +164,40 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
   }
 }
 
+// bool s21::GraphAlgorithms::IsGraphConnected(std::vector<std::vector<int>>
+// adjacency_list)
+// {
+//   std::vector<int> result_of_dfs = DepthFirstSearch(adjacency_list, 1);
+//   if(result_of_dfs.size() < adjacency_list.size()) {
+//     return false;
+//   }
+// return true;
+// }
+
+/// @brief Реализация алгоритма Прима.
+/// В ходе работы алгоритма производится поиск минимального остовного дерева.
+/// Если на вход поступает орикнтированный граф, мы преобразуем его в
+/// неориентированный и продолжаем работу. Создаем структуру std::vector<bool>
+/// visited_or_not для отслеживания посещенных и непосещенных точек,
+/// std::vector<std::vector<int>>result_matrix для хранения матрицы минимального
+/// остовного дерева, и std::vector<std::vector<int>> working_matrix для работы
+/// с весами ребер. Устанавливаем первую посещенную вершину. Пока все вершины не
+/// посещены выполняем следующие действия: 1) Для каждой посещенной вершины,
+/// обновляем working_matrix соответствующими весами ребер, если эти вершины
+/// связаны и не посещены. 2) Находим координаты ребра с минимальным весом в
+/// working_matrix с помощью функции GetMinCoordinats. 3) Если вершина,
+/// соответствующая минимальному ребру, уже посещена, установливаем вес этого
+/// ребра в inf и находим новое минимальное ребро. 4) Если вершина,
+/// соответствующая минимальному ребру, еще не посещена, добавляем это ребро в
+/// result_matrix, устанавливаем вес этого ребра в inf в working_matrix, и
+/// помечаем вершину как посещенную.
+/// @param graph - объект класса граф.
+/// @return std::vector<std::vector<int>> - возвращаемое значение матрица
+/// смежности минимально оставного дерева графа.
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     s21_Graph& graph) {
   std::vector<std::vector<int>> graph_matrix = graph.getAdjacencyMatrix();
   graph_matrix = ConvertToUndirected(graph_matrix);
-
   std::vector<bool> visited_or_not(graph.get_graph_size(), false);
   std::vector<std::vector<int>> result_matrix(
       graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), 0));
@@ -179,8 +225,10 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     }
 
     if (visited_or_not[min_coordinats.second] == false) {
-      result_matrix[min_coordinats.first][min_coordinats.second] = working_matrix[min_coordinats.first][min_coordinats.second];
-      result_matrix[min_coordinats.second][min_coordinats.first] = working_matrix[min_coordinats.first][min_coordinats.second];
+      result_matrix[min_coordinats.first][min_coordinats.second] =
+          working_matrix[min_coordinats.first][min_coordinats.second];
+      result_matrix[min_coordinats.second][min_coordinats.first] =
+          working_matrix[min_coordinats.first][min_coordinats.second];
       working_matrix[min_coordinats.first][min_coordinats.second] = inf;
 
       visited_or_not[min_coordinats.second] = true;
@@ -189,6 +237,12 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
   return result_matrix;
 }
 
+/// @brief Данный метод IsAllVisited проверяет, все ли вершины графа были
+/// посещены, на основе вектора visited_or_not, который содержит информацию о
+/// посещении каждой вершины.
+/// @param visited_of_not
+/// @return true - если все вершины посещены, false - если еще не все вершины
+/// посещены
 bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
   for (int it = 0; it < visited_of_not.size(); ++it) {
     if (visited_of_not[it] == false) {
@@ -198,22 +252,32 @@ bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
   return true;
 }
 
-std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(const std::vector<std::vector<int>> graph_matrix)
-{
-    int n = graph_matrix.size();
-    std::vector<std::vector<int>> undirected_adj_matrix(n, std::vector<int>(n, 0));
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            if (graph_matrix[i][j] != 0) {
-                undirected_adj_matrix[i][j] = undirected_adj_matrix[j][i] = graph_matrix[i][j];
-            }
-        }
+/// @brief Данный метод ConvertToUndirected преобразует матрицу смежности
+/// ориентированного графа в матрицу смежности неориентированного графа.
+/// @param graph_matrix - исходная матрица
+/// @return преобразованная матрица
+std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
+    const std::vector<std::vector<int>> graph_matrix) {
+  int n = graph_matrix.size();
+  std::vector<std::vector<int>> undirected_adj_matrix(n,
+                                                      std::vector<int>(n, 0));
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      if (graph_matrix[i][j] != 0) {
+        undirected_adj_matrix[i][j] = undirected_adj_matrix[j][i] =
+            graph_matrix[i][j];
+      }
     }
+  }
 
-    return undirected_adj_matrix;
+  return undirected_adj_matrix;
 }
 
-
+/// @brief Данный метод GetMinCoordinats находит координаты (индексы) элемента с
+/// минимальным значением в матрице working_matrix и возвращает их в виде пары
+/// значений.
+/// @param working_matrix - матрица для работы с весами ребер.
+/// @return пара значений в которой первый эллемент - i, а второй элемент - j;
 std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
     std::vector<std::vector<int>> working_matrix) {
   int min = inf, res_i = 0, res_j = 0;
@@ -230,38 +294,18 @@ std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
   return result;
 }
 
-int s21::GraphAlgorithms::GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree)
-{
+/// @brief Метод вычисляет суммарный вес остовного дерева, представленного в
+/// виде матрицы least_spanning_tree.
+/// @param least_spanning_tree - матрица смежности минимального остовного дерева
+/// @return суммарный вес остовного дерева
+int s21::GraphAlgorithms::GetSpanningTreeWeigt(
+    std::vector<std::vector<int>> least_spanning_tree) {
   int result = 0;
-  for(int i = 0; i < least_spanning_tree.size(); ++i) {
-    for(int j = 0; j < least_spanning_tree.size(); ++j) {
+  for (int i = 0; i < least_spanning_tree.size(); ++i) {
+    for (int j = 0; j < least_spanning_tree.size(); ++j) {
       result += least_spanning_tree[i][j];
     }
   }
-  if(result != 0) {
   result /= 2;
-  }
   return result;
 }
-
-// for(int it = 0; it < result_matrix.size(); ++it) {
-//   for(int j = 0; j < result_matrix.size(); ++j) {
-//     std::cout << result_matrix[it][j] << " ";
-//   }
-//   std::cout << std::endl;
-// }
-
-//       for(int it = 0; it < result_matrix.size(); ++it) {
-//   for(int j = 0; j < result_matrix.size(); ++j) {
-//     std::cout << result_matrix[it][j] << " ";
-//   }
-//   std::cout << std::endl;
-// }
-//   std::cout << " -------------------------------  "<< std::endl;
-
-//   for(int it = 0; it < result_matrix.size(); ++it) {
-//   for(int j = 0; j < result_matrix.size(); ++j) {
-//     std::cout << working_matrix[it][j] << " ";
-//   }
-//   std::cout << std::endl;
-// }
