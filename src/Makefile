@@ -1,7 +1,9 @@
-CC = g++
-CFLAGS=-lstdc++ -std=c++17
-TFLAGS=-g -c -Wall -Werror -Wextra -g -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
-GTEST=-lgtest -lgtest_main -pthread
+CXX = g++
+CXXFLAGS=-lstdc++ -std=c++17
+# !!! Переписать все через флаги, разделить их
+TFLAGS=-g -c -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
+RFLAGS=-Wall -Werror -Wextra
+GTEST=-lgtest -lgtest_main -pthread 
 ASAN=-fsanitize=address
 COVER=-fprofile-arcs -ftest-coverage
 COVFLAGS = -fprofile-arcs -ftest-coverage
@@ -9,26 +11,33 @@ COVFLAGS = -fprofile-arcs -ftest-coverage
 VGFLAGS=--trace-children=yes --track-fds=all  --leak-check=full --show-leak-kinds=all --track-origins=yes
 VAR = $(shell pkg-config --cflags --libs check)
 
+SRCS = *.cc s21_*/*.cc
+OBJS = $(SRCS:.c=.o) 
+
 .PHONY: all clean s21_graph.a s21_graph_algorithms.a tests leaks gcov_report stylecheck
 
 all: clean s21_graph.a s21_algorithms.a
 
 s21_graph.a:
-	$(CC) $(TFLAGS) ./s21_graph/s21_graph.cc
+	$(CXX) $(TFLAGS) ./s21_graph/s21_graph.cc
 	ar rcs s21_graph.a *.o
 	ranlib s21_graph.a
 	rm -rf *.o *.dSYM
 
 
-s21_graph_algorithms.a:
-	$(CC) $(TFLAGS) ./s21_algorithms/s21_graph_algorithms.cc
+s21_algorithms.a:
+	$(CXX) $(TFLAGS) ./s21_algorithms/s21_graph_algorithms.cc
 	ar rcs s21_algorithms.a *.o
 	ranlib s21_algorithms.a
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CFLAGS) $(COVER) tests.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/*.cc -o navigator_tests $(GTEST)
 	./navigator_tests
+
+testa: clean
+	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests_tmp.cc -o ant_tests $(GTEST)
+	./ant_tests	
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 
@@ -45,14 +54,20 @@ clean:
 	@rm -rf *.gcda
 	@rm -rf *.gcno
 
-gcov_report: tests
-	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
-	genhtml coverage.info -o ./coverage
-	open coverage/index.html
-	@rm -rf *.gcda
-	@rm -rf *.gcno
+main: $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS)
+	./a.out
 
- leaks: tests
-	leaks -atExit -- ./navigator_tests
-#	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.cc *.h s21_graph/*.cc s21_graph/*.h  s21_algorithms/*.cc 21_algorithms/*.h 
+
+
+# gcov_report: tests
+# 	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
+# 	genhtml coverage.info -o ./coverage
+# 	open coverage/index.html
+# 	@rm -rf *.gcda
+# 	@rm -rf *.gcno
+
+# leaks: tests
+# 	leaks -atExit -- ./mazeTest
+# #	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.cc *.h model/*.cc model/*.h ../view/*.cc ../view/*.h 
 

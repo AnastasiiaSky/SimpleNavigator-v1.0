@@ -2,11 +2,14 @@
 #define SRC_S21_GRAPH_H_
 #include <cstring>
 #include <iostream>
-#include <vector>
+#include <vector> /// Заменить на самописные
 
 #include "../s21_algorithms/s21_graph_algorithms.h"
 
 class GraphAlgorithms;
+
+// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для упрощения вида)
+
 
 namespace s21 {
 class s21_Graph {
@@ -20,10 +23,9 @@ class s21_Graph {
   getAdjacencyList();  // геттер спискасмежности (списка вершин)
   std::vector<std::pair<int, int>>
   getEdgesList();  // геттер списка инцидентности(списка ребер)
-  int get_graph_size(); 
-  // bool is_digits(const std::string &str);
-  bool checkFile(const std::string& filename);
-  // bool isEqualToDimension(int i, int j, int dimension);
+  int get_graph_size();
+  bool checkFile(const std::string& filename);  // !!! Возможно с большой буквы 
+
   void LoadGraphFromFile(std::string filename);  // загрузка графа из файла
   void ExportGraphToDot(std::string filename);  // выгрузка графа в файл
 
