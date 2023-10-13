@@ -13,13 +13,11 @@
 // #include <limits> // !!! возможно не надо
 // #include <limits.h> // !!! возможно не надо
 
-#include "../s21_graph/s21_graph.h"
 #include "../conteiners/s21_helpsrc.h"
 #include "../conteiners/s21_list.h"
-#include "../conteiners/s21_stack.h"
 #include "../conteiners/s21_queue.h"
-
-
+#include "../conteiners/s21_stack.h"
+#include "../s21_graph/s21_graph.h"
 
 namespace s21 {
 
@@ -38,16 +36,8 @@ class GraphAlgorithms {
 
   // Главный метод алгоритма поиска в глубину
   std::vector<int> DepthFirstSearch(s21_Graph &graph, int start_vertex);
-  // перегрузка для проверки связности
-  std::vector<int> DepthFirstSearch(matrix graph_matrix,
-                                    int start_point);
-
   // Главный метод алгоритма поиска в ширину
   std::vector<int> BreadthFirstSearch(s21_Graph &graph, int start_vertex);
-
-  // Метод проверки посещенных точек
-  bool CheckVisited(std::vector<int> visited_vertices,
-                    int current_vertix) noexcept;
 
   // Дейкстра
   int GetShortestPathBetweenVertices(s21_Graph &graph, int vertex1,
@@ -64,20 +54,13 @@ class GraphAlgorithms {
       std::vector<int> visited_vertices) noexcept;
   // Алгоритм Прима
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
-  // Все ли точки посещены
-  bool IsAllVisited(std::vector<bool> visited_of_not);
-  // Преобразование направленной матрицы в ненаправленную
-  std::vector<std::vector<int>> ConvertToUndirected(
-      const matrix graph_matrix);
-  // Получение минимальных координат
-  std::pair<int, int> GetMinCoordinats(
-      matrix working_matrix);
+
   // Получение веса остовного дерева
-  int GetSpanningTreeWeigt(matrix least_spanning_tree);
+  int GetGraphWeigt(
+      matrix adjacency_matrix);  
 
   // Метод ввывода матрицы смежности
-  void PrintAdjacencyMatrix(
-      matrix adjacency_matrix) noexcept;
+  void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
   // private:
   // Рассчитывает вероятность прохождения по текущему ребру
@@ -95,6 +78,16 @@ class GraphAlgorithms {
 
   // Выбираем рандомно вершину, в которую идем
   int SelectNextVertex(std::list<double> probability_list);
+
+ private:
+  bool CheckVisited(std::vector<int> visited_vertices,
+                    int current_vertix) noexcept;
+  // Все ли точки посещены
+  bool IsAllVisited(std::vector<bool> visited_of_not);
+  // Преобразование направленной матрицы в ненаправленную
+  std::vector<std::vector<int>> ConvertToUndirected(const matrix graph_matrix);
+  // Получение минимальных координат
+  std::pair<int, int> GetMinCoordinats(matrix working_matrix);
 };
 
 }  // namespace s21

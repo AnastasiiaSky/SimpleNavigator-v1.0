@@ -19,7 +19,7 @@ namespace s21 {
     // }
 
 
-    TEST(Graph, getEdgeList) {
+    TEST(GraphAlgorithmsTest, getEdgeList) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
@@ -30,7 +30,7 @@ namespace s21 {
     }
 
 
-    TEST(Graph, errorOpeningFile) { // !!! Возможно тест работает неккоректно
+    TEST(GraphAlgorithmsTest, errorOpeningFile) { // !!! Возможно тест работает неккоректно
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_155_vert_simply.txt";
@@ -38,7 +38,7 @@ namespace s21 {
     }
 
 
-    TEST(Graph, DOT) {
+    TEST(GraphAlgorithmsTest, DOT) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
@@ -48,7 +48,7 @@ namespace s21 {
     }
 
 
-    TEST(Graph, Graph_DOTerror_Test) {
+    TEST(GraphAlgorithmsTest, Graph_DOTerror_Test) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
@@ -68,7 +68,7 @@ namespace s21 {
     // }
 
 
-    TEST(GraphTest, ExportGraphToDot_ErrorOpeningFile) {
+    TEST(GraphAlgorithmsTest, ExportGraphToDot_ErrorOpeningFile) {
     // Создание объекта графа
     s21::s21_Graph graph;
 
@@ -93,7 +93,7 @@ namespace s21 {
     // }
     
     
-    TEST(Graph, CheckFile1) {
+    TEST(GraphAlgorithmsTest, CheckFile1) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_2_vert_char.txt";
@@ -159,7 +159,7 @@ namespace s21 {
     // }
 
 
-    TEST(Graph, SizeNotNumber) {
+    TEST(GraphAlgorithmsTest, SizeNotNumber) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
         // Необходимо отловить работу функции контроля правильности данных файла при вызове LoadGraphFromFile

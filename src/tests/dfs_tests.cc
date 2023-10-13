@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 namespace s21 {
-    TEST(Test, test_DepthFirstSearch_simple_graph_size_3) {
+    TEST(GraphAlgorithmsTest, test_DFS_simple_graph_3_check_all_vert_and_throw) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
@@ -43,7 +43,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_DepthFirstSearch_simple_graph_size_13) {
+    TEST(GraphAlgorithmsTest, test_DFS_simple_graph_13_check_vers_and_throw) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_13_vert_simply.txt";
@@ -80,7 +80,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_DepthFirstSearch_directed_graph_8_vert) {
+    TEST(GraphAlgorithmsTest, test_DFS_directed_graph_8_check_directed_verts) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_8_vert_direct.txt";
@@ -106,7 +106,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_DepthFirstSearch_directed_graph_21_vert) {
+    TEST(GraphAlgorithmsTest, test_DFS_directed_graph_21_check_big_graph) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_21_vert_direct.txt";
@@ -136,7 +136,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, test_DepthFirstSearch_weighted_graph_9_vert) {
+    TEST(GraphAlgorithmsTest, test_DFS_weighted_graph_9_check_verts) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_graph_9_vert.txt";
@@ -168,7 +168,7 @@ namespace s21 {
     }
    
 
-    TEST(Test, test_DepthFirstSearch_weighted_directed_graph_8_vert) {
+    TEST(GraphAlgorithmsTest, test_DFS_weighted_directed_graph_8_check_all_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
@@ -234,6 +234,21 @@ namespace s21 {
         start = 8;
         visited_vertices = algo.DepthFirstSearch(graph, start);
         result = {8, 7, 4, 3, 6, 5};
+        for(int it = 0; it < result.size(); ++it) {
+            ASSERT_EQ(visited_vertices[it], result[it]);
+        }
+    }
+
+        TEST(GraphAlgorithmsTest, test_DFS_very_big_graph) {
+        s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/very_big_graph.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int start = 1;
+        std::vector<int> visited_vertices;
+        std::vector<int> result;
+        visited_vertices = algo.DepthFirstSearch(graph, start);
+        result = {1, 2, 14, 7, 6, 5, 4, 3, 48, 47, 46, 16, 17, 11, 9, 10, 8, 15, 33, 31, 30, 13, 21, 12, 20, 18, 22, 23, 28, 24, 19, 25, 42, 41, 40, 29, 37, 38, 39, 43, 44, 26, 45, 27, 32, 36, 34, 35, 50, 49};
         for(int it = 0; it < result.size(); ++it) {
             ASSERT_EQ(visited_vertices[it], result[it]);
         }

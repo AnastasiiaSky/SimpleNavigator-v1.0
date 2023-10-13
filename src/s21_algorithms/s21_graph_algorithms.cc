@@ -3,7 +3,6 @@
 #include "s21_graph_algorithms.h"
 using namespace std;  //  !!!  Потом убрать
 
-
 /// @brief Метод поиска пути в глубину в графе.
 /// Алгоритм метода таков:
 /// 1. Создаем списое пройденныйх точек типа std::vector<int>
@@ -238,10 +237,11 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
 /// 5. Преобразуем результирующую матрицу: Заменяем максимальное значени е 0
 
 /// @param graph - текущий граф.
-/// @return matrix (std::vector<std::vector<int>>) min_distance - результатом работы
-/// метода в виде матрицы смежности
+/// @return matrix (std::vector<std::vector<int>>) min_distance - результатом
+/// работы метода в виде матрицы смежности
 
-std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
+std::vector<std::vector<int>>
+s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
   // std::cout << "FloydWarshall:" << std::endl;
   // !!! Проверка на связность и другие ограничения
   matrix min_distance = graph.getAdjacencyMatrix();
@@ -444,9 +444,11 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 ///    неориентированный и продолжаем работу.
 /// 2. Создаем структуру std::vector<bool> visited_or_not для отслеживания
 ///    посещенных и непосещенных точек.
-/// 2.1. Создаем структуру matrix (std::vector<std::vector<int>>) result_matrix для
+/// 2.1. Создаем структуру matrix (std::vector<std::vector<int>>) result_matrix
+/// для
 ///      хранения матрицы минимального остовного дерева.
-/// 2.2. Создаем структуру matrix (std::vector<std::vector<int>>) working_matrix для
+/// 2.2. Создаем структуру matrix (std::vector<std::vector<int>>) working_matrix
+/// для
 ///      работы с весами ребер.
 /// 3. Устанавливаем первую посещенную вершину.
 /// 4. Пока все вершины не посещены выполняем следующие действия:
@@ -461,17 +463,17 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 ///      inf в working_matrix, и помечаем вершину как посещенную.
 
 /// @param graph - объект класса граф.
-/// @return matrix (std::vector<std::vector<int>>) - возвращаемое значение матрица
-/// смежности минимально оставного дерева графа.
+/// @return matrix (std::vector<std::vector<int>>) - возвращаемое значение
+/// матрица смежности минимально оставного дерева графа.
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     s21_Graph &graph) {
   matrix graph_matrix = graph.getAdjacencyMatrix();
   graph_matrix = ConvertToUndirected(graph_matrix);
   std::vector<bool> visited_or_not(graph.get_graph_size(), false);
-  matrix result_matrix(
-      graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), 0));
-  matrix working_matrix(
-      graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), inf));
+  matrix result_matrix(graph.get_graph_size(),
+                       std::vector<int>(graph.get_graph_size(), 0));
+  matrix working_matrix(graph.get_graph_size(),
+                        std::vector<int>(graph.get_graph_size(), inf));
 
   int start_vertex = 0;
   visited_or_not[start_vertex] = true;
@@ -528,8 +530,7 @@ bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
 std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
     const matrix graph_matrix) {
   int n = graph_matrix.size();
- matrix undirected_adj_matrix(n,
-                                                      std::vector<int>(n, 0));
+  matrix undirected_adj_matrix(n, std::vector<int>(n, 0));
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
       if (graph_matrix[i][j] != 0) {
@@ -567,15 +568,14 @@ std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
 /// виде матрицы least_spanning_tree.
 /// @param least_spanning_tree - матрица смежности минимального остовного дерева
 /// @return суммарный вес остовного дерева
-int s21::GraphAlgorithms::GetSpanningTreeWeigt(
-    matrix least_spanning_tree) {
+int s21::GraphAlgorithms::GetGraphWeigt(matrix adjacency_matrix) {
   int result = 0;
-  for (int i = 0; i < least_spanning_tree.size(); ++i) {
-    for (int j = 0; j < least_spanning_tree.size(); ++j) {
-      result += least_spanning_tree[i][j];
+  for (int i = 0; i < adjacency_matrix.size(); ++i) {
+    for (int j = 0; j < adjacency_matrix.size(); ++j) {
+      result += adjacency_matrix[i][j];
     }
   }
-  result /= 2;
+  // result /= 2;
   return result;
 }
 
