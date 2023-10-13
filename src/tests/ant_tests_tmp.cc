@@ -11,13 +11,60 @@ namespace s21 {
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int number = algo.Vertex_random(1, 100);
+        int number = algo.VertexRandom(1, 100);
         int i = 1;
         if (number < 100 && number > 0) {
             i = 0;
         }
         ASSERT_EQ(0, i);
     }
+
+    TEST(AntTest, SelectNextVertex) {
+        std::list<double> probability_list {0.15, 0.35, 0.50};
+        s21::GraphAlgorithms algo;
+        int size = probability_list.size();
+        int vertex = algo.SelectNextVertex(probability_list);
+        // cout << "VERTEX " << vertex << endl;
+        int i = 1;
+        if (vertex <= size && vertex > 0) {
+            i = 0;
+        }
+        ASSERT_EQ(0, i);
+    }
+
+
+    TEST(AntTest, SelectNextVertex_2) {
+        std::list<double> probability_list {0, 0.15, 0.35, 0, 0.50};
+        s21::GraphAlgorithms algo;
+        int size = probability_list.size();
+        int vertex = algo.SelectNextVertex(probability_list);
+        cout << "VERTEX " << vertex << endl;
+        int i = 1;
+        if (vertex <= size && vertex > 0) {
+            i = 0;
+        }
+        ASSERT_EQ(0, i);
+    }
+
+    TEST(AntTest, RecalculatePheramoneMatrix) {
+        s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int distance = 10;
+        const int size = graph.get_graph_size(); 
+        std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
+        std::vector<std::vector<int>> temp_path = graph.getAdjacencyMatrix();
+        // int size = probability_list.size();
+        algo.RecalculatePheramoneMatrix(pheramone_matrix, temp_path, distance);
+        // cout << "VERTEX " << vertex << endl;
+        // int i = 1;
+        // if (vertex <= size && vertex > 0) {
+        //     i = 0;
+        // }
+        // ASSERT_EQ(0, i);
+    }
+
 
   int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);

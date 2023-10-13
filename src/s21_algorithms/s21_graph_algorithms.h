@@ -74,10 +74,10 @@ class GraphAlgorithms {
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency);
 
     // Пересчитывает количество ферамонта на текущему ребре
-    void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, int distance);
+    void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);
 
     // Генерируем рандомное число в заданном диапозоне
-    int Vertex_random(int min, int max) const;
+    int VertexRandom(int min, int max) const;
 
     // Выбираем рандомно вершину, в которую идем 
     int SelectNextVertex (std::list<double> probability_list);

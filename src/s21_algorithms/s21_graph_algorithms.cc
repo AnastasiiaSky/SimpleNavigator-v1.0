@@ -330,6 +330,8 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   TsmResult result_struct;
   result_struct.distance = std::numeric_limits<double>::max();
 
+  // Создаем матрицу пройденного 
+
   
   
   
@@ -340,7 +342,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   
   // Зануляем временный путь, чтоб каждый новый муравей прокладывал свой собственны или лучше создаем его тут
     // Создаем временный путь {0}, зануляем, чтоб каждый новый муравей прокладывал свой путь
-    std::vector<int> temp_path (size, 0);
+    std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
 
     // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
     // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
@@ -356,13 +358,13 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     // }
 
     // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
-      RecalculatePheramoneMatrix (pheramone_matrix, distance);
+      RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance);
 
     // Если все мы прошли все вершины и если новое расстояние короче, того, что в результирующей структуре: Перезаписываем стартовую вершину и расстояние
     // Если при заданном графе решение задачи невозможно, выведите ошибку.
   // }
     
-  return TsmResult();
+  return result_struct;
 }
   // возможно сделать, чтоб сразу возвращала матрицу
   void s21::GraphAlgorithms::CreateProbabilityMatrix (std::vector<std::vector<double>> &pobability_list, // возможно не надо
@@ -390,7 +392,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     }    
   }
 
-  int s21::GraphAlgorithms::Vertex_random(int min, int max) const {
+  int s21::GraphAlgorithms::VertexRandom(int min, int max) const {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distribution(min, max);
@@ -398,18 +400,26 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   }
 
   int s21::GraphAlgorithms::SelectNextVertex (std::list<double> probability_list){ // !!! const // возможно надо подать матрицу вероятностей
+      int vertex = 0;
       // Запускаем функцию рандома
-      int random_c = Vertex_random(1, 100); // !!! обределиться вероятность 0,3  или 30%
-      std::list<double>::iterator it = probability_list.begin();
-      int sum_probability = *it;
-      // Находим вершину, в которую упал наш рандом
-        for(; it != probability_list.end() && sum_probability * 100 <= random_c; it++){
-            sum_probability +=  *it;
+      int random_c = VertexRandom(1, 100); // !!! обределиться вероятность 0,3  или 30% // Возможно перенести как аргумент
+      // random_c = 51;
+      // cout << "Random_ " << random_c << endl;
+      if (random_c > 0 && random_c <= 100) {
+        std::list<double>::iterator it_b = probability_list.begin();
+        std::list<double>::iterator it_e = probability_list.end();
+        double sum_probability = 0;
+        // Находим вершину, в которую попал наш рандом
+        for(; it_b != it_e && sum_probability * 100 <= random_c;){
+            sum_probability +=  *it_b;
+            // cout << "sum_probability " << sum_probability << endl;
+            it_b++, vertex++;
         }
-        return  *it + 1;
+      }
+        return  vertex;
   }
 
-  void s21::GraphAlgorithms::RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, int distance){
+  void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ // may be not  list, but vector
     // Константы, вводятся самостоятельно
     const int q = 10; // Количество ферамонов у одного муравья 
     const double k = 0.7; // Коэффициент испарения ферамона 
@@ -417,12 +427,15 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     // Расчетные константы
     const double p = 1 - k; // Обратный коэфициент, умнажая на который предыдущее значение ферамоны уменьшается
     const int size = pheramone_matrix.size();  // Размер матрицы
-
     double feromon_const = q/distance;
-
+ 
     for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
-        pheramone_matrix[i][j] = p*(pheramone_matrix[i][j] + feromon_const);
+        if (temp_path[i][j] == 1) {
+          pheramone_matrix[i][j] = p*(pheramone_matrix[i][j] + feromon_const);
+        } else {
+          pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
+        }
       }
     }
    }
