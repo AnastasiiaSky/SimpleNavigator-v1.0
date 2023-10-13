@@ -2,7 +2,7 @@
 
 #include "s21_graph_algorithms.h"
 using namespace std;  //  !!!  Потом убрать
-// std::vector<std::vector<int>> !!! Заменить на Matrix
+
 
 /// @brief Метод поиска пути в глубину в графе.
 /// Алгоритм метода таков:
