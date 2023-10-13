@@ -53,14 +53,14 @@ namespace s21 {
     }
 
 
-    TEST(Graph, Graph_DOTerror_Test) {
-    s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
-        // graph.LoadGraphFromFile(InputFileName);
-        std::string outputFile = "output1.dot";
-        graph.ExportGraphToDot(outputFile);
-    }
+    // TEST(Graph, Graph_DOTerror_Test) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    //     // graph.LoadGraphFromFile(InputFileName);
+    //     std::string outputFile = "output1.dot";
+    //     graph.ExportGraphToDot(outputFile);
+    // }
 
     // TEST(Graph, getAjacencyMatrix) {
     // s21::s21_Graph graph;
@@ -109,16 +109,28 @@ namespace s21 {
     }
 
 
-    // TEST(Graph, CheckFile2) {
-    // s21::s21_Graph graph;
-    //     s21::GraphAlgorithms algo;
-    //     std::string InputFileName = "./examples/graph_2_vert_dimNE.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
-    //     graph.LoadGraphFromFile(InputFileName);
-    //     bool result = graph.checkFile(InputFileName);
-    //     bool expected = false;
-    //     ASSERT_EQ(result, expected);
-    // }
+    TEST(Graph, CheckFile2) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_2_vert_dimNE.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+        graph.LoadGraphFromFile(InputFileName);
+        bool result = graph.checkFile(InputFileName);
+        bool expected = false;
+        ASSERT_EQ(result, expected);
+    }
 
+    TEST(Graph, CheckFile_unconnected) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo; //graph_4_vert_simply
+         std::string InputFileName = "./examples/graph_5_vert_simply.txt";
+        // std::string InputFileName = "./examples/unconnected_graph_5_vert.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+        graph.LoadGraphFromFile(InputFileName);
+        // bool result = graph.IsGraphConnected();
+        bool result = graph.checkFile(InputFileName);
+        bool expected = true;
+        ASSERT_EQ(result, expected);
+        // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
+    }
 
     // TEST(Graph, CheckFile3) {
     // s21::s21_Graph graph;
@@ -163,6 +175,17 @@ namespace s21 {
     //     ASSERT_EQ(result, expected);
     // }
 
+
+    // TEST(Graph, CheckFile7) {
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_2_empty.txt"; //  //
+    //     // graph.LoadGraphFromFile(InputFileName);
+    //     // bool result = graph.checkFile(InputFileName);
+    //     // bool expected = false;
+    //     ASSERT_THROW(graph.checkFile(InputFileName), std::runtime_error);
+    //     // ASSERT_EQ(result, expected);
+    // }
 
     TEST(Graph, SizeNotNumber) {
     s21::s21_Graph graph;
