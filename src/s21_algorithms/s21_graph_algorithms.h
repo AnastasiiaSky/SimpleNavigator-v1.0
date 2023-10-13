@@ -7,7 +7,7 @@
 #include <queue> /// Заменить на самописные
 #include <stack> /// Заменить на самописные
 #include <vector> /// Заменить на самописные
-#include <math.h>
+#include <cmath>
 #include <random> 
 // #include <limits> // !!! возможно не надо
 // #include <limits.h> // !!! возможно не надо
@@ -89,7 +89,7 @@ class GraphAlgorithms {
     int VertexRandom(int min, int max) const;
 
     // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (std::list<double> probability_list);
+    int SelectNextVertex (std::vector<double> probability_list);
 
     
 

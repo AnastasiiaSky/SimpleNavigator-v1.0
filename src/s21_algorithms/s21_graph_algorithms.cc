@@ -333,7 +333,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   TsmResult result_struct;
   result_struct.distance = std::numeric_limits<double>::max();
 
-  
+  std::vector<int> res_path;
   // Создаем матрицу пройденного 
 
   int vertex; // Пока просто так 
@@ -352,34 +352,41 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
     
   //   // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
-    for (int i = 0; i < size; i++){
+    for (int j = 0; j < size; j++){
     // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
     // std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
     std::vector <double> probability_list(size, 0.0);
     // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
-    PrintResultOfDepthFirstSearch(probability_list);
-    PrintAdjacencyMatrix(pheramone_matrix);
+    // PrintResultOfDepthFirstSearch(probability_list);
+    // PrintAdjacencyMatrix(pheramone_matrix);
     PrintAdjacencyMatrix(matrix_adjacency);
-    cout << vertex << endl;
-
+    cout<< "VERTEX _ : " << vertex << endl;
+    // Выделить в отдельную функцию, удаления пути в вершины, которые мы посетили
+    for (int i = 0; i < size; i++){
+      // matrix_adjacency[i][vertex - 1] = 0;
+    }
+    PrintAdjacencyMatrix(matrix_adjacency);
     CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
     
-  //   // Выбираем в какую вершину он пошел из вероятно свободных  
-  //   // V = SelectNextVertex (pobability_list);
-  //   // 
-  //   // Сохраняем вершину где были во временный путь
+    // Выбираем в какую вершину он пошел из вероятно свободных 
+      //   // Сохраняем вершину где были во временный путь
+    
+    vertex = SelectNextVertex (probability_list);
+    temp_path[vertex - 1][j] = 1; //!!!  Возможно не правильно
   //   // 
   //   // 
   //   // !!!  Рассмотреть случаи, когда у него его маршрут приводит в тупик, тггда надо все зачистить и идти дальше к следующей вершине
   //   // }
 
-  //   // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
-  //     RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
-  //   // Считаем пройденный путь
-  //     distance_tmp = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
+    // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
+    distance_tmp = 1; // !!! Заменить посчитать
+      RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
+    // Считаем пройденный путь
+      distance_tmp = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
   //   // Если все мы прошли все вершины и если новое расстояние короче, того, что в результирующей структуре: Перезаписываем стартовую вершину и расстояние
   //    if (distance_tmp < result_struct.distance){
   //         result_struct.distance = distance_tmp;
+  // Прибавлем в путь стартовую вершину, и + к дистанции
   //         *result_struct.vertices = vertex; // !!! Поменять vertex на такое написание
     PrintResultOfDepthFirstSearch(probability_list);
      }
@@ -389,6 +396,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
     
     PrintAdjacencyMatrix(pheramone_matrix);
+    PrintResultOfDepthFirstSearch(res_path);
     
   return result_struct;
 }
@@ -405,20 +413,29 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     double feramont_distance = 0; // !!! Обязательно ли всегда занулять 
     double sum_feramont_distance = 0;
     // Сумма всех значений ферамонов всех ребер на 1 единицу пути
-    cout << "Test : " << size << endl;
+    cout << "Test : " << pow(0, 1) << endl;
       for (int j = 0; j < size; j++){
         if (matrix_adjacency[vertex - 1][j] != 0) {
-          sum_feramont_distance += pow(1/matrix_adjacency[vertex - 1][j], b) * pow(pheramone_matrix[vertex - 1][j], a);
+          sum_feramont_distance += std::pow(1.0/matrix_adjacency[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a);
+          // sum_feramont_distance = 12;
         }       
       }
-      cout << sum_feramont_distance << endl;
+      // cout << "sum_feramont_distance " << sum_feramont_distance << endl;
   
       for (int j = 0; j < size; j++){
         if (matrix_adjacency[vertex - 1][j] != 0 && sum_feramont_distance != 0) {
-          feramont_distance = pow(1/matrix_adjacency[vertex - 1][j], b) * pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
+            // double tmp = 1.0 / 2;
+            // cout << "IIII " <<  tmp << endl;
+            // cout << "UUU^2 " << std::pow(0.01238, 2) << endl;       
+            // cout << "UUU " << 1/(matrix_adjacency[vertex - 1][j]) << endl; 
+            // 
+          feramont_distance = std::pow(1.0/matrix_adjacency[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
+          // cout << "UUU_щ " << feramont_distance << endl; 
+          cout << sum_feramont_distance << endl; 
+          // cout << "YYYY " << feramont_distance << endl;
           probability_list[j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
           // probability_list[j] = 1;
-          cout << "Test2: " << probability_list[j] << endl;
+          // cout << "Test2: " << probability_list[j] << endl;
         }
       }      
       // PrintResultOfDepthFirstSearch(probability_list);  
@@ -432,21 +449,22 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     return distribution(gen);
   }
 
-  int s21::GraphAlgorithms::SelectNextVertex (std::list<double> probability_list){ // !!! const // возможно надо подать матрицу вероятностей
+  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ // !!! const // возможно надо подать матрицу вероятностей
       int vertex = 0;
+      int size = probability_list.size();
       // Запускаем функцию рандома
       int random_c = VertexRandom(1, 100); // !!! обределиться вероятность 0,3  или 30% // Возможно перенести как аргумент
       // random_c = 51;
       // cout << "Random_ " << random_c << endl;
       if (random_c > 0 && random_c <= 100) {
-        std::list<double>::iterator it_b = probability_list.begin();
-        std::list<double>::iterator it_e = probability_list.end();
+        // std::list<double>::iterator it_b = probability_list.begin();
+        // std::list<double>::iterator it_e = probability_list.end();
         double sum_probability = 0;
         // Находим вершину, в которую попал наш рандом
-        for(; it_b != it_e && sum_probability * 100 <= random_c;){
-            sum_probability +=  *it_b;
+        for(int j = 0; j != size && sum_probability * 100 <= random_c; j++){
+            sum_probability += probability_list[j];
             // cout << "sum_probability " << sum_probability << endl;
-            it_b++, vertex++;
+           vertex++;
         }
       }
         return  vertex;
@@ -454,20 +472,21 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
   void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ // may be not  list, but vector
     // Константы, вводятся самостоятельно //!!!  Возможно сделать как аргументами метода
-    const int q = 10; // Количество ферамонов у одного муравья 
+    const int q = 10.0; // Количество ферамонов у одного муравья 
     const double k = 0.3; // Коэффициент испарения ферамона 
 
     // Расчетные константы
     const double p = 1 - k; // Обратный коэфициент, умнажая на который предыдущее значение ферамоны уменьшается
     const int size = pheramone_matrix.size();  // Размер матрицы
-    double feromon_const = q/distance;
- 
-    for (int i = 0; i < size; i++){
-      for (int j = 0; j < size; j++){
-        if (temp_path[i][j] != 0) { // == 1
-          pheramone_matrix[i][j] = p*pheramone_matrix[i][j] + feromon_const;
-        // } else {
-          // pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
+    if (distance != 0){
+      double feromon_const = q / distance;    
+      for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+          if (temp_path[i][j] != 0) { // == 1
+            pheramone_matrix[i][j] = p*pheramone_matrix[i][j] + feromon_const;
+          } else {
+            pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
+          }
         }
       }
     }
