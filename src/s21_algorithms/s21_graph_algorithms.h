@@ -70,8 +70,8 @@ class GraphAlgorithms {
 
   // private:
     // Рассчитывает вероятность прохождения по текущему ребру
-    void CreateProbabilityMatrix (std::vector<std::vector<double>> &pobability_list,
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency);
+    void CreateProbabilityMatrix (std::vector<double> &pobability_list,
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency, int vertex);
 
     // Пересчитывает количество ферамонта на текущему ребре
     void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);

@@ -314,6 +314,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
+  // !!!  Как поведет себя с отрицательными весами, может ли быть отрицательное количество ферамонов
   // Константы, вводятся самостоятельно
   const int ant = 500; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
 
@@ -330,9 +331,10 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   TsmResult result_struct;
   result_struct.distance = std::numeric_limits<double>::max();
 
+  int distance_tmp;
   // Создаем матрицу пройденного 
 
-  
+  int vertex; // Пока просто так
   
   
   // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
@@ -346,8 +348,11 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
     // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
     // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
-    std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
+    // std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
+    std::vector <double> probability_list(size, 0.0);
     // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
+    CreateProbabilityMatrix(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+    
     // Выбираем в какую вершину он пошел из вероятно свободных  
     // V = SelectNextVertex (pobability_list);
     // 
@@ -359,38 +364,46 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
     // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
       RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance);
-
+    // Считаем пройденный путь
+      distance_tmp = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
     // Если все мы прошли все вершины и если новое расстояние короче, того, что в результирующей структуре: Перезаписываем стартовую вершину и расстояние
+     if (distance_tmp < result_struct.distance){
+          result_struct.distance = distance_tmp;
+          *result_struct.vertices = vertex; // !!! Поменять vertex на такое написание
+     }
+
     // Если при заданном графе решение задачи невозможно, выведите ошибку.
   // }
     
   return result_struct;
 }
   // возможно сделать, чтоб сразу возвращала матрицу
-  void s21::GraphAlgorithms::CreateProbabilityMatrix (std::vector<std::vector<double>> &pobability_list, // возможно не надо
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency){
+  void s21::GraphAlgorithms::CreateProbabilityMatrix (std::vector<double> &probability_list, // возможно не надо
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency, int vertex){
     // Константы, вводятся самостоятельно
     const int a = 1;
     const int b = 1; 
 
     // Расчетные константы
-    const int size = pobability_list.size(); 
+    const int size = probability_list.size(); 
 
     double feramont_distance = 0; // !!! Обязательно ли всегда занулять 
     double sum_feramont_distance = 0;
     // Сумма всех значений ферамонов всех ребер на 1 единицу пути
-    for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
-        sum_feramont_distance += pow(1/matrix_adjacency[i][j], b) * pow(pheramone_matrix[i][j], a);
+        if (matrix_adjacency[vertex][j] != 0) {
+          sum_feramont_distance += pow(1/matrix_adjacency[vertex][j], b) * pow(pheramone_matrix[vertex][j], a);
+        }       
       }
-    }    
-    for (int i = 0; i < size; i++){
+
       for (int j = 0; j < size; j++){
-        feramont_distance = pow(1/matrix_adjacency[i][j], b) * pow(pheramone_matrix[i][j], a); // !!! А если у нас 0, то есть нет маршрута
-        pobability_list[i][j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
-      }
-    }    
+        if (matrix_adjacency[vertex][j] != 0) {
+          feramont_distance = pow(1/matrix_adjacency[vertex][j], b) * pow(pheramone_matrix[vertex][j], a); // !!! А если у нас 0, то есть нет маршрута
+          probability_list[j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
+        }
+      }        
   }
+  
 
   int s21::GraphAlgorithms::VertexRandom(int min, int max) const {
     std::random_device rd;
@@ -420,9 +433,9 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   }
 
   void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ // may be not  list, but vector
-    // Константы, вводятся самостоятельно
+    // Константы, вводятся самостоятельно //!!!  Возможно сделать как аргументами метода
     const int q = 10; // Количество ферамонов у одного муравья 
-    const double k = 0.7; // Коэффициент испарения ферамона 
+    const double k = 0.3; // Коэффициент испарения ферамона 
 
     // Расчетные константы
     const double p = 1 - k; // Обратный коэфициент, умнажая на который предыдущее значение ферамоны уменьшается
@@ -431,10 +444,10 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
  
     for (int i = 0; i < size; i++){
       for (int j = 0; j < size; j++){
-        if (temp_path[i][j] == 1) {
-          pheramone_matrix[i][j] = p*(pheramone_matrix[i][j] + feromon_const);
-        } else {
-          pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
+        if (temp_path[i][j] != 0) { // == 1
+          pheramone_matrix[i][j] = p*pheramone_matrix[i][j] + feromon_const;
+        // } else {
+          // pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
         }
       }
     }
