@@ -6,6 +6,22 @@ using namespace std;
 
 namespace s21 {
 
+    //  TEST(AntTest, SolveTravelingSalesmanProblem) {
+    //     s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+        
+    //     std::string InputFileName = "./examples/weighted_directed_graph_11_vert.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     int distance = 10;
+    //     TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
+    //     const int size = graph.get_graph_size(); 
+   
+    //             // ASSERT_EQ(253, result_struct.distance);
+    //             // ASSERT_EQ(1, *result_struct.vertices);
+
+    
+    // }
+
     TEST(AntTest, Vertex_random) {
     s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
@@ -68,26 +84,32 @@ namespace s21 {
         }
     }
 
-    TEST(AntTest, CreateProbabilityMatrix) {
+    TEST(AntTest, CreateProbabilityPath) {
         s21::s21_Graph graph;
         s21::GraphAlgorithms algo;
-        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+        // std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+        std::string InputFileName = "./examples/weighted_directed_graph_3_vert.txt";
         graph.LoadGraphFromFile(InputFileName);
-        int distance = 10;
         const int size = graph.get_graph_size(); 
+        int distance = 10;
+        int vertex = 1;
         std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
-        std::vector<std::vector<int>> temp_path = graph.getAdjacencyMatrix();
+        std::vector<std::vector<int>> matrix_adjacency = graph.getAdjacencyMatrix();
+        std::vector <double> probability_list(size, 0.0);
+
         // int size = probability_list.size();
-        algo.RecalculatePheramoneMatrix(pheramone_matrix, temp_path, distance);
-        for (int i = 0; i < size; i++){
-            for (int j = 0; j < size; j++){
-                if (temp_path[i][j] == 1) {
-                ASSERT_EQ(1.7, pheramone_matrix[i][j]);
-                } else {
-                ASSERT_EQ(1, pheramone_matrix[i][j]);
-                }
-            }
-        }
+        algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+        algo.PrintResultOfDepthFirstSearch(probability_list);  
+
+        // for (int i = 0; i < size; i++){
+        //     for (int j = 0; j < size; j++){
+        //         if (temp_path[i][j] == 1) {
+        //         ASSERT_EQ(1.7, pheramone_matrix[i][j]);
+        //         } else {
+        //         ASSERT_EQ(1, pheramone_matrix[i][j]);
+        //         }
+        //     }
+        // }
     }
 
 

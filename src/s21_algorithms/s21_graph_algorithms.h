@@ -53,7 +53,13 @@ class GraphAlgorithms {
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
 
   // Метод вывода результата пути 
-  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept;
+  // !!! Переименовать метод
+  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept; // он должен в выводи быть без стрелочек
+  // Метод вывода результата пути 
+  // !!! Переименовать метод
+  void PrintResultOfDepthFirstSearch(std::vector<double> visited_vertices) noexcept;
+
+
   // Алгоритм Прима
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph & graph);
   // Все ли точки посещены
@@ -62,15 +68,18 @@ class GraphAlgorithms {
   std::vector<std::vector<int>> ConvertToUndirected(const std::vector<std::vector<int>> graph_matrix);
   // Получение минимальных координат
   std::pair<int,int> GetMinCoordinats(std::vector<std::vector<int>> working_matrix);  
- // Получение веса остовного дерева
+  // Получение веса остовного дерева
   int GetSpanningTreeWeigt(std::vector<std::vector<int>> least_spanning_tree);
 
-// Метод ввывода матрицы смежности
-  void PrintAdjacencyMatrix(std::vector<std::vector<int>> adjacency_matrix) noexcept;
+  // Метод ввывода матрицы смежности int
+  void PrintAdjacencyMatrix(std::vector<std::vector<int>> matrix) noexcept;
+
+  // Метод ввывода матрицы смежности double
+  void PrintAdjacencyMatrix(std::vector<std::vector<double>> matrix) noexcept;
 
   // private:
     // Рассчитывает вероятность прохождения по текущему ребру
-    void CreateProbabilityMatrix (std::vector<double> &pobability_list,
+    void CreateProbabilityPath(std::vector<double> &pobability_list,
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency, int vertex);
 
     // Пересчитывает количество ферамонта на текущему ребре
