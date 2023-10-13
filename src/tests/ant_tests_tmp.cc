@@ -18,6 +18,9 @@ namespace s21 {
    
                 // ASSERT_EQ(253, result_struct.distance);
                 // ASSERT_EQ(1, *result_struct.vertices);
+                cout << "Vertex_ " << result_struct.vertices << endl;
+                cout << "Distance_" << result_struct.distance << endl;
+                algo.PrintResultOfDepthFirstSearch(result_struct.path);
 
     
     }
@@ -34,7 +37,8 @@ namespace s21 {
    
     //             // ASSERT_EQ(253, result_struct.distance);
     //             // ASSERT_EQ(1, *result_struct.vertices);
-
+    //             cout << "Distance_" << result_struct.distance << endl;
+    // algo.PrintResultOfDepthFirstSearch(result_struct.path);
     
     // }
 

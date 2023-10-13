@@ -17,7 +17,8 @@
 namespace s21 {
 
   struct TsmResult {
-    int *vertices;    // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
+    std::vector<int> path;
+    int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
     double distance;  // длина этого маршрута
   };
 
