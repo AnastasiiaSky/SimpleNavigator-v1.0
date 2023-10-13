@@ -32,7 +32,7 @@ s21_algorithms.a:
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/*.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/main_tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
 testa: clean
