@@ -29,7 +29,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
     throw std::length_error("Start vertex is incorrect");
   }
   std::vector<int> visited_vertices;
-  std::stack<int> vertex_stack;
+  s21::Stack<int> vertex_stack;
   matrix adjacency_list = graph.getAdjacencyList();
 
   vertex_stack.push(start_vertex);
@@ -79,7 +79,7 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
 
   // std::cout << "Algorithm Breadth First Search" << std::endl;
   std::vector<int> visited_vertices;
-  std::queue<int> queue_vertices_add;
+  s21::Queue<int> queue_vertices_add;
   matrix adjacency_list = graph.getAdjacencyList();
   int adjacent_vertices;
   queue_vertices_add.push(start_vertex);

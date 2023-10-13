@@ -14,6 +14,11 @@
 // #include <limits.h> // !!! возможно не надо
 
 #include "../s21_graph/s21_graph.h"
+#include "../conteiners/s21_helpsrc.h"
+#include "../conteiners/s21_list.h"
+#include "../conteiners/s21_stack.h"
+#include "../conteiners/s21_queue.h"
+
 
 
 namespace s21 {
