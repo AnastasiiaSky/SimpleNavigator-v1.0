@@ -1,7 +1,7 @@
 /// \file
 
 #include "s21_graph_algorithms.h"
-using namespace std;  //  !!!  Потом убрать
+// using namespace std;  //  !!!  Потом убрать
 
 /// @brief Метод поиска пути в глубину в графе.
 /// Алгоритм метода таков:
