@@ -51,18 +51,16 @@ using namespace s21;
   // std::cout << "Resultat:\n";
   // algo.PrintAdjacencyMatrix(adjacencyList);
 
-// 0, 2, 3, 3, 
-// 2, 0, 5, 1, 
-// 3, 5, 0, 6, 
-// 3, 1, 6, 0, 
+  // 0, 2, 3, 3,
+  // 2, 0, 5, 1,
+  // 3, 5, 0, 6,
+  // 3, 1, 6, 0,
 
-//   return 0;
-// }
+  return 0;
+}
 
 
 // ./s21_graph/examples/graph_3_vert_simply.txt
 // ./s21_graph/examples/graph_4_vert_simply.txt
 // ./s21_graph/examples/graph_5_vert_simply.txt
 // ./s21_graph/examples/graph_7_vert_simply.txt
-
-

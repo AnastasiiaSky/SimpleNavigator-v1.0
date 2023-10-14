@@ -2,14 +2,14 @@
 #define SRC_S21_GRAPH_H_
 #include <cstring>
 #include <iostream>
-#include <vector> /// Заменить на самописные
+#include <vector>  /// Заменить на самописные
 
 #include "../s21_algorithms/s21_graph_algorithms.h"
 
 class GraphAlgorithms;
 
-// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для упрощения вида)
-
+// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для
+// упрощения вида)
 
 namespace s21 {
 class s21_Graph {
