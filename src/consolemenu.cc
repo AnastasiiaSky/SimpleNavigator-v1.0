@@ -53,7 +53,7 @@ namespace s21 {
             std::vector<std::vector<int>> result = algo.GetLeastSpanningTree(graph_);
             algo.PrintAdjacencyMatrix(result);
             int weight = algo.GetGraphWeigt(result);
-            std::cout << "Spanning Tree Weight = " << weight << std::endl;
+            std::cout << "Spanning Tree Weight = " << weight/2 << std::endl;
             break;
                 }
             }
@@ -63,12 +63,12 @@ namespace s21 {
     {
         std::cout << std::endl << "What do you want to do?" << std::endl;
         std::cout << "1. Load the original graph from a file" << std::endl;
-        std::cout << "2. Traverse graph in breadth with output of the result to the console" << std::endl;
-        std::cout << "3. Traverse graph in depth with output of the result to the console" << std::endl;
-        std::cout << "4. Search for the shortest path between any two vertices and display the result to the console" << std::endl;
-        std::cout << "5. Search for the shortest paths between all pairs of vertices in the graph with the output of the resulting matrix to the console" << std::endl;
-        std::cout << "6. Search for the minimal spanning tree in the graph with the output of the resulting adjacency matrix to the console" << std::endl;
-        std::cout << "7. Solve the salesman problem with the output of the resulting route and its length to the console" << std::endl;
+        std::cout << "2. Go thru graph in Breadth and print the result" << std::endl;
+        std::cout << "3. Go thru graph in Depth and print the result" << std::endl;
+        std::cout << "4. Find the shortest path between any two vertices and print the result" << std::endl;
+        std::cout << "5. Find the shortest paths between all pairs of vertices in the graph and print the resulting matrix" << std::endl;
+        std::cout << "6. Find the minimal spanning tree in the graph and print the resulting adjacency matrix and the tree weight" << std::endl;
+        std::cout << "7. Solve the salesman problem and print the resulting route and its length" << std::endl;
         std::cout << "8. Exit" << std::endl;
         std::cout << ">";
     }

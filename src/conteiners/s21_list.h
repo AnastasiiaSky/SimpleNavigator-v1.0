@@ -273,7 +273,7 @@ List<value_type>& List<value_type>::operator=(List&& l) noexcept {
     currentPtr++;
   }
   l.clear();
-  s21::List(std::move(l));
+  s21::List<value_type>(std::move(l));
   return *this;
 }
 template <typename value_type>

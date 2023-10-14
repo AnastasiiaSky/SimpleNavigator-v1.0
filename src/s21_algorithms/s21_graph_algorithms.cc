@@ -384,21 +384,21 @@ int s21::GraphAlgorithms::Vertex_random(int min, int max) const {
   return distribution(gen);
 }
 
-int s21::GraphAlgorithms::SelectNextVertex(
-    std::list<double> probability_list) {  // !!! const // возможно надо подать
-                                           // матрицу вероятностей
-  // Запускаем функцию рандома
-  int random_c =
-      Vertex_random(1, 100);  // !!! обределиться вероятность 0,3  или 30%
-  std::list<double>::iterator it = probability_list.begin();
-  int sum_probability = *it;
-  // Находим вершину, в которую упал наш рандом
-  for (; it != probability_list.end() && sum_probability * 100 <= random_c;
-       it++) {
-    sum_probability += *it;
-  }
-  return *it + 1;
-}
+// int s21::GraphAlgorithms::SelectNextVertex(
+//     std::list<double> probability_list) {  // !!! const // возможно надо подать
+//                                            // матрицу вероятностей
+//   // Запускаем функцию рандома
+//   int random_c =
+//       Vertex_random(1, 100);  // !!! обределиться вероятность 0,3  или 30%
+//   std::list<double>::iterator it = probability_list.begin();
+//   int sum_probability = *it;
+//   // Находим вершину, в которую упал наш рандом
+//   for (; it != probability_list.end() && sum_probability * 100 <= random_c;
+//        it++) {
+//     sum_probability += *it;
+//   }
+//   return *it + 1;
+// }
 
 void s21::GraphAlgorithms::RecalculatePheramoneMatrix(
     std::vector<std::vector<double>> &pheramone_matrix, int distance) {
