@@ -5,6 +5,7 @@
 
 #include "./s21_algorithms/s21_graph_algorithms.h"
 #include "./s21_graph/s21_graph.h"
+#include "consolemenu.h"
 
 using namespace s21;
   int main() {
@@ -56,8 +57,8 @@ using namespace s21;
   // 3, 5, 0, 6,
   // 3, 1, 6, 0,
 
-  return 0;
-}
+//   return 0;
+// }
 
 
 // ./s21_graph/examples/graph_3_vert_simply.txt

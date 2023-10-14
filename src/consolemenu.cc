@@ -46,9 +46,16 @@ namespace s21 {
             << vertex2 << ": " << shortestDistance << std::endl;
             break;}
         case 5: {
-            std::vector<std::vector<int>> minimum_distance = algo.FloydWarshall(graph_);
+            std::vector<std::vector<int>> minimum_distance = algo.GetShortestPathsBetweenAllVertices(graph_);
             algo.PrintAdjacencyMatrix(minimum_distance);
             break;}
+        case 6: {
+            std::vector<std::vector<int>> result = algo.GetLeastSpanningTree(graph_);
+            algo.PrintAdjacencyMatrix(result);
+            int weight = algo.GetGraphWeigt(result);
+            std::cout << "Spanning Tree Weight = " << weight << std::endl;
+            break;
+                }
             }
         }
     }
