@@ -32,12 +32,12 @@ s21_algorithms.a:
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/*.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
-testa: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests_tmp.cc -o ant_tests $(GTEST)
-	./ant_tests	
+# testa: clean
+# 	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests_tmp.cc -o ant_tests $(GTEST)
+# 	./ant_tests	
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 

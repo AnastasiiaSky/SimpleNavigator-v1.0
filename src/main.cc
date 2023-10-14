@@ -7,20 +7,26 @@
 #include "./s21_graph/s21_graph.h"
 
 using namespace s21;
-int main() {
-  s21::s21_Graph graph;
-  s21::GraphAlgorithms algo;
+  int main() {
+    s21::ConsoleMenuInterface obj;
+    obj.Deploy();
+    return 0;
+}
+// int main() {
 
-  std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+  // s21::s21_Graph graph;
+  // s21::GraphAlgorithms algo;
+
+  // std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
   
-  graph.LoadGraphFromFile(InputFileName);
+  // graph.LoadGraphFromFile(InputFileName);
   // std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   // std::cout << "EdgesList:\n";
   // for (int i = 0; i < edgesList.size(); ++i) {
   //   std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second
   //             << ")\n";
   // }
-  std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
+  // std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
   // std::cout << "Start:\n";
   // std::cout << "AdjacencyList:\n";
   // for (int i = 0; i < adjacencyList.size(); ++i) {
@@ -30,10 +36,10 @@ int main() {
   //   }
   //   std::cout << "\n";
   // }
-  std::string outputFile = "output.dot";
+  // std::string outputFile = "output.dot";
   // graph.ExportGraphToDot(outputFile);
-  std::cout << "Поиск:\n";
-  int start = 1;
+  // std::cout << "Поиск:\n";
+  // int start = 1;
   // std::vector<int> visited_vertices = algo.DepthFirstSearch(graph, start);
   // std::vector<int> result = algo.BreadthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
@@ -41,17 +47,17 @@ int main() {
   // /*std::vector<int> */ result = algo.DepthFirstSearch(graph, start);
   // algo.PrintResultOfDepthFirstSearch(result);
 
-  adjacencyList = algo.GetShortestPathsBetweenAllVertices(graph);
-  std::cout << "Resultat:\n";
-  algo.PrintAdjacencyMatrix(adjacencyList);
+  // adjacencyList = algo.GetShortestPathsBetweenAllVertices(graph);
+  // std::cout << "Resultat:\n";
+  // algo.PrintAdjacencyMatrix(adjacencyList);
 
 // 0, 2, 3, 3, 
 // 2, 0, 5, 1, 
 // 3, 5, 0, 6, 
 // 3, 1, 6, 0, 
 
-  return 0;
-}
+//   return 0;
+// }
 
 
 // ./s21_graph/examples/graph_3_vert_simply.txt
