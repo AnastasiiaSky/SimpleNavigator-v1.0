@@ -1,8 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../s21_algorithms/s21_graph_algorithms.h"
-#include "../s21_graph/s21_graph.h"
-
+namespace s21 {
 TEST(GraphAlgorithmsTest, ShortestPathCase1) {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
@@ -133,7 +131,32 @@ TEST(GraphAlgorithmsTest, InvalidVertices3) {
                std::exception);
 }
 
-int main(int argc, char **argv) {
-  ::testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+
+TEST(GraphAlgorithmsTest, VeryBigGraph) {
+  s21::s21_Graph graph;
+
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/very_big_graph.txt";
+  graph.LoadGraphFromFile(InputFileName);
+
+  int start = 7, finish = 40;
+
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 63);
+
+  start = 1;
+  finish = 50;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 28);
+
+  start = 16;
+  finish = 37;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 77);
+
+  start = 42;
+  finish = 36;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 132);
+
+  start = 22;
+  finish = 49;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 104);
 }
+} // namespace s21

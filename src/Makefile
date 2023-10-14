@@ -41,8 +41,9 @@ tests: clean
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 
-	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h
-	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h
+	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc
+	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.h
+	
 	rm -rf .clang-format
 
 clean:
