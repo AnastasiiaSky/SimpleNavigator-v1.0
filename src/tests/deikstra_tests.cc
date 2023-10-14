@@ -113,6 +113,16 @@ TEST(GraphAlgorithmsTest, ShortestPathCase9) {
   EXPECT_EQ(shortestDistance, 8);
 }
 
+TEST(GraphAlgorithmsTest, ShortestPathCase10) {
+  s21::s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/unconnected_graph_5.txt";
+  graph.LoadGraphFromFile(InputFileName);
+
+  EXPECT_THROW(algo.GetShortestPathBetweenVertices(graph, 1, 4),
+               std::exception);
+}
+
 TEST(GraphAlgorithmsTest, InvalidVertices3) {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
