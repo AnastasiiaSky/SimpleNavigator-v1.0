@@ -13,34 +13,32 @@ namespace s21 {
 //         // - когда все вершина направлены в одну вершину
 //         // - когда 2 вершины и ребра из одного графа направлены во второй граф
     
-//         // TEST(Graph, getAjacencyMatrix) {
-//     // s21::s21_Graph graph;
-
-//     //     // Ïîëó÷åíèå ìàòðèöû ñìåæíîñòè èç ãðàôà
-//     //     std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
-//     //     std::vector<std::vector<int>> expected {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
-//     //     //  std::vector<int> expected = {0, 1, 3, 4, 2, 5, 6};
-//     //     ASSERT_EQ(adjacencyMatrix, expected);
-//     // }
+    //     TEST(Graph, getAjacencyMatrix) {
+    // s21::s21_Graph graph;
+    //     std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
+    //     std::vector<std::vector<int>> expected {{0, 1, 1}, {1, 0, 1}, {1, 1, 0}};
+    //     //  std::vector<int> expected = {0, 1, 3, 4, 2, 5, 6};
+    //     ASSERT_EQ(adjacencyMatrix, expected);
+    // }
 
 
-//     TEST(Graph, getEdgeList) {
-//     s21::s21_Graph graph;
-//         s21::GraphAlgorithms algo;
-//         std::string InputFileName = "./examples/graph_3_vert_simply.txt";
-//         graph.LoadGraphFromFile(InputFileName);
-//         std::vector<std::pair<int, int>> GetedgesList = graph.getEdgesList(); 
-//         std::vector<std::pair<int, int>> expected {{1, 2}, {1, 3}, {2, 1}, {2, 3}, {3, 1}, {3, 2}};
-//         ASSERT_EQ(GetedgesList, expected);
-//     }
+    TEST(Graph, getEdgeList) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        std::vector<std::pair<int, int>> GetedgesList = graph.getEdgesList(); 
+        std::vector<std::pair<int, int>> expected {{1, 2}, {1, 3}, {2, 1}, {2, 3}, {3, 1}, {3, 2}};
+        ASSERT_EQ(GetedgesList, expected);
+    }
 
 
-//     TEST(Graph, errorOpeningFile) { // !!! Возможно тест работает неккоректно
-//     s21::s21_Graph graph;
-//         s21::GraphAlgorithms algo;
-//         std::string InputFileName = "./examples/graph_155_vert_simply.txt";
-//         graph.LoadGraphFromFile(InputFileName);
-//     }
+    // TEST(Graph, errorOpeningFile) { // !!! Возможно тест работает неккоректно
+    // s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     std::string InputFileName = "./examples/graph_155_vert_simply.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    // }
 
 
 //     TEST(Graph, DOT) {
