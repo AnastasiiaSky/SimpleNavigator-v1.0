@@ -72,8 +72,8 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 
-std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
-                                                          int start_vertex) {
+// std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
+//                                                           int start_vertex) {
   std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph & graph,
                                                             int start_vertex) {
     if (start_vertex > graph.get_graph_size() || start_vertex <= 0) {
@@ -329,11 +329,9 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
               return min_distance;
             }
 
-            s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(
-                s21_Graph & graph) {
-              s21::TsmResult
-              s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &
-                                                                  graph) {
+            // s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(
+            //     s21_Graph & graph) {
+              s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph) {
                 // Константы, вводятся самостоятельно
                 const int ant = 500;  // Количеству муравьев в колонии, при
                                       // условии, что у нас их больше чем вершин
