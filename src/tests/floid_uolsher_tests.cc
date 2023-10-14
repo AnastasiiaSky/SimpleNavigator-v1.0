@@ -2,7 +2,7 @@
 
 namespace s21 {
 
-    TEST(Test, FloidWarshall_graph_3_vert_simply) {
+    TEST(GraphAlgorithmsTest, FloidWarshall_graph_3_vert_simply) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weight_graph_4_vert.txt";
@@ -29,7 +29,7 @@ namespace s21 {
     }
      
 
-     TEST(Test, FloidWarshall_weighted_directed_graph_3_vert) {
+     TEST(GraphAlgorithmsTest, FloidWarshall_weighted_directed_graph_3_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_3_vert.txt";
@@ -44,7 +44,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, FloidWarshall_weighted_directed_graph_8_vert) {
+    TEST(GraphAlgorithmsTest, FloidWarshall_weighted_directed_graph_8_vert) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
@@ -64,7 +64,7 @@ namespace s21 {
     }
 
 
-    TEST(Test, FloidWarshall_graph_21_vert_direct) {
+    TEST(GraphAlgorithmsTest, FloidWarshall_graph_21_vert_direct) {
         s21_Graph graph;
         s21::GraphAlgorithms algo;
         std::string InputFileName = "./examples/graph_21_vert_direct.txt";

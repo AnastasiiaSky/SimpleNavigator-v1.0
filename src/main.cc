@@ -12,7 +12,7 @@ int main() {
   s21::GraphAlgorithms algo;
 
   std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
-  
+
   graph.LoadGraphFromFile(InputFileName);
   // std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
   // std::cout << "EdgesList:\n";
@@ -45,18 +45,15 @@ int main() {
   std::cout << "Resultat:\n";
   algo.PrintAdjacencyMatrix(adjacencyList);
 
-// 0, 2, 3, 3, 
-// 2, 0, 5, 1, 
-// 3, 5, 0, 6, 
-// 3, 1, 6, 0, 
+  // 0, 2, 3, 3,
+  // 2, 0, 5, 1,
+  // 3, 5, 0, 6,
+  // 3, 1, 6, 0,
 
   return 0;
 }
-
 
 // ./s21_graph/examples/graph_3_vert_simply.txt
 // ./s21_graph/examples/graph_4_vert_simply.txt
 // ./s21_graph/examples/graph_5_vert_simply.txt
 // ./s21_graph/examples/graph_7_vert_simply.txt
-
-
