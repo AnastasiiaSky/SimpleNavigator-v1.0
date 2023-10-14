@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+
 namespace s21 {
 // // std::cout << "Class Graph" << std::endl;
 // !!! Добавить тест и пример на не связный граф  где
@@ -185,4 +186,52 @@ TEST(GraphAlgorithmsTest, SizeNotNumber) {
 //     std::string::npos);
 // }
 
-}  // namespace s21
+    TEST(Graph, CheckFile_connectivity) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo; //graph_4_vert_simply
+        //  std::string InputFileName = "./examples/graph_5_vert_simply.txt";
+        std::string InputFileName = "./examples/unconnected_graph_5_vert.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+        
+        //  std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        bool result = graph.IsGraphConnected(graph, InputFileName);
+        // bool result = graph.checkFile(InputFileName);
+        bool expected = false;
+    
+        ASSERT_EQ(result, expected);
+        // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
+    }
+
+        TEST(Graph, CheckFile_connectivity2) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo; //graph_4_vert_simply
+        //  std::string InputFileName = "./examples/graph_5_vert_simply.txt";
+        // std::string InputFileName = "./examples/unconnected_graph_5_vert.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+        
+         std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        bool result = graph.IsGraphConnected(graph, InputFileName);
+        // bool result = graph.checkFile(InputFileName);
+        bool expected = true;
+    
+        ASSERT_EQ(result, expected);
+        // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
+    }
+        TEST(Graph, CheckFile_connectivity3) {
+    s21::s21_Graph graph;
+        s21::GraphAlgorithms algo; //graph_4_vert_simply
+         std::string InputFileName = "./examples/graph_5_vert_simply.txt";
+        // std::string InputFileName = "./examples/unconnected_graph_5_vert.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
+        
+        //  std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        bool result = graph.IsGraphConnected(graph, InputFileName);
+        // bool result = graph.checkFile(InputFileName);
+        bool expected = true;
+        ASSERT_EQ(result, expected);
+        // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
+    }
+
+
+
+} // namespace s21
