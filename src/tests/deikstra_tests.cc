@@ -106,11 +106,11 @@ TEST(GraphAlgorithmsTest, ShortestPathCase8) {
 TEST(GraphAlgorithmsTest, ShortestPathCase9) {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
-  std::string InputFileName = "./examples/weighted_undirected_35_graph.txt";
+  std::string InputFileName = "./examples/weighted_graph_50_vert.txt";
   graph.LoadGraphFromFile(InputFileName);
 
-  int shortestDistance = algo.GetShortestPathBetweenVertices(graph, 2, 17);
-  EXPECT_EQ(shortestDistance, 15);
+  int shortestDistance = algo.GetShortestPathBetweenVertices(graph, 33, 19);
+  EXPECT_EQ(shortestDistance, 8);
 }
 
 TEST(GraphAlgorithmsTest, InvalidVertices3) {
