@@ -1,9 +1,11 @@
 /// \file
 #include "s21_graph.h"
+
+#include <errno.h>
+
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <errno.h>
 /// @brief �����-������
 /// @param () ��� ����������
 /// @return ���������� ������� �������� �� ���������� ���� AdjacencyMatrix_
@@ -13,8 +15,9 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
 }
 
 /// @brief �����-������ ����� �� ������� ���������, �������  ������
-/// edgesList_, ������� ������� �� ���������-���(����� ������� ���� ������ ����� �������� ���� �����). 
-/// � ����� ���� - ������ �������� �������, �� ������� ������� �����, � ������ �������� - ������ ������� ������ ���� �����
+/// edgesList_, ������� ������� �� ���������-���(����� ������� ���� ������ �����
+/// �������� ���� �����). � ����� ���� - ������ �������� �������, �� �������
+/// ������� �����, � ������ �������� - ������ ������� ������ ���� �����
 /// @param () ��� ����������
 /// @return  ���������� ������ �� ��� �� ���������� ���� edgesList_
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
@@ -34,9 +37,10 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
 /// @return  ���������� ������ ����� �� ���������� ���� size_
 int s21::s21_Graph::get_graph_size() { return size_; }
 
-/// @brief �����-������, ������������ ������ ��������� (������ ������-�������) ��� ������ �� ������ 
-/// � ������ ����� ������ ��������� ������� ���������  adjacencyList_ �������� size_ 
-/// �������� �� �������� ������� ��������� ������� ��������� �������, � ��� ������� ���� (�� ���� �������) 
+/// @brief �����-������, ������������ ������ ��������� (������ ������-�������)
+/// ��� ������ �� ������ � ������ ����� ������ ��������� ������� ���������
+/// adjacencyList_ �������� size_ �������� �� �������� ������� ��������� �������
+/// ��������� �������, � ��� ������� ���� (�� ���� �������)
 ///  adjacencyList_ ���������� ������ �������� ��������
 /// ������� ����� ������� ������ ������� ������
 /// @param () ��� ����������
@@ -66,78 +70,83 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 //   }
 //   ifs >> size_;  // read the graph size from file
 //   // change the matrix size
-//   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));  
+//   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));
 //   for (int i = 0; i < size_; ++i) {
 //     for (int j = 0; j < size_; ++j) {
 //       ifs >>
 //       // take the values from the files to the  matrix
-//           AdjacencyMatrix_[i][j];  
+//           AdjacencyMatrix_[i][j];
 //     }
 //   }
 //   ifs.close();
 // }
-/// @brief ����� checkFile ��������� ����, �� �������� ������ ������� ��������� � ��������� �� ��, �����
-/// 1) ���� ��������, ���� ���� ��� ���������� � ��� 2) ����� ���� �� �������� �������� 
-/// 3) ������� ���������� � ������������� ��������� ����������� 4) ���� ����� (���� ����������) - �� �������������
+/// @brief ����� checkFile ��������� ����, �� �������� ������ ������� ���������
+/// � ��������� �� ��, ����� 1) ���� ��������, ���� ���� ��� ���������� � ��� 2)
+/// ����� ���� �� �������� �������� 3) ������� ���������� � �������������
+/// ��������� ����������� 4) ���� ����� (���� ����������) - �� �������������
 /// @param const std::string& filename - �������� ��� �����, � ������� "������"
 /// @param int dimention
-/// ���������� int dimention  ��������� � ������� ���������� ifs >> dimension ������ ����� ��� �������� � ����� 
-/// dimension - int � ���� ���� ������ �� �����, �� ����� ������ ���������� �����,
-///   �� �������� � dimentsion �������� ����� ��������� ������ ����� ������������ ���������� int value: � �������� (ifs >> value && value >=0)
+/// ���������� int dimention  ��������� � ������� ���������� ifs >> dimension
+/// ������ ����� ��� �������� � ����� dimension - int � ���� ���� ������ ��
+/// �����, �� ����� ������ ���������� �����,
+///   �� �������� � dimentsion �������� ����� ��������� ������ �����
+///   ������������ ���������� int value: � �������� (ifs >> value && value >=0)
 /// ��� �������� ��� ����� ��������� ��������������� ����
 /// ����� ������� �� ��������� � �2 ����
-/// �3-4 ����������� ��������� ����������: ������� ����������, � ������� ��������� ������ value ��� �������� col row
-/// 1) ������� � ������� ������� ������� ������ ������. �������� �� ������� ����
-///  �����  ��������������� ���� � ������� ���, ���������� �������� ������� +1; 
+/// �3-4 ����������� ��������� ����������: ������� ����������, � �������
+/// ��������� ������ value ��� �������� col row 1) ������� � ������� �������
+/// ������� ������ ������. �������� �� ������� ����
+///  �����  ��������������� ���� � ������� ���, ���������� �������� ������� +1;
 /// 2) ��� ������ ������� ���������  � ������������ size_
-/// �� ��� �������� � �������� ������� ����, ����� ������� �������� ������� � ������ ����
-/// ������� ������ ����� ������� � ������������ � �������� col == 0 ����
-/// 3) ����� ����������� �������� � �����, �� ����������. ������� ��������� �����
-/// � ���� ��� �� ����� �������� dimension, ������ raw !=col: checkFile ������ �false 
+/// �� ��� �������� � �������� ������� ����, ����� ������� �������� ������� �
+/// ������ ���� ������� ������ ����� ������� � ������������ � �������� col == 0
+/// ���� 3) ����� ����������� �������� � �����, �� ����������. ������� ���������
+/// ����� � ���� ��� �� ����� �������� dimension, ������ raw !=col: checkFile
+/// ������ �false
 /// @return ������ ��������� �� ���������� ����, ������� adjacencyList_
 
 bool s21::s21_Graph::checkFile(const std::string& filename) {
-    std::ifstream ifs(filename);
-    if (!ifs.is_open()) {
-        // std::cout << "Error opening file";
-        return false;
-    }
+  std::ifstream ifs(filename);
+  if (!ifs.is_open()) {
+    // std::cout << "Error opening file";
+    return false;
+  }
 
-    int dimension = 0;
-    if (!(ifs >> dimension)) {
-        return false;
+  int dimension = 0;
+  if (!(ifs >> dimension)) {
+    return false;
+  }
+  // else if (ifs >> dimension) {
+  //   if (dimension < 0)
+  //     return false;
+  // }
+  std::vector<std::vector<int>> matrix;
+  int value;
+  int row = 0;
+  int col = 0;
+  while (ifs >> value && value >= 0) {
+    if (col == 0) {
+      matrix.push_back(std::vector<int>());
     }
-    // else if (ifs >> dimension) {
-    //   if (dimension < 0)
-    //     return false;
-    // }
-    std::vector<std::vector<int>> matrix;
-    int value;
-    int row = 0;
-    int col = 0;
-    while (ifs >> value && value >= 0) {
-    
-        if (col == 0) {
-            matrix.push_back(std::vector<int>());
-        }
-        matrix[row].push_back(value);
-        col++;
-        if (col == dimension) {
-            col = 0;
-            row++;
-        }
+    matrix[row].push_back(value);
+    col++;
+    if (col == dimension) {
+      col = 0;
+      row++;
     }
-    if (col != 0 || row != dimension) {
-        return false;
-    }
+  }
+  if (col != 0 || row != dimension) {
+    return false;
+  }
 
-    ifs.close();
-    return true;
+  ifs.close();
+  return true;
 }
-/// @brief �����, ����������� �������  �� ����� 
+/// @brief �����, ����������� �������  �� �����
 /// @param const std::string& filename - �������� ��� �����, � ������� "������"
-/// 3) ����� �����������  ������� ���� ������������� � ��������� ��������� ����������� ��������
-/// if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
+/// 3) ����� �����������  ������� ���� ������������� � ��������� ���������
+/// ����������� �������� if(size_ <= 0) { std::cout << "Dimension must be > 0";
+/// return;}
 /// @return  no
 void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   std::ifstream ifs(filename);
@@ -145,10 +154,15 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
     std::cout << "Error opening file";
     return;
   }
-  if(!checkFile(filename)) {std::cout << "Error opening file";}
+  if (!checkFile(filename)) {
+    std::cout << "Error opening file";
+  }
   ifs >> size_;  // read the graph size from file
-  //3) ����� �����������  ������� ���� ������������� � ��������� ���������
-  if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
+  // 3) ����� �����������  ������� ���� ������������� � ��������� ���������
+  if (size_ <= 0) {
+    std::cout << "Dimension must be > 0";
+    return;
+  }
   AdjacencyMatrix_.resize(size_,
                           std::vector<int>(size_));  // change the matrix size
   for (int i = 0; i < size_; ++i) {

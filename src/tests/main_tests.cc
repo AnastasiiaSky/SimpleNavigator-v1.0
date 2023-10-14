@@ -3,6 +3,7 @@
 #include "../s21_graph/s21_graph.cc"
 #include "../s21_algorithms/s21_graph_algorithms.cc"
 
+
 #include "graph_class_tests.cc"
 #include "dfs_tests.cc"
 #include "bfs_tests.cc"

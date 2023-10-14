@@ -2,14 +2,14 @@
 #define SRC_S21_GRAPH_H_
 #include <cstring>
 #include <iostream>
-#include <vector> /// Заменить на самописные
+#include <vector>  /// Заменить на самописные
 
 #include "../s21_algorithms/s21_graph_algorithms.h"
 
 class GraphAlgorithms;
 
-// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для упрощения вида)
-
+// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для
+// упрощения вида)
 
 namespace s21 {
 class s21_Graph {
@@ -24,7 +24,7 @@ class s21_Graph {
   std::vector<std::pair<int, int>>
   getEdgesList();  // геттер списка инцидентности(списка ребер)
   int get_graph_size();
-  bool checkFile(const std::string& filename);  // !!! Возможно с большой буквы 
+  bool checkFile(const std::string& filename);  // !!! Возможно с большой буквы
 
   void LoadGraphFromFile(std::string filename);  // загрузка графа из файла
   void ExportGraphToDot(std::string filename);  // выгрузка графа в файл
