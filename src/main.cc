@@ -15,8 +15,7 @@ using namespace s21;
 }
 // int main() {
 
-  // s21::s21_Graph graph;
-  // s21::GraphAlgorithms algo;
+  // std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
 
   // std::string InputFileName = "./examples/weighted_directed_graph_8_vert.txt";
   
@@ -51,6 +50,14 @@ using namespace s21;
   // adjacencyList = algo.GetShortestPathsBetweenAllVertices(graph);
   // std::cout << "Resultat:\n";
   // algo.PrintAdjacencyMatrix(adjacencyList);
+
+  // int vertex1 = 1;
+  // int vertex2 = 4;
+
+  // int shortestDistance =
+  //     algo.GetShortestPathBetweenVertices(graph, vertex1, vertex2);
+  // std::cout << "Shortest Distance from Vertex " << vertex1 << " to Vertex "
+  //           << vertex2 << ": " << shortestDistance << std::endl;
 
   // 0, 2, 3, 3,
   // 2, 0, 5, 1,
