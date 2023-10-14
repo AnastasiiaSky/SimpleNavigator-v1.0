@@ -56,8 +56,7 @@ class GraphAlgorithms {
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
 
   // Получение веса остовного дерева
-  int GetGraphWeigt(
-      matrix adjacency_matrix);  
+  int GetGraphWeigt(matrix adjacency_matrix);
 
   // Метод ввывода матрицы смежности
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;

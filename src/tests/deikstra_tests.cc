@@ -61,4 +61,32 @@ TEST(GraphAlgorithmsTest, InvalidVertices1) {
   EXPECT_THROW(algo.GetShortestPathBetweenVertices(graph, 0, 4),
                std::invalid_argument);
 }
-} // namespace s21
+
+TEST(GraphAlgorithmsTest, VeryBigGraph) {
+  s21::s21_Graph graph;
+
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/very_big_graph.txt";
+  graph.LoadGraphFromFile(InputFileName);
+
+  int start = 7, finish = 40;
+
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 63);
+
+  start = 1;
+  finish = 50;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 28);
+
+  start = 16;
+  finish = 37;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 77);
+
+  start = 42;
+  finish = 36;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 132);
+
+  start = 22;
+  finish = 49;
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 104);
+}
+}  // namespace s21
