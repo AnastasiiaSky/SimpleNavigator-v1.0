@@ -146,7 +146,7 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 bool s21::s21_Graph::checkFile(const std::string& filename) {
     std::ifstream ifs(filename);
     if (!ifs.is_open()) {
-        std::cout << "Error opening file";
+        // std::cout << "Error opening file";
         return false;
     }
 
@@ -298,18 +298,6 @@ void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph &graph)
       // }
     }
   }
-
-      for(int i = 0; i < size_; ++i) {
-    for(int j = 0; j < size_; ++j) {
-    std::cout << this->AdjacencyMatrix_[i][j] <<  " ";
-      // if(AdjacencyMatrix[i][j] != AdjacencyMatrix[j][i]) {
-      //   return true;
-      // }
-    }
-    std::cout << std::endl;
-
-  // return s21::s21_Graph();
-}
 }
 
 bool s21::s21_Graph::IsDerrected(std::vector<std::vector<int>> AdjacencyMatrix)
@@ -325,7 +313,6 @@ bool s21::s21_Graph::IsDerrected(std::vector<std::vector<int>> AdjacencyMatrix)
   return false;
 }
 
-// std::vector
 
 bool s21::s21_Graph::IsGraphConnected(s21_Graph &graph, std::string filename)  {
   if(IsDerrected(graph.AdjacencyMatrix_) == false) {
