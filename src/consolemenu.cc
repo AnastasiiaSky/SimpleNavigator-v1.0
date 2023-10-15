@@ -17,7 +17,7 @@ namespace s21 {
         case 1:  
             std::cout << "specify the path to the file:" << std::endl;
             std::cin >> pathToFile;
-            if(graph_.checkFile(pathToFile)) { 
+            if(graph_.CheckFile(pathToFile)) { 
                 graph_.LoadGraphFromFile(pathToFile);
                 if(graph_.IsGraphConnected(graph_, pathToFile)) {
                     GraphAlgorithms_.PrintAdjacencyMatrix(graph_.getAdjacencyMatrix());
