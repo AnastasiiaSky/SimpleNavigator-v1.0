@@ -18,8 +18,12 @@ namespace s21 {
 
   struct TsmResult {
     std::vector<int> path;
+    int random;
+    std::vector<double> tmp;
     int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
     double distance;  // длина этого маршрута
+    double distance2;  // длина этого маршрута
+
   };
 
 class s21_Graph;
@@ -90,7 +94,7 @@ class GraphAlgorithms {
     int VertexRandom(int min, int max) const;
 
     // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (std::vector<double> probability_list);
+    int SelectNextVertex (std::vector<double> probability_list, int ver);
 
     
 

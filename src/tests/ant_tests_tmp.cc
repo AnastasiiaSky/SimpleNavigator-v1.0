@@ -6,32 +6,12 @@ using namespace std;
 
 namespace s21 {
 
-     TEST(AntTest, weighted_graph_4_vert) {
-        s21::s21_Graph graph;
-        s21::GraphAlgorithms algo;
-        
-        std::string InputFileName = "./examples/weighted_graph_4_vert.txt";
-        // std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
-        graph.LoadGraphFromFile(InputFileName);
-        int distance = 10;
-        TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
-        const int size = graph.get_graph_size(); 
-   
-                // ASSERT_EQ(253, result_struct.distance);
-                // ASSERT_EQ(1, *result_struct.vertices);
-                // cout << "Vertex_ " << result_struct.vertices << endl;
-                // cout << "Distance_" << result_struct.distance << endl;
-                cout << "Path: ";
-                algo.PrintResultOfDepthFirstSearch(result_struct.path);
-
-    
-    }
-
-    // TEST(AntTest, weighted_graph_11_vert) {
+    //  TEST(AntTest, weighted_graph_4_vert_1) {
     //     s21::s21_Graph graph;
     //     s21::GraphAlgorithms algo;
         
-    //     std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+    //     std::string InputFileName = "./examples/weighted_graph_4_vert.txt";
+    //     // std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
     //     graph.LoadGraphFromFile(InputFileName);
     //     int distance = 10;
     //     TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
@@ -39,10 +19,33 @@ namespace s21 {
    
     //             // ASSERT_EQ(253, result_struct.distance);
     //             // ASSERT_EQ(1, *result_struct.vertices);
-    //             cout << "Distance_" << result_struct.distance << endl;
-    // algo.PrintResultOfDepthFirstSearch(result_struct.path);
-    
+    //             cout << "Vertex_ " << result_struct.vertices << endl;
+    //             cout << "Distance_ " << result_struct.distance << endl;
+    //             cout << "Path: ";
+    //             algo.PrintResultOfDepthFirstSearch(result_struct.path);
+    //             // cout << "Path: f ";
+
     // }
+
+    TEST(AntTest, weighted_graph_11_vert) {
+        s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
+        
+        std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int distance = 10;
+        TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
+        const int size = graph.get_graph_size(); 
+   
+                // ASSERT_EQ(253, result_struct.distance);
+                // ASSERT_EQ(1, *result_struct.vertices);
+                cout << "Distance_" << result_struct.distance << endl;
+                cout << "Distance_" << result_struct.distance2 << endl;
+            algo.PrintResultOfDepthFirstSearch(result_struct.path);
+            // algo.PrintResultOfDepthFirstSearch(result_struct.tmp);
+            cout << "random_" << result_struct.random << endl;
+    
+    }
 
     // TEST(AntTest, Vertex_random) {
     // s21::s21_Graph graph;
@@ -120,12 +123,14 @@ namespace s21 {
     //     std::vector <double> probability_list(size, 0.0);
 
     //     // int size = probability_list.size();
-    //     algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
     //     algo.PrintResultOfDepthFirstSearch(probability_list);  
 
     //     for (int j = 1; j < size; j++){
     //        ASSERT_EQ(0.5, probability_list[j]);
     //     }
+    //     ASSERT_EQ(probability_list, probability_list);
+    //     ASSERT_EQ(0, err);
     // }
 
     // TEST(AntTest, CreateProbabilityPath_2) {
@@ -142,16 +147,17 @@ namespace s21 {
     //     std::vector <double> probability_list(size, 0.0);
     //     std::vector <double> reference_list{0, 0, 0.625, 0, 0, 0.375, 0, 0};
 
-    //     algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
-    //     // algo.PrintResultOfDepthFirstSearch(probability_list);  
+    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+    //     algo.PrintResultOfDepthFirstSearch(probability_list);  
 
     //     ASSERT_EQ(probability_list, probability_list);
+    //     ASSERT_EQ(0, err);
     // }
 
    
 
 
-  int main(int argc, char** argv) {
+int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
