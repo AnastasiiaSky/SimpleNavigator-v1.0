@@ -154,6 +154,8 @@ s21::s21_Graph graph;
  ASSERT_ANY_THROW(graph.CheckFile(InputFileName));
 }
 
+
+
 TEST(Graph, CheckFile10) {
   s21::s21_Graph graph;
     s21::GraphAlgorithms algo;
@@ -248,7 +250,7 @@ s21::s21_Graph graph;
         // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
     }
         TEST(Graph, Graph_connectivity_3) {
-    s21::s21_Graph graph;
+        s21::s21_Graph graph;
         s21::GraphAlgorithms algo; //graph_4_vert_simply
          std::string InputFileName = "./examples/graph_5_vert_simply.txt";
         // std::string InputFileName = "./examples/unconnected_graph_5_vert.txt"; // graph_2_vert_R_NE_C //graph_2_vert_simply
@@ -262,6 +264,43 @@ s21::s21_Graph graph;
         // EXPECT_THROW(graph.LoadGraphFromFile(InputFileName), std::invalid_argument); 
     }
 
+  TEST(Graph, Graph_connectivity_4) {
+    s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_4_unconnected.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    bool result =  graph.IsGraphConnected(graph, InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
 
+  TEST(Graph, Graph_connectivity_5) {
+    s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_4_orient_uncon.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    bool result =  graph.IsGraphConnected(graph, InputFileName);
+    bool expected = false;
+    ASSERT_EQ(result, expected);
+}
+  TEST(Graph, Graph_connectivity_6) {
+    s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/graph_5_orient_connected.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    bool result =  graph.IsGraphConnected(graph, InputFileName);
+    bool expected = true;
+    ASSERT_EQ(result, expected);
+}
+  TEST(Graph, Graph_connectivity_7) {
+    s21::s21_Graph graph;
+    s21::GraphAlgorithms algo;
+    std::string InputFileName = "./examples/weighted_directed_graph_7_vert.txt";
+    graph.LoadGraphFromFile(InputFileName);
+    bool result =  graph.IsGraphConnected(graph, InputFileName);
+    bool expected = true;
+    ASSERT_EQ(result, expected);
+}
+//graph_5_orient_connected
 
 } // namespace s21

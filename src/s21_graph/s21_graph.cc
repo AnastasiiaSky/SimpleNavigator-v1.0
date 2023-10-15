@@ -222,13 +222,10 @@ std::vector<int> s21::s21_Graph::FindPath(s21_Graph &graph, int start_vertex) {
   while (!vertex_stack.empty()) {
     int current_vertex = vertex_stack.top();
     vertex_stack.pop();
-
     if (std::find(visited_vertices.begin(), visited_vertices.end(), current_vertex) != visited_vertices.end()) {
       continue;
     }
-
     visited_vertices.push_back(current_vertex);
-
     std::vector<int> adjacent_vertices = adjacency_list[current_vertex - 1];
     for (int it = adjacent_vertices.size() - 1; it >= 0; --it) {
       int adjacent_vertex = adjacent_vertices[it];
@@ -239,14 +236,24 @@ std::vector<int> s21::s21_Graph::FindPath(s21_Graph &graph, int start_vertex) {
   }
   return visited_vertices;
 }
+
 /// @brief Метод, меняющий матрицу смежности ориентированного графа на матрицу смежности неориентированного
+/// у нас в матрице ориентированного графа могут быть разные веса
+///  поэтому условие AdjacencyMatrix_[i][j] != AdjacencyMatrix_[j][i] будет работать только для нулей и единиц
+/// проверяем каждую пару вершин (i, j) и (j, i) не пустые ли. Существует ли ребро между i или j. Если AdjacencyMatrix_[i][j] != 0 значит
+///  ребро есть в виде его веса. Мы не знаем какой из них может быть ненулевым поэтому выбираем максимум из них
+/// и сохраняем в обе вершины
 /// @param graph - текущий граф.
 /// @return ничего не возвращает
-void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph &graph)
-{
-  for(int i = 0; i < size_/2; ++i) {
-    for(int j = 0; j < size_/2; ++j) {
-      this->AdjacencyMatrix_[j][i] = this->AdjacencyMatrix_[i][j];
+
+void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph& graph) {
+  for (int i = 0; i <  size_; ++i) {
+    for (int j = i + 1; j <  size_; ++j) {
+      if ( AdjacencyMatrix_[i][j] != 0 ||  AdjacencyMatrix_[j][i] != 0) {
+        int weight = std::max( AdjacencyMatrix_[i][j],  AdjacencyMatrix_[j][i]);
+        AdjacencyMatrix_[i][j] = weight;
+        AdjacencyMatrix_[j][i] = weight;
+      }
     }
   }
 }
@@ -256,11 +263,11 @@ void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph &graph)
 bool s21::s21_Graph::IsDerrected(std::vector<std::vector<int>> AdjacencyMatrix)
 {
   for(int i = 0; i < size_; ++i) {
-  for(int j = 0; j < size_; ++j) {
+    for(int j = 0; j < size_; ++j) {
     if(AdjacencyMatrix[i][j] != AdjacencyMatrix[j][i]) {
       return true;
+      }
     }
-  }
   }
   return false;
 }
