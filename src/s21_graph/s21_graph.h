@@ -24,7 +24,8 @@ class s21_Graph {
   std::vector<std::pair<int, int>>
   getEdgesList();  // геттер списка инцидентности(списка ребер)
   int get_graph_size();
-  bool checkFile(const std::string& filename);  // !!! Возможно с большой буквы 
+  bool CheckFile(const std::string& filename);
+  // void CheckFile(const std::string& filename);   
   // bool IsGraphConnected(s21_Graph &graph);
   bool IsGraphConnected(s21_Graph &graph, std::string filename);
   std::vector<int> FindPath(s21_Graph &graph, int start_vertex);

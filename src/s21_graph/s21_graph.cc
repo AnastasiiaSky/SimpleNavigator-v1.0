@@ -8,20 +8,19 @@
 #include <vector>
 #include <errno.h>
 #include <stdexcept>
-/// @brief �����-������
-/// @param () ��� ����������
-/// @return ���������� ������� �������� �� ���������� ���� AdjacencyMatrix_
+/// @brief Метод-геттер
+/// @param () Без параметров
+/// @return Возвращает матрицу векторов из приватного поля AdjacencyMatrix_
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
   if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
   return AdjacencyMatrix_;
 }
 
-/// @brief �����-������ ����� �� ������� ���������, �������  ������
-/// edgesList_, ������� ������� �� ���������-���(����� ������� ���� ������ �����
-/// �������� ���� �����). � ����� ���� - ������ �������� �������, �� �������
-/// ������� �����, � ������ �������� - ������ ������� ������ ���� �����
-/// @param () ��� ����������
-/// @return  ���������� ������ �� ��� �� ���������� ���� edgesList_
+/// @brief Метод-геттер бежит по матрице смежности, создает  вектор
+/// edgesList_, который состоит из сущностей-пар(иными словами двух вершин между которыми есть ребро). 
+/// В такой паре - первое значение вершина, из которой выходит ребро, а второе значение - вторая вершина докуда идет ребро
+/// @param () Без параметров
+/// @return  Возвращает вектор из пар из приватного поля edgesList_
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
@@ -34,19 +33,18 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   }
   return edgesList_;
 }
-/// @brief �����-������, ������������ ������ �����
-/// @param () ��� ����������
-/// @return  ���������� ������ ����� �� ���������� ���� size_
+/// @brief Метод-геттер, возвращающий размер графа
+/// @param () Без параметров
+/// @return  Возвращает размер графа из приватного поля size_
 int s21::s21_Graph::get_graph_size() { return size_; }
 
-/// @brief �����-������, ������������ ������ ��������� (������ ������-�������)
-/// ��� ������ �� ������ � ������ ����� ������ ��������� ������� ���������
-/// adjacencyList_ �������� size_ �������� �� �������� ������� ��������� �������
-/// ��������� �������, � ��� ������� ���� (�� ���� �������)
-///  adjacencyList_ ���������� ������ �������� ��������
-/// ������� ����� ������� ������ ������� ������
-/// @param () ��� ����������
-/// @return ������ ��������� �� ���������� ����, ������� adjacencyList_
+/// @brief Метод-геттер, возвращающий список смежности (список вершин-соседей) для каждой из вершин 
+/// в рамках этого метода создается матрица смежности  adjacencyList_ размером size_ 
+/// пробегая по исходной матрице смежности находим ненулевые позиции, и для каждого ряда (то есть вершины) 
+///  adjacencyList_ записываем номера непустых столбцов
+/// получая такми образом список смежных вершин
+/// @param () Без параметров
+/// @return список смежности из приватного поля, матрицы adjacencyList_
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
   // std::cout << "Start " << std::endl;
@@ -82,32 +80,27 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 //   }
 //   ifs.close();
 // }
-/// @brief ����� checkFile ��������� ����, �� �������� ������ ������� ���������
-/// � ��������� �� ��, ����� 1) ���� ��������, ���� ���� ��� ���������� � ��� 2)
-/// ����� ���� �� �������� �������� 3) ������� ���������� � �������������
-/// ��������� ����������� 4) ���� ����� (���� ����������) - �� �������������
-/// @param const std::string& filename - �������� ��� �����, � ������� "������"
+/// @brief метод CheckFile открывает файл, из которого грузим матрицу смежности и проверяет на то, чтобы
+/// 1) файл открылся, чтоб путь был правильный и имя 2) чтобы файл не содержал символов 
+/// 3) матрица квадратная и соответствует указанной размерности 4) веса графа (если взвешенный) - не отрицательные
+/// @param const std::string& filename - входящее имя файла, в формате "строка"
 /// @param int dimention
-/// ���������� int dimention  ��������� � ������� ���������� ifs >> dimension
-/// ������ ����� ��� �������� � ����� dimension - int � ���� ���� ������ ��
-/// �����, �� ����� ������ ���������� �����,
-///   �� �������� � dimentsion �������� ����� ��������� ������ �����
-///   ������������ ���������� int value: � �������� (ifs >> value && value >=0)
-/// ��� �������� ��� ����� ��������� ��������������� ����
-/// ����� ������� �� ��������� � �2 ����
-/// �3-4 ����������� ��������� ����������: ������� ����������, � �������
-/// ��������� ������ value ��� �������� col row 1) ������� � ������� �������
-/// ������� ������ ������. �������� �� ������� ����
-///  �����  ��������������� ���� � ������� ���, ���������� �������� ������� +1;
-/// 2) ��� ������ ������� ���������  � ������������ size_
-/// �� ��� �������� � �������� ������� ����, ����� ������� �������� ������� �
-/// ������ ���� ������� ������ ����� ������� � ������������ � �������� col == 0
-/// ���� 3) ����� ����������� �������� � �����, �� ����������. ������� ���������
-/// ����� � ���� ��� �� ����� �������� dimension, ������ raw !=col: checkFile
-/// ������ �false
-/// @return ������ ��������� �� ���������� ����, ������� adjacencyList_
+/// переменная int dimention  принимает с помощью инструкции ifs >> dimension первую цифру над матрицей в файле 
+/// dimension - int и если туда придет не число, то будет ошибка приведения типов,
+///   по аналогии с dimentsion контроль типов остальных данных файла осуществляет переменная int value: в усвловии (ifs >> value && value >=0)
+/// оно означает что будут приходить неотрицательные инты
+/// Таким образом мы проверили п №2 выше
+/// п3-4 проверяются следующим алгоритмом: заводим переменную, в которую принимаем данные value два счетчика col row
+/// 1) начиная с нулевой колонки создаем пустой вектор. Находясь на текущем ряду
+///  пушим  неотрицательные инты в текущий ряд, увеличивая сччетчик колонок +1; 
+/// 2) как только счетчик сравнялся  с размерностью size_
+/// мы его обнуляем и начинаем считать ряды, таким образом заполняя матрицу с нового ряда
+/// который пустым сразу создаем в соответствии с условием col == 0 выше
+/// 3) когда закончились значения в файле, мы сравниваем. сколько насчитали рядов
+/// и если они не равны значению dimension, значит raw !=col: CheckFile вернул  false 
+/// @return список смежности из приватного поля, матрицы adjacencyList_
 
-// bool s21::s21_Graph::checkFile(const std::string& filename) {
+// bool s21::s21_Graph::CheckFile(const std::string& filename) {
 //     std::ifstream ifs(filename);
 //     try {
 //         if (!ifs.is_open()) {
@@ -153,15 +146,20 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 //     }
 // }
 
-bool s21::s21_Graph::checkFile(const std::string& filename) {
+bool s21::s21_Graph::CheckFile(const std::string& filename) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
+     throw std::runtime_error("Error opening file");
     // std::cout << "Error opening file";
     return false;
   }
 
+      if (ifs.peek() == std::ifstream::traits_type::eof()) {
+            throw std::runtime_error("File is empty: " + filename);
+      }
     int dimension = 0;
     if (!(ifs >> dimension)) {
+      throw std::runtime_error("Invalid value");
         return false;
     }
     // else if (ifs >> dimension) {
@@ -194,25 +192,42 @@ bool s21::s21_Graph::checkFile(const std::string& filename) {
     ifs.close();
     return true;
 }
-/// @brief �����, ����������� �������  �� �����
-/// @param const std::string& filename - �������� ��� �����, � ������� "������"
-/// 3) ����� �����������  ������� ���� ������������� � ��������� ���������
-/// ����������� �������� if(size_ <= 0) { std::cout << "Dimension must be > 0";
-/// return;}
+/// @brief Метод, выгружающий матрицу  из файла 
+/// @param const std::string& filename - входящее имя файла, в формате "строка"
+/// 3) чтобы размерность  матрицы была положительным и ненулевым значением выполняется проверка
+/// if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
 /// @return  no
 
 void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   std::ifstream ifs(filename);
-  if (!ifs.is_open()) {
-    std::cout << "Error opening file";
-    return;
+  try
+  {
+      if (!ifs.is_open()) {
+        throw std::runtime_error("Error opening file");
+    // std::cout << "Error opening file";
+    // return;
   }
-  if (!checkFile(filename)) {
-    std::cout << "Error opening file";
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+}
+
+  try {
+  if (!CheckFile(filename)) {
+    throw std::runtime_error("Invalid value");
+    // std::cout << "Error opening file";
   }
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+}
   ifs >> size_;  // read the graph size from file
- 
-  if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
+ try {
+  if(size_ <= 0) { 
+    throw std::runtime_error("Dimension must be > 0");
+  } 
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+}
+  // { std::cout << "Dimension must be > 0"; return;}
   AdjacencyMatrix_.resize(size_,
                           std::vector<int>(size_));  // change the matrix size
 
@@ -239,7 +254,7 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
 //     std::cout << "Error opening file";
 //     return;
 //   }
-//   if(!checkFile(filename)) {std::cout << "Error opening file";}
+//   if(!CheckFile(filename)) {std::cout << "Error opening file";}
 //   ifs >> size_;  // read the graph size from file
 //   if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
 //   AdjacencyMatrix_.resize(size_,
@@ -306,9 +321,6 @@ void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph &graph)
   for(int i = 0; i < size_/2; ++i) {
     for(int j = 0; j < size_/2; ++j) {
       this->AdjacencyMatrix_[j][i] = this->AdjacencyMatrix_[i][j];
-      // if(AdjacencyMatrix[i][j] != AdjacencyMatrix[j][i]) {
-      //   return true;
-      // }
     }
   }
 }
@@ -406,7 +418,7 @@ bool s21::s21_Graph::IsGraphConnected(s21_Graph &graph, std::string filename)  {
 //     std::cout << "Error opening file";
 //     return;
 //   }
-//   if(!checkFile(filename)) {std::cout << "Error opening file";}
+//   if(!CheckFile(filename)) {std::cout << "Error opening file";}
 //   ifs >> size_;  // read the graph size from file
 //   if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
 //   AdjacencyMatrix_.resize(size_,
@@ -566,8 +578,8 @@ bool s21::s21_Graph::IsGraphConnected(s21_Graph &graph, std::string filename)  {
 //     return true;  // ���� �������
 // }
 
-/// @brief �����, ����������� ������� � ����
-/// @param const std::string& filename - �������� ��� �����, � ������� "������"
+/// @brief Метод, загружающий матрицу в файл
+/// @param const std::string& filename - входящее имя файла, в формате "строка"
 /// @return  no
 void s21::s21_Graph::ExportGraphToDot(std::string filename) {
   std::ofstream ofs(filename);
