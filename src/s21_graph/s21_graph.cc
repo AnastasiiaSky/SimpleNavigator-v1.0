@@ -100,52 +100,6 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 /// и если они не равны значению dimension, значит raw !=col: CheckFile вернул  false 
 /// @return список смежности из приватного поля, матрицы adjacencyList_
 
-// bool s21::s21_Graph::CheckFile(const std::string& filename) {
-//     std::ifstream ifs(filename);
-//     try {
-//         if (!ifs.is_open()) {
-//             throw std::runtime_error("Error opening file");
-//         }
-
-//         if (ifs.peek() == std::ifstream::traits_type::eof()) {
-//             throw std::runtime_error("File is empty: " + filename);
-//         }
-
-//         int dimension = 0;
-//         if (!(ifs >> dimension)) {
-//             throw std::runtime_error("Error reading dimension from file");
-//         }
-        
-//         std::vector<std::vector<int>> matrix;
-//         int value;
-//         int row = 0;
-//         int col = 0;
-//         while (ifs >> value && value >= 0) {
-//             if (col == 0) {
-//                 matrix.push_back(std::vector<int>());
-//             }
-//             matrix[row].push_back(value);
-//             col++;
-//             if (col == dimension) {
-//                 col = 0;
-//                 row++;
-//             }
-//         }
-        
-//         if (col != 0 || row != dimension) {
-//             throw std::runtime_error("Invalid column or row count");
-//         }
-
-//         ifs.close();
-//         return true;
-
-//     } catch (const std::exception& e) {
-//         std::cout << "Exception occurred: " << e.what() << std::endl;
-//         // ifs.close();
-//         return false;
-//     }
-// }
-
 bool s21::s21_Graph::CheckFile(const std::string& filename) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
