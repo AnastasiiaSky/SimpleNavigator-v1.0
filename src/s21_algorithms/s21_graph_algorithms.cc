@@ -333,8 +333,7 @@ std::vector <double>  tmp; //!!! временно
   
   // Создаем результирующую структуру, стартовое расстояние макимально возможное
   TsmResult result_struct;
-  // result_struct.distance = inf;
-   result_struct.distance = 0;
+  result_struct.distance = inf;
   result_struct.vertices = 0;
 
   
@@ -447,7 +446,7 @@ std::vector <double>  tmp; //!!! временно
         cout << "Distance_2  " << distance_tmp2 << endl;
   
     // PrintAdjacencyMatrix(temp_path);
-      if ((distance_tmp2 > result_struct.distance)){ //выбрать одно условие // !! временное дурацкое условие
+      if ((distance_tmp2 < result_struct.distance)){ //выбрать одно условие // !! временное дурацкое условие
             // res_path.push_back(res_path.front());
             
             result_struct.distance = distance_tmp;
@@ -460,10 +459,10 @@ std::vector <double>  tmp; //!!! временно
             result_struct.path = move (res_path);
 
 
-      //    if ( one_ant == 2){  /// !!! удалить временно
-      //    PrintResultOfDepthFirstSearch(res_path);
-      //   //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-      // }
+         if ( one_ant == 2){  /// !!! удалить временно
+         PrintResultOfDepthFirstSearch(res_path);
+        //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+      }
       }
       
      }
