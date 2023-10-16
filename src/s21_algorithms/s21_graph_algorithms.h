@@ -5,11 +5,12 @@
 
 #include <algorithm>  // !!! возможно не надо
 #include <iostream>
-#include <list>   /// Заменить на самописные
-#include <queue>  /// Заменить на самописные
-#include <random>
-#include <stack>   /// Заменить на самописные
-#include <vector>  /// Заменить на самописные
+#include <list> /// Заменить на самописные
+#include <queue> /// Заменить на самописные
+#include <stack> /// Заменить на самописные
+#include <vector> /// Заменить на самописные
+#include <cmath>
+#include <random> 
 // #include <limits> // !!! возможно не надо
 // #include <limits.h> // !!! возможно не надо
 
@@ -21,11 +22,13 @@
 
 namespace s21 {
 
-struct TsmResult {
-  int *vertices;  // массив с искомым маршрутом (с порядком обхода вершин).
-                  // Вместо int* можно использовать std::vector<int>
-  double distance;  // длина этого маршрута
-};
+  struct TsmResult {
+    std::vector<int> path;
+    int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
+    double distance;  // длина этого маршрута
+    double distance2;  // длина этого маршрута
+
+  };
 
 class s21_Graph;
 class GraphAlgorithms {
@@ -49,34 +52,41 @@ class GraphAlgorithms {
 
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
 
-  // Метод вывода результата пути
-  void PrintResultOfDepthFirstSearch(
-      std::vector<int> visited_vertices) noexcept;
+  // Метод вывода результата пути 
+  // !!! Переименовать метод
+  void PrintResultOfDepthFirstSearch(std::vector<int> visited_vertices) noexcept; // он должен в выводи быть без стрелочек
+  // Метод вывода результата пути 
+  // !!! Переименовать метод
+  void PrintResultOfDepthFirstSearch(std::vector<double> visited_vertices) noexcept;
+
+
   // Алгоритм Прима
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
 
   // Получение веса остовного дерева
   int GetGraphWeigt(matrix adjacency_matrix);
 
-  // Метод ввывода матрицы смежности
-  void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
+  // Метод ввывода матрицы смежности int
+  void PrintAdjacencyMatrix(std::vector<std::vector<int>> matrix) noexcept;
+
+  // Метод ввывода матрицы смежности double
+  void PrintAdjacencyMatrix(std::vector<std::vector<double>> matrix) noexcept;
 
   // private:
-  // Рассчитывает вероятность прохождения по текущему ребру
-  void CreateProbabilityMatrix(
-      std::vector<std::vector<double>> &pobability_list,
-      std::vector<std::vector<double>> pheramone_matrix,
-      matrix matrix_adjacency);
+    // Рассчитывает вероятность прохождения по текущему ребру
+    int CreateProbabilityPath(std::vector<double> &pobability_list,
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex);
 
-  // Пересчитывает количество ферамонта на текущему ребре
-  void RecalculatePheramoneMatrix(
-      std::vector<std::vector<double>> &pheramone_matrix, int distance);
+    // Пересчитывает количество ферамонта на текущему ребре
+    void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);
 
-  // Генерируем рандомное число в заданном диапозоне
-  int Vertex_random(int min, int max) const;
+    // Генерируем рандомное число в заданном диапозоне
+    double VertexRandom(double min, double max) const;
 
-  // Выбираем рандомно вершину, в которую идем
-  int SelectNextVertex(std::list<double> probability_list);
+    // Выбираем рандомно вершину, в которую идем 
+    int SelectNextVertex (std::vector<double> probability_list);
+
+    
 
  private:
   bool CheckVisited(std::vector<int> visited_vertices,
