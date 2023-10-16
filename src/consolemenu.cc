@@ -65,6 +65,14 @@ void ConsoleMenuInterface::Deploy() {
         CallPrim();
          break;
       }
+      case 7: {
+        if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
+        CallAnt();
+          break;
+      }
     }
   }
 }
@@ -271,7 +279,29 @@ void ConsoleMenuInterface::CallPrim() {
 
   std::cout << "Spanning Tree Weight = " << weight / 2 << std::endl;
 }
-// void ConsoleMenuInterface::CallAnt();
+
+void ConsoleMenuInterface::CallAnt() {
+  s21::GraphAlgorithms algo;
+
+  std::cout << std::endl;
+  std::cout << "The result of algorithm of Salesman Problem : " << std::endl;
+  std::cout << "............................................." << std::endl;
+  std::cout << std::endl;
+  std::vector<int> way;
+  double distance;
+  s21::TsmResult result = algo.SolveTravelingSalesmanProblem(graph_);
+  way = result.vertices;
+  distance = result.distance;
+
+  std::cout << "Way is  -  ";
+  for(int it = 0; it < way.size(); ++it) {
+    std::cout << way[it] << " -> ";
+  }
+  std::cout << std::endl;
+
+  std::cout << "Distance is   -  " << distance << std::endl;
+
+}
 
 
 }  // namespace s21
