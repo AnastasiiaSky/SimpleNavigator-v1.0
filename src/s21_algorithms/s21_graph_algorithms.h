@@ -5,10 +5,14 @@
 
 
 #include <iostream>
-#include <queue>
-#include <random>
-#include <stack>
-#include <vector>
+#include <list> /// Заменить на самописные
+#include <queue> /// Заменить на самописные
+#include <stack> /// Заменить на самописные
+#include <vector> /// Заменить на самописные
+#include <cmath>
+#include <random> 
+// #include <limits> // !!! возможно не надо
+// #include <limits.h> // !!! возможно не надо
 
 #include "../conteiners/s21_helpsrc.h"
 #include "../conteiners/s21_list.h"
@@ -18,11 +22,13 @@
 
 namespace s21 {
 
-struct TsmResult {
-  int *vertices;  // массив с искомым маршрутом (с порядком обхода вершин).
-                  // Вместо int* можно использовать std::vector<int>
-  double distance;  // длина этого маршрута
-};
+  struct TsmResult {
+    std::vector<int> path;
+    int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
+    double distance;  // длина этого маршрута
+    double distance2;  // длина этого маршрута
+
+  };
 
 class s21_Graph;
 class GraphAlgorithms {
@@ -43,15 +49,23 @@ class GraphAlgorithms {
   int GetGraphWeigt(matrix adjacency_matrix);
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
-  private:
-  void CreateProbabilityMatrix(
-      std::vector<std::vector<double>> &pobability_list,
-      std::vector<std::vector<double>> pheramone_matrix,
-      matrix matrix_adjacency);
-  void RecalculatePheramoneMatrix(
-      std::vector<std::vector<double>> &pheramone_matrix, int distance);
-  int Vertex_random(int min, int max) const;
-  int SelectNextVertex(std::list<double> probability_list);
+  // private:
+    // Рассчитывает вероятность прохождения по текущему ребру
+    int CreateProbabilityPath(std::vector<double> &pobability_list,
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex);
+
+    // Пересчитывает количество ферамонта на текущему ребре
+    void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);
+
+    // Генерируем рандомное число в заданном диапозоне
+    double VertexRandom(double min, double max) const;
+
+    // Выбираем рандомно вершину, в которую идем 
+    int SelectNextVertex (std::vector<double> probability_list);
+
+    
+
+ private:
   bool CheckVisited(std::vector<int> visited_vertices,
                     int current_vertix) noexcept;
   bool IsAllVisited(std::vector<bool> visited_of_not);

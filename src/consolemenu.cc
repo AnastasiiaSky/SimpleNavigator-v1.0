@@ -291,7 +291,8 @@ void ConsoleMenuInterface::CallAnt() {
   std::vector<int> way;
   double distance;
   s21::TsmResult result = algo.SolveTravelingSalesmanProblem(graph_);
-  way = result.vertices;
+  // way = result.vertices;
+  way = result.path;
   distance = result.distance;
 
   std::cout << "Way is  -  ";

@@ -34,3 +34,4 @@
 ./examples/weighted_graph_50_vert.txt
 ./examples/very_big_graph.txt
 ./examples/graph_21_vert_direct.txt
+./examples/weighted_graph_11_vert.txt
