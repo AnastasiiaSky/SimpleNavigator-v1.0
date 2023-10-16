@@ -9,29 +9,59 @@ void ConsoleMenuInterface::Deploy() {
   int number = 0;
   while (number != 8) {
     ShowMenu();
-    std::cin >> number;
+    std::string input = "\0";
+    std::cin >> input;
+    try {
+      number = std::stoi(input);
+    } catch (const std::exception& e) {
+      std::cout << "(Use simple numbers from 1 to 8)." << std::endl;
+    }
     std::cout << std::endl;
+    if(number < 1 || number > 8) {
+      std::cout << "Plese, choose from menu!" << std::endl;
+      ShowMenu();
+    }
     switch (number) {
       case 1:
         CallGraphLoading(pathToFile);
         break;
       case 2: {
+        if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
         CallBFS();
         break;
       }
       case 3: {
+                if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
         CallDFS();
         break;
       }
       case 4: {
+                if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
         CallDeikstra();
         break;
       }
       case 5: {
+                if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
         CallFloid();
         break;
       }
       case 6: {
+                if(graph_.get_graph_size() < 1) {
+          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+          break;
+        }
         CallPrim();
          break;
       }
@@ -243,11 +273,5 @@ void ConsoleMenuInterface::CallPrim() {
 }
 // void ConsoleMenuInterface::CallAnt();
 
-// bool ConsoleMenuInterface::CheckForVertex(int vertex)
-// {
-//   if(std::isdigit(vertex) != 0) {
-//     return true;
-//   }
-// return false;
-// }
+
 }  // namespace s21
