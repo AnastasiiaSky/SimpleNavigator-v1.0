@@ -315,20 +315,16 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
-                // 3 -> 6 -> 10 -> 4 -> 5 -> 8 -> 9 -> 2 -> 11 -> 1 -> 7 -> 3  = 309
-  // !!!  Как поведет себя с отрицательными весами, может ли быть отрицательное количество ферамонов
   // Константы, вводятся самостоятельно
-  const int ants = 10000; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
+  const int ants = 100; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
    
-std::vector <double>  tmp; //!!! временно
   // Расчетные константы
   const int size = graph.get_graph_size(); 
-  // cout << size << endl;
-  //  cout << endl;
+
   // Создаем матрицу связностей графа
   std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
   std::vector<std::vector<int>> adjacency_matrix2 = graph.getAdjacencyMatrix(); // пока так дублирую, потом либо кпией, лтюо сохранить в векторо инт
-  // PrintAdjacencyMatrix(adjacency_matrix);
+
   // Создаем матрицу ферамонов, равную 0
   std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
   
@@ -336,229 +332,130 @@ std::vector <double>  tmp; //!!! временно
   TsmResult result_struct;
   result_struct.distance = inf;
   result_struct.vertices = 0;
+  
+  
 
-  
-  // Создаем матрицу пройденного 
-
-  int vertex; // Пока просто так 
-  
-  
+  int vertex = 0;
+ 
   // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
     for (int one_ant = 0; one_ant < ants; one_ant++){
-      // cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
       vertex = (one_ant % size) + 1;
-      int prev_vertex = 0;
-      int distance_tmp = 0;
+
+      int prev_vertex = 0; // Предыдущая вершина
+      int distance_tmp = 0; //
       int distance_tmp2 = 0;
-      cout << "\n_______________________________________________ " << vertex << " KKK  " << prev_vertex << endl;
-      // vertex = ; // !!!
-  // Создаем текущее расстояние D
-  // int distance = 0;  // создаем здесь, чтоб каждый раз обновлялся
+
+     // Актуализируем временную матрицу связностей
      adjacency_matrix = adjacency_matrix2;
   
-  // Зануляем временный путь, чтоб каждый новый муравей прокладывал свой собственны или лучше создаем его тут
-    // Создаем временный путь {0}, зануляем, чтоб каждый новый муравей прокладывал свой путь
-  std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
-  // std::vector<std::vector<int>> temp_path;
     
-  //   // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
-    // cout << "T " << vertex << endl;
-    // res_path.push_back(vertex);
-    int err = 0;
-    std::vector<int> res_path;
-    // cout << "______________4 "<< err <<  endl;
-  for (int j = 0; j < size && err == 0; j++){ //!!! Заменить на size
-    cout<< "VERTEX0 - - - --  _ : " << vertex << endl;
-    // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
-    // PrintResultOfDepthFirstSearch(probability_list);
-    // PrintAdjacencyMatrix(pheramone_matrix);
-    // PrintAdjacencyMatrix(adjacency_matrix);
-    // cout<< "VERTEX - - - --  _ : " << vertex << endl;
-    
-    // Выделить в отдельную функцию, удаления пути в вершины, которые мы посетили
-      for (int i = 0; i < size; i++){
-        // cout << "Удаляем обратный путь "  << endl;
-        // PrintResultOfDepthFirstSearch (adjacency_matrix[i]);
-        adjacency_matrix[i][vertex - 1] = 0;
-        // cout << "Результат удаления "  << endl;
-        // PrintResultOfDepthFirstSearch (adjacency_matrix[i]);
-      }
-      
-    
-    // PrintAdjacencyMatrix(adjacency_matrix);
-    cout<< "VERTEX2 - - - --  _ : " << vertex << endl;
-    
-    // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
-    // std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
-    std::vector <double> probability_list(size, 0.0);
-    err = CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
-    cout << "Чек 0 " << err << endl;
-    // PrintResultOfDepthFirstSearch (probability_list);
-                  
-    // Выбираем в какую вершину он пошел из вероятно свободных 
-      //   // Сохраняем вершину где были во временный путь
-     // Если есть вероятносьб, что пошли в какую-то из вершин, то идем, в противном случае обнуляем данный путь переходим к следующему
-      res_path.push_back(vertex);
-    if (err == 0) {  
-      prev_vertex = vertex;
-      // if ( one_ant == 3){  /// !!! удалить временно
-      //    tmp = probability_list;
-        //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-      // }
-      vertex = SelectNextVertex (probability_list); // !!! , int ver -  убрать
-      // cout << "#### " << vertex << endl;
-      // vertex = 0;
-      // cout << "KKKKKK  " << res_path.size() << endl;
-      // PrintResultOfDepthFirstSearch(res_path);
-      if (vertex <= 0 && res_path.size() != size || vertex > size){ // !!!! && res_path.size() != size возможно не надо
-          err = 1;
-          // continue;
-        //  cout << "______________)))))))))))))) "<< err <<  endl;
-      } else {
-    
-      // cout << "Вершина из " << prev_vertex << " VERTEX2 _ в: " << vertex << endl;
-      
-      temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix2[vertex - 1][prev_vertex - 1]; //!!!  Возможно не правильно
-      // cout << "VES between " <<  adjacency_matrix2[vertex - 1][prev_vertex - 1] << endl;
-      distance_tmp += adjacency_matrix2[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
-      // res_path.push_back(prev_vertex);
-      // distance_tmp += adjacency_matrix2[vertex - 1][j]; // !!! Заменить посчитать
-      // cout << vertex << j << "   distance _ " << distance_tmp << endl;
-        //   // 
-        //   // !!!  Рассмотреть случаи, когда у него его маршрут приводит в тупик, тггда надо все зачистить и идти дальше к следующей вершине
-        //   // }
+    // Создаем матрицу пройденного пути !!!
+    std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
+     
+    int err = 0; //  Флаг ошибки 0 путь найден или еще есть  вободные вершины
 
-      // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
-        // cout << endl;
+    // Создаем временный путь {0}, зануляем, чтоб каждый новый муравей прокладывал свой путь
+    std::vector<int> res_path;
+
+    // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
+    for (int j = 0; j < size && err == 0; j++){ //!!! Заменить на size
+
+    
+
+    
+    // Удаления пути в текущую вершину из других вершин
+      for (int i = 0; i < size; i++){
+        adjacency_matrix[i][vertex - 1] = 0;
       }
-    // cout << "______________2 "<< err <<  endl;
-    }
-      // cout << "______________3 "<< err <<  endl;
-      // Считаем пройденный путь
       
-    // distance_tmp = 2;
-    //   // Если все мы прошли все вершины и если новое расстояние короче, того, что в результирующей структуре: Перезаписываем стартовую вершину и расстояние
+    // Создаем лист вероятности, здесь, чтоб он удалялся после каждой вершины
+    std::vector <double> probability_list(size, 0.0);
+
+    // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
+    err = CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
+                   
+    
+      //   
+     
+      
+      // Сохраняем вершину где были во временный путь
+      res_path.push_back(vertex);
+      // Если есть вероятнось, что можем пойти в свободную вершину, то идем, 
+      // в противном случае переходим к следующему муравью
+      if (err == 0) {  
+        prev_vertex = vertex;
+
+        // Выбираем в какую вершину он пошел из вероятно свободных 
+        vertex = SelectNextVertex (probability_list); 
+        if (vertex <= 0 || vertex > size){ 
+          err = 1;
+        } else {         
+          temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix2[vertex - 1][prev_vertex - 1]; 
+          distance_tmp += adjacency_matrix2[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
+        }
+    }
+    // Если все мы прошли все вершины и если новое расстояние короче, того, 
+    // что в результирующей структуре: Начинаем сначала. 
   }
 
-  // cout << "Текущая вершина " << vertex << " Первая вершина " << res_path.front() << endl;
-  // cout << "Конец и начало значение " << adjacency_matrix2[vertex - 1][res_path.front() - 1] << endl;
-
-// PrintAdjacencyMatrix(adjacency_matrix2);
-// cout << "______________А "<< err <<  endl;
-// PrintResultOfDepthFirstSearch(res_path);
-// cout << "______________55 "<< err <<  endl;
-// cout << "______________6 "<< adjacency_matrix2[vertex - 1][res_path.front() - 1] <<  endl;
-     if ((err == 0 || res_path.size() == size) && adjacency_matrix2[vertex - 1][res_path.front() - 1] != 0 ) {
-      // cout << "u!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+  // Если прошли все вершины прокладывае путь до первой, если это возможно
+  if ((err == 0 || res_path.size() == size) && adjacency_matrix2[vertex - 1][res_path.front() - 1] != 0 ) {
             res_path.push_back(res_path.front());
             distance_tmp += adjacency_matrix2[vertex - 1][res_path.front() - 1];
-            temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix2[vertex - 1][res_path.front() - 1]; //!!!  Возможно не правильно
+            temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix2[vertex - 1][res_path.front() - 1];
             distance_tmp2 = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
-
-
-          // cout << "distance0 _ " << distance_tmp << endl;
             RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
-        // cout << "Distance_1  " << distance_tmp << endl;
-        // cout << "Distance_2  " << distance_tmp2 << endl;
-  
-    // PrintAdjacencyMatrix(temp_path);
-      if ((distance_tmp2 < result_struct.distance)){ //выбрать одно условие // !! временное дурацкое условие
-            // res_path.push_back(res_path.front());
-            
+      // Записываем минимальное растояние и путь в результирующую структуру
+      if ((distance_tmp2 < result_struct.distance)){ 
             result_struct.distance = distance_tmp;
             result_struct.distance2 = distance_tmp2;
-    // // Прибавлем в путь стартовую вершину, и + к дистанции
-            result_struct.vertices = res_path.front(); // !!! Поменять vertex на такое написание
-    // cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-    // cout << distance_tmp2 << endl;
-        // PrintResultOfDepthFirstSearch(res_path);
+
+          // Прибавлем в путь стартовую вершину, и + к дистанции
+            result_struct.vertices = res_path.front(); 
             result_struct.path = move (res_path);
-
-
-      //    if ( one_ant == 2){  /// !!! удалить временно
-      //    PrintResultOfDepthFirstSearch(res_path);
-      //   //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-      // }
       }
-      // cout << "1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
      }
-    //  cout << "2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-    //   cout << distance_tmp2 << endl;
-  //   // Если при заданном графе решение задачи невозможно, выведите ошибку.
   }
-  // cout << "3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-
-    
-    // PrintAdjacencyMatrix(pheramone_matrix);
-    // PrintResultOfDepthFirstSearch(tmp);
-    
   return result_struct;
 }
+
   // возможно сделать, чтоб сразу возвращала матрицу
-  int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, // возможно не надо
+  int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, 
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex){
+    
     // Константы, вводятся самостоятельно
-    const int a = 1; // !!!
+    const int a = 1; 
     const int b = 1; 
     int err = 1;
-    // cout << "Чек 1" << endl;
-    // vertex = 1;
+
     // Расчетные константы
     const int size = probability_list.size(); 
-    // cout << "vertex_posib "<< vertex<< endl;
-    // vertex = 11;
-    double feramont_distance = 0; // !!! Обязательно ли всегда занулять 
+    double feramont_distance = 0; 
     double sum_feramont_distance = 0;
-    // Сумма всех значений ферамонов всех ребер на 1 единицу пути
-    // cout << "Test : " << pow(0, 1) << endl;
-    // cout << "Чек 2" << endl;
-    // cout << "Чек 2.0" << endl;
-        // PrintAdjacencyMatrix(adjacency_matrix);
-      for (int j = 0; j < size; j++){
-        
-        // cout << "Чек 2.0 " << vertex << endl; 
-        // cout << vertex << endl;
-        if (adjacency_matrix[vertex - 1][j] != 0) {
-          // cout << "Чек 2.1" << endl;
-          sum_feramont_distance += std::pow(1.0/adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a);
-          // sum_feramont_distance = 12;
-          
-        }
-        // cout << "Чек 2.2" << endl;
 
+      // Сумма всех значений ферамонов всех ребер на 1 единицу пути
+      for (int j = 0; j < size; j++){
+        if (adjacency_matrix[vertex - 1][j] != 0) {
+          sum_feramont_distance += std::pow(1.0/adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a);
+        }
       }
-      // cout << "sum_feramont_distance " << sum_feramont_distance << endl;
-  // cout << "Чек 3" << endl;
-  // PrintAdjacencyMatrix(pheramone_matrix);
+
+      // читаем вероятность опираясь на количество ферамонов на этом ребре и расстояния
       for (int j = 0; j < size; j++){
         if (adjacency_matrix[vertex - 1][j] != 0 && sum_feramont_distance != 0) {
-            // double tmp = 1.0 / 2;
-            // cout << "IIII " <<  tmp << endl;
-            // cout << "UUU^2 " << pheramone_matrix[vertex - 1][j] << endl;       
-            // cout << "UUU " << adjacency_matrix[vertex - 1][j] << endl; 
-            // 
           feramont_distance = std::pow(1.0/adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
-          // cout << "UUU_щ " << feramont_distance << endl; 
-          // cout << sum_feramont_distance << endl; 
-          // cout << "YYYY " << feramont_distance << endl;
           probability_list[j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
-          // probability_list[j] = 1;
-          // cout << "Test2: " << probability_list[j] << endl;
         }
       }      
-      PrintResultOfDepthFirstSearch(probability_list);  
-      
-      // cout << "Чек 2" << endl;
+
+      // Проверка правильносьти расчета верояиности !!!
       double probably = 0.0; 
       for(int i = 0; i < probability_list.size(); i++){
         probably += probability_list[i];
-        // cout << "err " << probably << endl;
-        if (abs((1.0 - probably)) <= 0.0000001){// !!! по модулю сделать
-          // cout << "err 2 " << probably << endl;
+        if (abs((1.0 - probably)) <= 0.0000001){
           err = 0;
         }        
       }
-      // cout << "HHHHHHHHHH " << err << endl;
       return err; //Возможно выделить в отдельную функцию чек, которая проверяет сумму всех вероятностей
   }
   
@@ -570,56 +467,38 @@ std::vector <double>  tmp; //!!! временно
     return distribution(gen);
   }
 
-  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ // !!! int ver -  временно !!! const // возможно надо подать матрицу вероятностей
+  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ 
       int vertex = 0;
       int size = probability_list.size();
-      // PrintResultOfDepthFirstSearch (probability_list);
-      // vertex = 10; // !!! временно
-      // Запускаем функцию рандома
-      double random_c = VertexRandom(0.0, 1.0); // !!! обределиться вероятность 0,3  или 30% // Возможно перенести как аргумент
-      // if (ver == 1){// !!! временно
-      //   TsmResult result_struct;
-      //   result_struct.random = random_c;
-      // }
-      cout << "Random_ " << random_c << endl;
-      // random_c = 0.99;
+      double random_c = VertexRandom(0.0, 1.0); 
       if (random_c > 0 && random_c <= 1) {
-        // cout << "Random_2 " << random_c << endl;
-        // std::list<double>::iterator it_b = probability_list.begin();
-        // std::list<double>::iterator it_e = probability_list.end();
         double sum_probability = 0;
         // Находим вершину, в которую попал наш рандом
-        
-        // cout << " PPPPP1 "<< random_c << endl;
-        // cout << " PPPPP2 "<< sum_probability << endl;
         for(int j = 0; j != size && random_c - sum_probability >= 0.000001; j++){
             sum_probability += probability_list[j];
-            // cout << "sum_probability " << sum_probability << endl;
-            // cout << " PPPPP "<<(abs(random_c - sum_probability)) << endl;
            vertex++;
         }
       }
-        cout << "!!!!!!!Vertex_ " << vertex << endl;
-
-        return  vertex;
+      return  vertex;
   }
 
-  void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ // may be not  list, but vector
-    // Константы, вводятся самостоятельно //!!!  Возможно сделать как аргументами метода
+  void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ 
+    // Константы, вводятся самостоятельно !!!  
     const int q = 100.0; // Количество ферамонов у одного муравья 
     const double k = 0.0000; // Коэффициент испарения ферамона 
 
     // Расчетные константы
-    const double p = 1 - k; // Обратный коэфициент, умнажая на который предыдущее значение ферамоны уменьшается
+    const double p = 1 - k; // Обратный коэфициент, уменьшаюший  старое кол-во ферамонов
     const int size = pheramone_matrix.size();  // Размер матрицы
+
     if (distance != 0){
       double feromon_const = q / distance;    
       for (int i = 0; i < size; i++){
         for (int j = 0; j < size; j++){
           if (temp_path[i][j] != 0) { // == 1
             pheramone_matrix[i][j] = p*pheramone_matrix[i][j] + feromon_const;
-          // } else {
-          //   pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
+          } else {
+            pheramone_matrix[i][j] = p*(pheramone_matrix[i][j]);
           }
         }
       }
