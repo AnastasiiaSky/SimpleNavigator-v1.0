@@ -426,7 +426,7 @@ void s21::GraphAlgorithms::RecalculatePheramoneMatrix(
 /// @param visited_vertices - результатом работы алгоритмов,
 /// вектор посещенных точек
 
-void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
+void s21::GraphAlgorithms::PrintResultWay(
     std::vector<int> visited_vertices) noexcept {
   for (int it = 0; it < visited_vertices.size(); ++it) {
     if (it == visited_vertices.size() - 1) {

@@ -50,8 +50,7 @@ class GraphAlgorithms {
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
 
   // Метод вывода результата пути
-  void PrintResultOfDepthFirstSearch(
-      std::vector<int> visited_vertices) noexcept;
+  void PrintResultWay(std::vector<int> visited_vertices) noexcept;
   // Алгоритм Прима
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
 
