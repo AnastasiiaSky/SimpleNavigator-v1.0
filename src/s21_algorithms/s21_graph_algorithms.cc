@@ -385,7 +385,8 @@ int s21::GraphAlgorithms::Vertex_random(int min, int max) const {
 }
 
 // int s21::GraphAlgorithms::SelectNextVertex(
-//     std::list<double> probability_list) {  // !!! const // возможно надо подать
+//     std::list<double> probability_list) {  // !!! const // возможно надо
+//     подать
 //                                            // матрицу вероятностей
 //   // Запускаем функцию рандома
 //   int random_c =
@@ -531,10 +532,10 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
     const matrix graph_matrix) {
   int n = graph_matrix.size();
   matrix undirected_adj_matrix(n, std::vector<int>(n, 0));
-  for (int i = 0; i <  graph_matrix.size(); ++i) {
-    for (int j = i + 1; j <  graph_matrix.size(); ++j) {
-      if ( graph_matrix[i][j] != 0 ||  graph_matrix[j][i] != 0) {
-        int weight = std::max( graph_matrix[i][j],  graph_matrix[j][i]);
+  for (int i = 0; i < graph_matrix.size(); ++i) {
+    for (int j = i + 1; j < graph_matrix.size(); ++j) {
+      if (graph_matrix[i][j] != 0 || graph_matrix[j][i] != 0) {
+        int weight = std::max(graph_matrix[i][j], graph_matrix[j][i]);
         undirected_adj_matrix[i][j] = weight;
         undirected_adj_matrix[j][i] = weight;
       }

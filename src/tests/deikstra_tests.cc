@@ -131,7 +131,6 @@ TEST(GraphAlgorithmsTest, InvalidVertices3) {
                std::exception);
 }
 
-
 TEST(GraphAlgorithmsTest, VeryBigGraph) {
   s21::s21_Graph graph;
 
@@ -159,4 +158,4 @@ TEST(GraphAlgorithmsTest, VeryBigGraph) {
   finish = 49;
   EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 104);
 }
-} // namespace s21
+}  // namespace s21
