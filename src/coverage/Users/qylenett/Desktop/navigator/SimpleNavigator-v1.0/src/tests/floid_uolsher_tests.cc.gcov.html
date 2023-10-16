@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - /Users/qylenett/Desktop/navigator/SimpleNavigator-v1.0/src/tests/floid_uolsher_tests.cc</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../index.html">top level</a> - <a href="index.html">Users/qylenett/Desktop/navigator/SimpleNavigator-v1.0/src/tests</a> - floid_uolsher_tests.cc<span style="font-size: 80%;"> (source / <a href="floid_uolsher_tests.cc.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2023-10-16 20:19:52</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &lt;gtest/gtest.h&gt;</a>
+<a name="2"><span class="lineNum">       2 </span>            : </a>
+<a name="3"><span class="lineNum">       3 </span>            : namespace s21 {</a>
+<a name="4"><span class="lineNum">       4 </span>            : </a>
+<a name="5"><span class="lineNum">       5 </span>            : // TEST(GraphAlgorithmsTest, FloidWarshall_graph_3_vert_simply) {</a>
+<a name="6"><span class="lineNum">       6 </span>            : //   s21_Graph graph;</a>
+<a name="7"><span class="lineNum">       7 </span>            : //   s21::GraphAlgorithms algo;</a>
+<a name="8"><span class="lineNum">       8 </span>            : //   std::string InputFileName = &quot;./examples/weight_graph_4_vert.txt&quot;;</a>
+<a name="9"><span class="lineNum">       9 </span>            : //   graph.LoadGraphFromFile(InputFileName);</a>
+<a name="10"><span class="lineNum">      10 </span>            : //   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="11"><span class="lineNum">      11 </span>            : //       algo.GetShortestPathsBetweenAllVertices(graph);</a>
+<a name="12"><span class="lineNum">      12 </span>            : //   std::vector&lt;std::vector&lt;int&gt;&gt; result{</a>
+<a name="13"><span class="lineNum">      13 </span>            : //       {0, 2, 3, 3}, {2, 0, 5, 1}, {3, 5, 0, 6}, {3, 1, 6, 0}};</a>
+<a name="14"><span class="lineNum">      14 </span>            : //   ASSERT_EQ(minimum_distance, result);</a>
+<a name="15"><span class="lineNum">      15 </span>            : // }</a>
+<a name="16"><span class="lineNum">      16 </span>            : </a>
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">          4 : TEST(Test, FloidWarshall_weighted_directed_graph_4_vert) {</span></a>
+<a name="18"><span class="lineNum">      18 </span><span class="lineCov">          1 :   s21_Graph graph;</span></a>
+<a name="19"><span class="lineNum">      19 </span><span class="lineCov">          1 :   s21::GraphAlgorithms algo;</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">          1 :   std::string InputFileName = &quot;./examples/weighted_directed_graph_4_vert.txt&quot;;</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">          1 :   graph.LoadGraphFromFile(InputFileName);</span></a>
+<a name="22"><span class="lineNum">      22 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="23"><span class="lineNum">      23 </span><span class="lineCov">          1 :       algo.GetShortestPathsBetweenAllVertices(graph);</span></a>
+<a name="24"><span class="lineNum">      24 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; result{</a>
+<a name="25"><span class="lineNum">      25 </span>            :       {0, 1, 4, 1},</a>
+<a name="26"><span class="lineNum">      26 </span>            :       {7, 0, 3, 8},</a>
+<a name="27"><span class="lineNum">      27 </span>            :       {4, 5, 0, 5},</a>
+<a name="28"><span class="lineNum">      28 </span>            :       {8, 9, 4, 0},</a>
+<a name="29"><span class="lineNum">      29 </span><span class="lineCov">          7 :   };</span></a>
+<a name="30"><span class="lineNum">      30 </span><span class="lineCov">          1 :   ASSERT_EQ(minimum_distance, result);</span></a>
+<a name="31"><span class="lineNum">      31 </span>            : }</a>
+<a name="32"><span class="lineNum">      32 </span>            : </a>
+<a name="33"><span class="lineNum">      33 </span><span class="lineCov">          4 : TEST(GraphAlgorithmsTest, FloidWarshall_weighted_directed_graph_3_vert) {</span></a>
+<a name="34"><span class="lineNum">      34 </span><span class="lineCov">          1 :   s21_Graph graph;</span></a>
+<a name="35"><span class="lineNum">      35 </span><span class="lineCov">          1 :   s21::GraphAlgorithms algo;</span></a>
+<a name="36"><span class="lineNum">      36 </span><span class="lineCov">          1 :   std::string InputFileName = &quot;./examples/weighted_directed_graph_3_vert.txt&quot;;</span></a>
+<a name="37"><span class="lineNum">      37 </span><span class="lineCov">          1 :   graph.LoadGraphFromFile(InputFileName);</span></a>
+<a name="38"><span class="lineNum">      38 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="39"><span class="lineNum">      39 </span><span class="lineCov">          1 :       algo.GetShortestPathsBetweenAllVertices(graph);</span></a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineCov">          6 :   std::vector&lt;std::vector&lt;int&gt;&gt; result{{0, 4, 6}, {0, 0, 3}, {0, 0, 0}};</span></a>
+<a name="41"><span class="lineNum">      41 </span><span class="lineCov">          1 :   ASSERT_EQ(minimum_distance, result);</span></a>
+<a name="42"><span class="lineNum">      42 </span>            : }</a>
+<a name="43"><span class="lineNum">      43 </span>            : </a>
+<a name="44"><span class="lineNum">      44 </span><span class="lineCov">          4 : TEST(GraphAlgorithmsTest, FloidWarshall_weighted_directed_graph_8_vert) {</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">          1 :   s21_Graph graph;</span></a>
+<a name="46"><span class="lineNum">      46 </span><span class="lineCov">          1 :   s21::GraphAlgorithms algo;</span></a>
+<a name="47"><span class="lineNum">      47 </span><span class="lineCov">          1 :   std::string InputFileName = &quot;./examples/weighted_directed_graph_8_vert.txt&quot;;</span></a>
+<a name="48"><span class="lineNum">      48 </span><span class="lineCov">          1 :   graph.LoadGraphFromFile(InputFileName);</span></a>
+<a name="49"><span class="lineNum">      49 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="50"><span class="lineNum">      50 </span><span class="lineCov">          1 :       algo.GetShortestPathsBetweenAllVertices(graph);</span></a>
+<a name="51"><span class="lineNum">      51 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; result{</a>
+<a name="52"><span class="lineNum">      52 </span>            :       {0, 3, 6, 13, 16, 13, 6, 3}, {0, 0, 3, 16, 13, 10, 13, 0},</a>
+<a name="53"><span class="lineNum">      53 </span>            :       {0, 0, 0, 13, 10, 7, 10, 0}, {0, 0, 3, 0, 8, 5, 8, 0},</a>
+<a name="54"><span class="lineNum">      54 </span>            :       {0, 0, 6, 3, 0, 8, 11, 0},   {0, 0, 9, 6, 3, 0, 3, 0},</a>
+<a name="55"><span class="lineNum">      55 </span><span class="lineCov">         11 :       {0, 0, 10, 7, 15, 12, 0, 0}, {0, 0, 13, 10, 18, 15, 3, 0}};</span></a>
+<a name="56"><span class="lineNum">      56 </span><span class="lineCov">          1 :   ASSERT_EQ(minimum_distance, result);</span></a>
+<a name="57"><span class="lineNum">      57 </span>            : }</a>
+<a name="58"><span class="lineNum">      58 </span>            : </a>
+<a name="59"><span class="lineNum">      59 </span><span class="lineCov">          4 : TEST(GraphAlgorithmsTest, FloidWarshall_graph_21_vert_direct) {</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">          1 :   s21_Graph graph;</span></a>
+<a name="61"><span class="lineNum">      61 </span><span class="lineCov">          1 :   s21::GraphAlgorithms algo;</span></a>
+<a name="62"><span class="lineNum">      62 </span><span class="lineCov">          1 :   std::string InputFileName = &quot;./examples/graph_21_vert_direct.txt&quot;;</span></a>
+<a name="63"><span class="lineNum">      63 </span><span class="lineCov">          1 :   graph.LoadGraphFromFile(InputFileName);</span></a>
+<a name="64"><span class="lineNum">      64 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="65"><span class="lineNum">      65 </span><span class="lineCov">          1 :       algo.GetShortestPathsBetweenAllVertices(graph);</span></a>
+<a name="66"><span class="lineNum">      66 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; result{</a>
+<a name="67"><span class="lineNum">      67 </span>            :       {0, 1, 3, 4, 5, 6, 5, 7, 6, 4, 4, 2, 1, 4, 2, 2, 3, 6, 5, 5, 5},</a>
+<a name="68"><span class="lineNum">      68 </span>            :       {0, 0, 2, 3, 4, 5, 4, 6, 5, 3, 3, 1, 4, 3, 1, 5, 2, 5, 4, 4, 4},</a>
+<a name="69"><span class="lineNum">      69 </span>            :       {0, 0, 0, 1, 2, 3, 2, 4, 3, 1, 2, 4, 7, 6, 9, 8, 5, 4, 3, 3, 2},</a>
+<a name="70"><span class="lineNum">      70 </span>            :       {0, 0, 4, 0, 1, 2, 1, 3, 2, 3, 2, 4, 7, 6, 9, 8, 5, 4, 3, 3, 4},</a>
+<a name="71"><span class="lineNum">      71 </span>            :       {0, 0, 6, 2, 0, 1, 3, 5, 4, 5, 1, 3, 6, 5, 8, 7, 4, 3, 2, 2, 6},</a>
+<a name="72"><span class="lineNum">      72 </span>            :       {0, 0, 5, 1, 2, 0, 2, 4, 3, 4, 3, 5, 8, 7, 10, 9, 6, 5, 4, 4, 5},</a>
+<a name="73"><span class="lineNum">      73 </span>            :       {0, 0, 3, 4, 5, 6, 0, 2, 1, 2, 3, 5, 8, 7, 10, 9, 6, 5, 4, 4, 3},</a>
+<a name="74"><span class="lineNum">      74 </span>            :       {0, 0, 1, 2, 3, 4, 3, 0, 4, 2, 3, 5, 8, 7, 10, 9, 6, 5, 4, 4, 3},</a>
+<a name="75"><span class="lineNum">      75 </span>            :       {0, 0, 2, 3, 4, 5, 4, 1, 0, 1, 2, 4, 7, 6, 9, 8, 5, 4, 3, 3, 2},</a>
+<a name="76"><span class="lineNum">      76 </span>            :       {0, 0, 4, 5, 6, 7, 6, 3, 2, 0, 1, 3, 6, 5, 8, 7, 4, 3, 2, 2, 1},</a>
+<a name="77"><span class="lineNum">      77 </span>            :       {0, 0, 8, 9, 10, 11, 10, 12, 11, 9, 0, 2, 5, 4, 7, 6, 3, 2, 1, 1, 10},</a>
+<a name="78"><span class="lineNum">      78 </span>            :       {0, 0, 6, 7, 8, 9, 8, 10, 9, 7, 2, 0, 3, 2, 5, 4, 1, 4, 3, 3, 8},</a>
+<a name="79"><span class="lineNum">      79 </span>            :       {0, 0, 3, 4, 5, 6, 5, 7, 6, 4, 5, 7, 0, 9, 2, 1, 8, 7, 6, 6, 5},</a>
+<a name="80"><span class="lineNum">      80 </span>            :       {0, 0, 4, 5, 6, 7, 6, 8, 7, 5, 6, 8, 1, 0, 3, 2, 9, 8, 7, 7, 6},</a>
+<a name="81"><span class="lineNum">      81 </span>            :       {0, 0, 1, 2, 3, 4, 3, 5, 4, 2, 3, 5, 8, 7, 0, 9, 6, 5, 4, 4, 3},</a>
+<a name="82"><span class="lineNum">      82 </span>            :       {0, 0, 2, 3, 4, 5, 4, 6, 5, 3, 4, 6, 9, 8, 1, 0, 7, 6, 5, 5, 4},</a>
+<a name="83"><span class="lineNum">      83 </span>            :       {0, 0, 5, 6, 7, 8, 7, 9, 8, 6, 1, 3, 2, 1, 4, 3, 0, 3, 2, 2, 7},</a>
+<a name="84"><span class="lineNum">      84 </span>            :       {0, 0, 6, 7, 8, 9, 8, 10, 9, 7, 2, 4, 3, 2, 5, 4, 1, 0, 3, 3, 8},</a>
+<a name="85"><span class="lineNum">      85 </span>            :       {0, 0, 7, 8, 9, 10, 9, 11, 10, 8, 3, 5, 4, 3, 6, 5, 2, 1, 0, 4, 9},</a>
+<a name="86"><span class="lineNum">      86 </span>            :       {0, 0, 7, 8, 9, 10, 9, 11, 10, 8, 3, 1, 4, 3, 6, 5, 2, 5, 4, 0, 9},</a>
+<a name="87"><span class="lineNum">      87 </span><span class="lineCov">         24 :       {0, 0, 3, 4, 5, 6, 5, 2, 1, 2, 3, 5, 8, 7, 10, 9, 6, 5, 4, 4, 0}};</span></a>
+<a name="88"><span class="lineNum">      88 </span><span class="lineCov">          1 :   ASSERT_EQ(minimum_distance, result);</span></a>
+<a name="89"><span class="lineNum">      89 </span>            : }</a>
+<a name="90"><span class="lineNum">      90 </span>            : </a>
+<a name="91"><span class="lineNum">      91 </span><span class="lineCov">          4 : TEST(GraphAlgorithmsTest, FloidWarshall_very_big_graph) {</span></a>
+<a name="92"><span class="lineNum">      92 </span><span class="lineCov">          1 :   s21_Graph graph;</span></a>
+<a name="93"><span class="lineNum">      93 </span><span class="lineCov">          1 :   s21::GraphAlgorithms algo;</span></a>
+<a name="94"><span class="lineNum">      94 </span><span class="lineCov">          1 :   std::string InputFileName = &quot;./examples/very_big_graph.txt&quot;;</span></a>
+<a name="95"><span class="lineNum">      95 </span><span class="lineCov">          1 :   graph.LoadGraphFromFile(InputFileName);</span></a>
+<a name="96"><span class="lineNum">      96 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; minimum_distance =</a>
+<a name="97"><span class="lineNum">      97 </span><span class="lineCov">          1 :       algo.GetShortestPathsBetweenAllVertices(graph);</span></a>
+<a name="98"><span class="lineNum">      98 </span>            :   std::vector&lt;std::vector&lt;int&gt;&gt; result{</a>
+<a name="99"><span class="lineNum">      99 </span>            :       {0,  14, 10, 14, 10, 20, 27, 30, 44, 45, 31, 43, 65, 20, 36, 20, 30,</a>
+<a name="100"><span class="lineNum">     100 </span>            :        70, 54, 52, 69, 85, 57, 49, 72, 50, 40, 66, 90, 82, 67, 58, 40, 44,</a>
+<a name="101"><span class="lineNum">     101 </span>            :        25, 72, 88, 84, 83, 76, 95, 88, 81, 63, 36, 26, 15, 30, 22, 28},</a>
+<a name="102"><span class="lineNum">     102 </span>            :       {14, 0,  24, 28, 24, 20, 13, 30, 30, 31, 17, 29, 51, 6,  22, 7,  16,</a>
+<a name="103"><span class="lineNum">     103 </span>            :        56, 40, 38, 55, 71, 43, 35, 58, 41, 26, 52, 76, 68, 53, 58, 40, 44,</a>
+<a name="104"><span class="lineNum">     104 </span>            :        39, 72, 74, 70, 69, 62, 81, 74, 67, 54, 27, 17, 28, 44, 36, 42},</a>
+<a name="105"><span class="lineNum">     105 </span>            :       {10, 24, 0,  6,  10, 20, 27,  30, 44, 45, 41, 53,  65, 30, 36, 30, 40,</a>
+<a name="106"><span class="lineNum">     106 </span>            :        80, 64, 62, 79, 95, 67, 59,  82, 60, 50, 76, 100, 82, 67, 58, 40, 44,</a>
+<a name="107"><span class="lineNum">     107 </span>            :        25, 72, 98, 84, 83, 86, 105, 98, 91, 73, 46, 36,  25, 32, 12, 20},</a>
+<a name="108"><span class="lineNum">     108 </span>            :       {14, 28, 6,  0,  4,  14, 21,  24, 38, 39, 39, 51, 59, 28, 30, 34, 38,</a>
+<a name="109"><span class="lineNum">     109 </span>            :        78, 62, 60, 77, 93, 65, 57,  80, 64, 48, 74, 98, 76, 61, 52, 34, 38,</a>
+<a name="110"><span class="lineNum">     110 </span>            :        19, 66, 96, 78, 77, 84, 103, 96, 89, 77, 50, 40, 29, 38, 11, 14},</a>
+<a name="111"><span class="lineNum">     111 </span>            :       {10, 24, 10, 4,  0,  10, 17, 20, 34, 35, 35, 47, 55, 24, 26, 30, 34,</a>
+<a name="112"><span class="lineNum">     112 </span>            :        74, 58, 56, 73, 89, 61, 53, 76, 60, 44, 70, 94, 72, 57, 48, 30, 34,</a>
+<a name="113"><span class="lineNum">     113 </span>            :        15, 62, 92, 74, 73, 80, 99, 92, 85, 73, 46, 36, 25, 40, 15, 18},</a>
+<a name="114"><span class="lineNum">     114 </span>            :       {20, 20, 20, 14, 10, 0,  7,  10, 24, 25, 25, 37, 45, 14, 16, 27, 24,</a>
+<a name="115"><span class="lineNum">     115 </span>            :        64, 48, 46, 63, 79, 51, 43, 66, 54, 34, 60, 84, 62, 47, 38, 20, 24,</a>
+<a name="116"><span class="lineNum">     116 </span>            :        25, 52, 82, 64, 63, 70, 89, 82, 75, 65, 47, 37, 35, 50, 25, 28},</a>
+<a name="117"><span class="lineNum">     117 </span>            :       {27, 13, 27, 21, 17, 7,  0,  17, 17, 18, 18, 30, 38, 7,  9,  20, 17,</a>
+<a name="118"><span class="lineNum">     118 </span>            :        57, 41, 39, 56, 72, 44, 36, 59, 47, 27, 53, 77, 55, 40, 45, 27, 31,</a>
+<a name="119"><span class="lineNum">     119 </span>            :        32, 59, 75, 57, 56, 63, 82, 75, 68, 58, 40, 30, 41, 57, 32, 35},</a>
+<a name="120"><span class="lineNum">     120 </span>            :       {30, 30, 30, 24, 20, 10, 17, 0,  22, 15, 35, 43, 43, 24, 24, 37, 34,</a>
+<a name="121"><span class="lineNum">     121 </span>            :        70, 58, 52, 65, 81, 61, 53, 76, 64, 44, 70, 87, 60, 37, 28, 10, 14,</a>
+<a name="122"><span class="lineNum">     122 </span>            :        27, 42, 84, 54, 53, 80, 99, 92, 85, 75, 57, 47, 45, 60, 35, 38},</a>
+<a name="123"><span class="lineNum">     123 </span>            :       {44, 30, 44, 38, 34, 24, 17, 22, 0,  7,  19, 21, 21, 24, 8,  37, 32,</a>
+<a name="124"><span class="lineNum">     124 </span>            :        48, 42, 30, 43, 59, 59, 37, 61, 52, 28, 56, 65, 38, 29, 44, 26, 36,</a>
+<a name="125"><span class="lineNum">     125 </span>            :        49, 58, 62, 46, 45, 63, 85, 77, 70, 59, 57, 47, 58, 74, 49, 52},</a>
+<a name="126"><span class="lineNum">     126 </span>            :       {45, 31, 45, 39, 35, 25, 18, 15, 7,  0,  23, 28, 28, 25, 9,  38, 35,</a>
+<a name="127"><span class="lineNum">     127 </span>            :        55, 46, 37, 50, 66, 62, 41, 65, 56, 32, 60, 72, 45, 22, 37, 19, 29,</a>
+<a name="128"><span class="lineNum">     128 </span>            :        42, 51, 69, 39, 38, 70, 89, 81, 74, 63, 58, 48, 59, 75, 50, 53},</a>
+<a name="129"><span class="lineNum">     129 </span>            :       {31, 17, 41, 39, 35, 25, 18, 35, 19, 23, 0,  12, 40, 11, 14, 23, 13,</a>
+<a name="130"><span class="lineNum">     130 </span>            :        39, 23, 21, 38, 54, 40, 18, 42, 33, 9,  37, 60, 55, 45, 60, 42, 49,</a>
+<a name="131"><span class="lineNum">     131 </span>            :        50, 74, 57, 62, 61, 54, 66, 58, 51, 40, 43, 33, 44, 61, 50, 53},</a>
+<a name="132"><span class="lineNum">     132 </span>            :       {43, 29, 53, 51, 47, 37, 30, 43, 21, 28, 12, 0,  42, 23, 26, 35, 25,</a>
+<a name="133"><span class="lineNum">     133 </span>            :        27, 35, 9,  26, 42, 47, 30, 54, 45, 21, 49, 48, 43, 50, 65, 47, 57,</a>
+<a name="134"><span class="lineNum">     134 </span>            :        62, 79, 45, 52, 66, 42, 78, 70, 63, 52, 55, 45, 56, 73, 62, 65},</a>
+<a name="135"><span class="lineNum">     135 </span>            :       {65, 51, 65, 59, 55, 45, 38,  43, 21, 28, 40, 42, 0,  45, 29, 58, 53,</a>
+<a name="136"><span class="lineNum">     136 </span>            :        58, 63, 40, 22, 38, 77, 58,  82, 73, 49, 77, 44, 17, 40, 65, 47, 57,</a>
+<a name="137"><span class="lineNum">     137 </span>            :        70, 79, 41, 26, 41, 63, 100, 98, 91, 80, 78, 68, 79, 95, 70, 73},</a>
+<a name="138"><span class="lineNum">     138 </span>            :       {20, 6,  30, 28, 24, 14, 7,  24, 24, 25, 11, 23, 45, 0,  16, 13, 10,</a>
+<a name="139"><span class="lineNum">     139 </span>            :        50, 34, 32, 49, 65, 37, 29, 52, 40, 20, 46, 70, 62, 47, 52, 34, 38,</a>
+<a name="140"><span class="lineNum">     140 </span>            :        39, 66, 68, 64, 63, 56, 75, 68, 61, 51, 33, 23, 34, 50, 39, 42},</a>
+<a name="141"><span class="lineNum">     141 </span>            :       {36, 22, 36, 30, 26, 16, 9,  24, 8,  9,  14, 26, 29, 16, 0,  29, 26,</a>
+<a name="142"><span class="lineNum">     142 </span>            :        53, 37, 35, 51, 67, 53, 32, 56, 47, 23, 51, 73, 46, 31, 46, 28, 38,</a>
+<a name="143"><span class="lineNum">     143 </span>            :        41, 60, 70, 48, 47, 68, 80, 72, 65, 54, 49, 39, 50, 66, 41, 44},</a>
+<a name="144"><span class="lineNum">     144 </span>            :       {20, 7,  30, 34, 30, 27, 20, 37, 37, 38, 23, 35, 58, 13, 29, 0,  10,</a>
+<a name="145"><span class="lineNum">     145 </span>            :        57, 36, 40, 58, 74, 37, 31, 52, 34, 22, 46, 70, 75, 60, 65, 47, 51,</a>
+<a name="146"><span class="lineNum">     146 </span>            :        45, 79, 77, 77, 76, 56, 75, 68, 61, 47, 20, 10, 21, 50, 42, 48},</a>
+<a name="147"><span class="lineNum">     147 </span>            :       {30, 16, 40, 38, 34, 24, 17, 34, 32, 35, 13, 25, 53, 10, 26, 10, 0,</a>
+<a name="148"><span class="lineNum">     148 </span>            :        47, 36, 30, 48, 64, 27, 31, 42, 30, 22, 36, 60, 65, 57, 62, 44, 48,</a>
+<a name="149"><span class="lineNum">     149 </span>            :        49, 76, 67, 74, 73, 46, 65, 58, 51, 47, 30, 20, 31, 60, 49, 52},</a>
+<a name="150"><span class="lineNum">     150 </span>            :       {70, 56,  80, 78, 74, 64, 57, 70, 48, 55, 39, 27, 58, 50,  53, 57, 47,</a>
+<a name="151"><span class="lineNum">     151 </span>            :        0,  54,  18, 36, 44, 20, 48, 35, 64, 48, 29, 53, 53, 76,  92, 74, 84,</a>
+<a name="152"><span class="lineNum">     152 </span>            :        89, 106, 55, 62, 77, 39, 58, 51, 44, 71, 77, 67, 78, 100, 89, 92},</a>
+<a name="153"><span class="lineNum">     153 </span>            :       {54, 40, 64, 62, 58, 48, 41, 58, 42, 46, 23, 35, 63, 34, 37, 36, 36,</a>
+<a name="154"><span class="lineNum">     154 </span>            :        54, 0,  44, 61, 77, 34, 22, 19, 10, 14, 25, 67, 78, 68, 83, 65, 72,</a>
+<a name="155"><span class="lineNum">     155 </span>            :        73, 97, 80, 85, 84, 53, 43, 35, 28, 17, 24, 34, 45, 82, 73, 76},</a>
+<a name="156"><span class="lineNum">     156 </span>            :       {52, 38, 62, 60, 56, 46, 39, 52, 30, 37, 21, 9,  40, 32, 35, 40, 30,</a>
+<a name="157"><span class="lineNum">     157 </span>            :        18, 44, 0,  18, 34, 38, 39, 53, 54, 30, 47, 40, 35, 58, 74, 56, 66,</a>
+<a name="158"><span class="lineNum">     158 </span>            :        71, 88, 37, 44, 59, 33, 70, 69, 62, 61, 60, 50, 61, 82, 71, 74},</a>
+<a name="159"><span class="lineNum">     159 </span>            :       {69, 55, 79, 77, 73, 63, 56, 65, 43, 50, 38, 26, 22, 49, 51, 58, 48,</a>
+<a name="160"><span class="lineNum">     160 </span>            :        36, 61, 18, 0,  16, 55, 56, 70, 71, 47, 64, 22, 17, 40, 75, 69, 79,</a>
+<a name="161"><span class="lineNum">     161 </span>            :        88, 89, 19, 26, 41, 41, 78, 86, 79, 78, 78, 68, 79, 99, 88, 91},</a>
+<a name="162"><span class="lineNum">     162 </span>            :       {85,  71,  95, 93, 89, 79, 72, 81, 59, 66, 54, 42, 38, 65,  67,  74, 64,</a>
+<a name="163"><span class="lineNum">     163 </span>            :        44,  77,  34, 16, 0,  64, 72, 79, 87, 63, 73, 38, 33, 56,  91,  85, 95,</a>
+<a name="164"><span class="lineNum">     164 </span>            :        104, 105, 35, 42, 57, 57, 94, 95, 88, 94, 94, 84, 95, 115, 104, 107},</a>
+<a name="165"><span class="lineNum">     165 </span>            :       {57, 43,  67, 65, 61, 51, 44, 61, 59, 62, 40, 47, 77, 37, 53, 37, 27,</a>
+<a name="166"><span class="lineNum">     166 </span>            :        20, 34,  38, 55, 64, 0,  28, 15, 44, 37, 9,  33, 72, 84, 89, 71, 75,</a>
+<a name="167"><span class="lineNum">     167 </span>            :        76, 103, 55, 81, 96, 19, 38, 31, 24, 51, 57, 47, 58, 87, 76, 79},</a>
+<a name="168"><span class="lineNum">     168 </span>            :       {49, 35, 59, 57, 53, 43, 36, 53, 37, 41, 18, 30, 58, 29, 32, 31, 31,</a>
+<a name="169"><span class="lineNum">     169 </span>            :        48, 22, 39, 56, 72, 28, 0,  25, 32, 9,  19, 61, 73, 63, 78, 60, 67,</a>
+<a name="170"><span class="lineNum">     170 </span>            :        68, 92, 75, 80, 79, 47, 49, 41, 34, 39, 46, 41, 52, 79, 68, 71},</a>
+<a name="171"><span class="lineNum">     171 </span>            :       {72, 58,  82, 80, 76,  66, 59, 76, 61, 65, 42, 54, 82, 52,  56,  52, 42,</a>
+<a name="172"><span class="lineNum">     172 </span>            :        35, 19,  53, 70, 79,  15, 25, 0,  29, 33, 6,  48, 87, 87,  102, 84, 90,</a>
+<a name="173"><span class="lineNum">     173 </span>            :        91, 116, 70, 96, 103, 34, 24, 16, 9,  36, 43, 53, 64, 101, 91,  94},</a>
+<a name="174"><span class="lineNum">     174 </span>            :       {50, 41,  60, 64, 60, 54, 47, 64, 52, 56, 33, 45, 73, 40, 47, 34, 30,</a>
+<a name="175"><span class="lineNum">     175 </span>            :        64, 10,  54, 71, 87, 44, 32, 29, 0,  24, 35, 77, 88, 78, 92, 74, 78,</a>
+<a name="176"><span class="lineNum">     176 </span>            :        75, 106, 90, 95, 94, 63, 53, 45, 38, 17, 14, 24, 35, 72, 72, 78},</a>
+<a name="177"><span class="lineNum">     177 </span>            :       {40, 26, 50, 48, 44, 34, 27, 44, 28, 32, 9,  21, 49, 20, 23, 22, 22,</a>
+<a name="178"><span class="lineNum">     178 </span>            :        48, 14, 30, 47, 63, 37, 9,  33, 24, 0,  28, 69, 64, 54, 69, 51, 58,</a>
+<a name="179"><span class="lineNum">     179 </span>            :        59, 83, 66, 71, 70, 56, 57, 49, 42, 31, 38, 32, 43, 70, 59, 62},</a>
+<a name="180"><span class="lineNum">     180 </span>            :       {66, 52,  76, 74, 70, 60, 53, 70, 56, 60, 37, 49, 77, 46, 51, 46, 36,</a>
+<a name="181"><span class="lineNum">     181 </span>            :        29, 25,  47, 64, 73, 9,  19, 6,  35, 28, 0,  42, 81, 82, 97, 79, 84,</a>
+<a name="182"><span class="lineNum">     182 </span>            :        85, 111, 64, 90, 98, 28, 30, 22, 15, 42, 49, 56, 67, 96, 85, 88},</a>
+<a name="183"><span class="lineNum">     183 </span>            :       {90,  76,  100, 98, 94, 84, 77, 87, 65, 72, 60, 48, 44, 70,  73,  70, 60,</a>
+<a name="184"><span class="lineNum">     184 </span>            :        53,  67,  40,  22, 38, 33, 61, 48, 77, 69, 42, 0,  39, 62,  97,  91, 101,</a>
+<a name="185"><span class="lineNum">     185 </span>            :        109, 111, 22,  48, 63, 19, 56, 64, 57, 84, 90, 80, 91, 120, 109, 112},</a>
+<a name="186"><span class="lineNum">     186 </span>            :       {82, 68, 82, 76, 72, 62, 55, 60,  38, 45, 55, 43, 17, 62,  46, 75, 65,</a>
+<a name="187"><span class="lineNum">     187 </span>            :        53, 78, 35, 17, 33, 72, 73, 87,  88, 64, 81, 39, 0,  23,  58, 56, 67,</a>
+<a name="188"><span class="lineNum">     188 </span>            :        87, 72, 36, 9,  24, 58, 95, 103, 96, 95, 95, 85, 96, 112, 87, 90},</a>
+<a name="189"><span class="lineNum">     189 </span>            :       {67, 53, 67, 61, 57, 47, 40,  37,  29, 22, 45, 50, 40, 47, 31, 60, 57,</a>
+<a name="190"><span class="lineNum">     190 </span>            :        76, 68, 58, 40, 56, 84, 63,  87,  78, 54, 82, 62, 23, 0,  35, 33, 44,</a>
+<a name="191"><span class="lineNum">     191 </span>            :        64, 49, 48, 17, 16, 81, 111, 103, 96, 85, 80, 70, 81, 97, 72, 75},</a>
+<a name="192"><span class="lineNum">     192 </span>            :       {58, 58, 58, 52, 48, 38,  45,  28,  44,  37,  60, 65, 65, 52, 46, 65, 62,</a>
+<a name="193"><span class="lineNum">     193 </span>            :        92, 83, 74, 75, 91, 89,  78,  102, 92,  69,  97, 97, 58, 35, 0,  18, 29,</a>
+<a name="194"><span class="lineNum">     194 </span>            :        55, 14, 83, 52, 51, 107, 126, 118, 111, 100, 85, 75, 73, 88, 63, 66},</a>
+<a name="195"><span class="lineNum">     195 </span>            :       {40, 40, 40, 34, 30, 20, 27,  10,  26, 19, 42, 47, 47, 34, 28, 47, 44,</a>
+<a name="196"><span class="lineNum">     196 </span>            :        74, 65, 56, 69, 85, 71, 60,  84,  74, 51, 79, 91, 56, 33, 18, 0,  11,</a>
+<a name="197"><span class="lineNum">     197 </span>            :        37, 32, 81, 50, 49, 89, 108, 100, 93, 82, 67, 57, 55, 70, 45, 48},</a>
+<a name="198"><span class="lineNum">     198 </span>            :       {44, 44, 44, 38, 34, 24, 31,  14,  36, 29, 49, 57,  57, 38, 38, 51, 48,</a>
+<a name="199"><span class="lineNum">     199 </span>            :        84, 72, 66, 79, 95, 75, 67,  90,  78, 58, 84, 101, 67, 44, 29, 11, 0,</a>
+<a name="200"><span class="lineNum">     200 </span>            :        33, 39, 92, 61, 60, 94, 113, 106, 99, 89, 71, 61,  59, 74, 49, 46},</a>
+<a name="201"><span class="lineNum">     201 </span>            :       {25, 39, 25,  19, 15,  25, 32,  27,  49,  42, 50, 62,  70, 39, 41, 45, 49,</a>
+<a name="202"><span class="lineNum">     202 </span>            :        89, 73, 71,  88, 104, 76, 68,  91,  75,  59, 85, 109, 87, 64, 55, 37, 33,</a>
+<a name="203"><span class="lineNum">     203 </span>            :        0,  69, 107, 81, 80,  95, 114, 107, 100, 88, 61, 51,  40, 55, 26, 13},</a>
+<a name="204"><span class="lineNum">     204 </span>            :       {72,  72,  72,  66,  62,  52, 59, 42, 58,  51,  74, 79,  79,</a>
+<a name="205"><span class="lineNum">     205 </span>            :        66,  60,  79,  76,  106, 97, 88, 89, 105, 103, 92, 116, 106,</a>
+<a name="206"><span class="lineNum">     206 </span>            :        83,  111, 111, 72,  49,  14, 32, 39, 69,  0,   97, 66,  65,</a>
+<a name="207"><span class="lineNum">     207 </span>            :        121, 140, 132, 125, 114, 99, 89, 87, 102, 77,  80},</a>
+<a name="208"><span class="lineNum">     208 </span>            :       {88,  74, 98, 96, 92, 82, 75, 84, 62, 69, 57, 45, 41, 68,  70,  77, 67,</a>
+<a name="209"><span class="lineNum">     209 </span>            :        55,  80, 37, 19, 35, 55, 75, 70, 90, 66, 64, 22, 36, 48,  83,  81, 92,</a>
+<a name="210"><span class="lineNum">     210 </span>            :        107, 97, 0,  31, 46, 41, 78, 86, 79, 97, 97, 87, 98, 118, 107, 110},</a>
+<a name="211"><span class="lineNum">     211 </span>            :       {84, 70, 84, 78, 74, 64, 57,  54,  46,  39,  62, 52, 26, 64,  48, 77, 74,</a>
+<a name="212"><span class="lineNum">     212 </span>            :        62, 85, 44, 26, 42, 81, 80,  96,  95,  71,  90, 48, 9,  17,  52, 50, 61,</a>
+<a name="213"><span class="lineNum">     213 </span>            :        81, 66, 31, 0,  15, 67, 104, 112, 105, 102, 97, 87, 98, 114, 89, 92},</a>
+<a name="214"><span class="lineNum">     214 </span>            :       {83, 69, 83, 77, 73, 63, 56,  53,  45,  38,  61, 66, 41, 63,  47, 76, 73,</a>
+<a name="215"><span class="lineNum">     215 </span>            :        77, 84, 59, 41, 57, 96, 79,  103, 94,  70,  98, 63, 24, 16,  51, 49, 60,</a>
+<a name="216"><span class="lineNum">     216 </span>            :        80, 65, 46, 15, 0,  82, 119, 119, 112, 101, 96, 86, 97, 113, 88, 91},</a>
+<a name="217"><span class="lineNum">     217 </span>            :       {76, 62,  86, 84, 80, 70, 63, 80, 63, 70, 54, 42, 63, 56,  68,  56, 46,</a>
+<a name="218"><span class="lineNum">     218 </span>            :        39, 53,  33, 41, 57, 19, 47, 34, 63, 56, 28, 19, 58, 81,  107, 89, 94,</a>
+<a name="219"><span class="lineNum">     219 </span>            :        95, 121, 41, 67, 82, 0,  37, 45, 43, 70, 76, 66, 77, 106, 95,  98},</a>
+<a name="220"><span class="lineNum">     220 </span>            :       {95, 81, 105, 103, 99,  89,  82,  99,  85,  89,  66, 78,  100,</a>
+<a name="221"><span class="lineNum">     221 </span>            :        75, 80, 75,  65,  58,  43,  70,  78,  94,  38,  49, 24,  53,</a>
+<a name="222"><span class="lineNum">     222 </span>            :        57, 30, 56,  95,  111, 126, 108, 113, 114, 140, 78, 104, 119,</a>
+<a name="223"><span class="lineNum">     223 </span>            :        37, 0,  8,   33,  60,  67,  77,  88,  125, 114, 117},</a>
+<a name="224"><span class="lineNum">     224 </span>            :       {88, 74, 98, 96,  92,  82,  75,  92,  77,  81,  58, 70,  98,</a>
+<a name="225"><span class="lineNum">     225 </span>            :        68, 72, 68, 58,  51,  35,  69,  86,  95,  31,  41, 16,  45,</a>
+<a name="226"><span class="lineNum">     226 </span>            :        49, 22, 64, 103, 103, 118, 100, 106, 107, 132, 86, 112, 119,</a>
+<a name="227"><span class="lineNum">     227 </span>            :        45, 8,  0,  25,  52,  59,  69,  80,  117, 107, 110},</a>
+<a name="228"><span class="lineNum">     228 </span>            :       {81,  67,  91, 89,  85,  75, 68, 85, 70, 74, 51, 63, 91, 61,  65,  61, 51,</a>
+<a name="229"><span class="lineNum">     229 </span>            :        44,  28,  62, 79,  88,  24, 34, 9,  38, 42, 15, 57, 96, 96,  111, 93, 99,</a>
+<a name="230"><span class="lineNum">     230 </span>            :        100, 125, 79, 105, 112, 43, 33, 25, 0,  29, 52, 62, 73, 110, 100, 103},</a>
+<a name="231"><span class="lineNum">     231 </span>            :       {63, 54,  73, 77,  73,  65, 58, 75, 59, 63, 40, 52, 80, 51, 54,  47, 47,</a>
+<a name="232"><span class="lineNum">     232 </span>            :        71, 17,  61, 78,  94,  51, 39, 36, 17, 31, 42, 84, 95, 85, 100, 82, 89,</a>
+<a name="233"><span class="lineNum">     233 </span>            :        88, 114, 97, 102, 101, 70, 60, 52, 29, 0,  27, 37, 48, 85, 85,  91},</a>
+<a name="234"><span class="lineNum">     234 </span>            :       {36, 27, 46, 50, 46, 47, 40, 57, 57, 58, 43, 55, 78, 33, 49, 20, 30,</a>
+<a name="235"><span class="lineNum">     235 </span>            :        77, 24, 60, 78, 94, 57, 46, 43, 14, 38, 49, 90, 95, 80, 85, 67, 71,</a>
+<a name="236"><span class="lineNum">     236 </span>            :        61, 99, 97, 97, 96, 76, 67, 59, 52, 27, 0,  10, 21, 58, 58, 64},</a>
+<a name="237"><span class="lineNum">     237 </span>            :       {26, 17, 36, 40, 36, 37, 30, 47, 47, 48, 33, 45, 68, 23, 39, 10, 20,</a>
+<a name="238"><span class="lineNum">     238 </span>            :        67, 34, 50, 68, 84, 47, 41, 53, 24, 32, 56, 80, 85, 70, 75, 57, 61,</a>
+<a name="239"><span class="lineNum">     239 </span>            :        51, 89, 87, 87, 86, 66, 77, 69, 62, 37, 10, 0,  11, 48, 48, 54},</a>
+<a name="240"><span class="lineNum">     240 </span>            :       {15, 28, 25, 29, 25, 35, 41, 45, 58, 59, 44, 56, 79, 34, 50, 21, 31,</a>
+<a name="241"><span class="lineNum">     241 </span>            :        78, 45, 61, 79, 95, 58, 52, 64, 35, 43, 67, 91, 96, 81, 73, 55, 59,</a>
+<a name="242"><span class="lineNum">     242 </span>            :        40, 87, 98, 98, 97, 77, 88, 80, 73, 48, 21, 11, 0,  37, 37, 43},</a>
+<a name="243"><span class="lineNum">     243 </span>            :       {30,  44,  32,  38,  40,  50, 57, 60, 74,  75,  61,  73,  95,</a>
+<a name="244"><span class="lineNum">     244 </span>            :        50,  66,  50,  60,  100, 82, 82, 99, 115, 87,  79,  101, 72,</a>
+<a name="245"><span class="lineNum">     245 </span>            :        70,  96,  120, 112, 97,  88, 70, 74, 55,  102, 118, 114, 113,</a>
+<a name="246"><span class="lineNum">     246 </span>            :        106, 125, 117, 110, 85,  58, 48, 37, 0,   44,  52},</a>
+<a name="247"><span class="lineNum">     247 </span>            :       {22, 36, 12,  11, 15,  25, 32,  35,  49,  50, 50, 62,  70, 39, 41, 42, 49,</a>
+<a name="248"><span class="lineNum">     248 </span>            :        89, 73, 71,  88, 104, 76, 68,  91,  72,  59, 85, 109, 87, 72, 63, 45, 49,</a>
+<a name="249"><span class="lineNum">     249 </span>            :        26, 77, 107, 89, 88,  95, 114, 107, 100, 85, 58, 48,  37, 44, 0,  13},</a>
+<a name="250"><span class="lineNum">     250 </span>            :       {28, 42, 20,  14, 18,  28, 35,  38,  52,  53, 53, 65,  73, 42, 44, 48, 52,</a>
+<a name="251"><span class="lineNum">     251 </span>            :        92, 76, 74,  91, 107, 79, 71,  94,  78,  62, 88, 112, 90, 75, 66, 48, 46,</a>
+<a name="252"><span class="lineNum">     252 </span>            :        13, 80, 110, 92, 91,  98, 117, 110, 103, 91, 64, 54,  43, 52, 13, 0}</a>
+<a name="253"><span class="lineNum">     253 </span>            : </a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineCov">         53 :   };</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">          1 :   ASSERT_EQ(minimum_distance, result);</span></a>
+<a name="256"><span class="lineNum">     256 </span>            : }</a>
+<a name="257"><span class="lineNum">     257 </span>            : }  // namespace s21</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="https://github.com/linux-test-project/lcov" target="_parent">LCOV version 1.16</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

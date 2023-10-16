@@ -8,6 +8,7 @@
 #include "floid_uolsher_tests.cc"
 #include "graph_class_tests.cc"
 #include "prim_tests.cc"
+#include "ant_tests.cc"
 
 namespace s21 {
 

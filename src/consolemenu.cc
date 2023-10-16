@@ -142,6 +142,7 @@ void ConsoleMenuInterface::ShowMenu() {
 void ConsoleMenuInterface::CallGraphLoading(std::string pathToFile) {
   std::cout << "specify the path to the file:" << std::endl;
   std::cin >> pathToFile;
+  RemoveSrcPrefix(pathToFile);
   if (graph_.CheckFile(pathToFile)) {
     graph_.LoadGraphFromFile(pathToFile);
     if (graph_.IsGraphConnected(graph_, pathToFile)) {
@@ -291,18 +292,30 @@ void ConsoleMenuInterface::CallAnt() {
   std::vector<int> way;
   double distance;
   s21::TsmResult result = algo.SolveTravelingSalesmanProblem(graph_);
-  // way = result.vertices;
   way = result.path;
   distance = result.distance;
 
   std::cout << "Way is  -  ";
   for(int it = 0; it < way.size(); ++it) {
+    if(it != way.size() - 1) {
     std::cout << way[it] << " -> ";
+    } else {
+    std::cout << way[it] << std::endl;;
+
+    }
   }
-  std::cout << std::endl;
 
   std::cout << "Distance is   -  " << distance << std::endl;
 
+}
+
+
+std::string ConsoleMenuInterface::RemoveSrcPrefix(const std::string& path) {
+  std::string srcPrefix = "src/";
+  if (path.substr(0, srcPrefix.size()) == srcPrefix) {
+    return path.substr(srcPrefix.size());
+  }
+  return path;
 }
 
 
