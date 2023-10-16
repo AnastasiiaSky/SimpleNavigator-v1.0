@@ -6,26 +6,26 @@ using namespace std;
 
 namespace s21 {
 
-    //  TEST(AntTest, weighted_graph_4_vert_1) {
-    //     s21::s21_Graph graph;
-    //     s21::GraphAlgorithms algo;
+     TEST(AntTest, weighted_graph_4_vert_1) {
+        s21::s21_Graph graph;
+        s21::GraphAlgorithms algo;
         
-    //     std::string InputFileName = "./examples/weighted_graph_4_vert.txt";
-    //     // std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
-    //     graph.LoadGraphFromFile(InputFileName);
-    //     int distance = 10;
-    //     TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
-    //     const int size = graph.get_graph_size(); 
+        std::string InputFileName = "./examples/weighted_graph_4_vert.txt";
+        // std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
+        graph.LoadGraphFromFile(InputFileName);
+        int distance = 10;
+        TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
+        const int size = graph.get_graph_size(); 
    
-    //             // ASSERT_EQ(253, result_struct.distance);
-    //             // ASSERT_EQ(1, *result_struct.vertices);
-    //             cout << "Vertex_ " << result_struct.vertices << endl;
-    //             cout << "Distance_ " << result_struct.distance << endl;
-    //             cout << "Path: ";
-    //             algo.PrintResultOfDepthFirstSearch(result_struct.path);
-    //             // cout << "Path: f ";
+                // ASSERT_EQ(253, result_struct.distance);
+                // ASSERT_EQ(1, *result_struct.vertices);
+                cout << "Vertex_ " << result_struct.vertices << endl;
+                cout << "Distance_ " << result_struct.distance << endl;
+                cout << "Path: ";
+                algo.PrintResultOfDepthFirstSearch(result_struct.path);
+                // cout << "Path: f ";
 
-    // }
+    }
 
     TEST(AntTest, weighted_graph_11_vert) {
         s21::s21_Graph graph;
@@ -39,8 +39,8 @@ namespace s21 {
    
                 // ASSERT_EQ(253, result_struct.distance);
                 // ASSERT_EQ(1, *result_struct.vertices);
-                cout << "Distance_" << result_struct.distance << endl;
-                cout << "Distance_" << result_struct.distance2 << endl;
+                cout << "Distance_* " << result_struct.distance << endl;
+                cout << "Distance_ " << result_struct.distance2 << endl;
             algo.PrintResultOfDepthFirstSearch(result_struct.path);
             // algo.PrintResultOfDepthFirstSearch(result_struct.tmp);
             cout << "random_" << result_struct.random << endl;
@@ -87,6 +87,19 @@ namespace s21 {
     //     ASSERT_EQ(0, i);
     // }
 
+    // TEST(AntTest, SelectNextVertex_3) {
+    //     std::vector<double> probability_list {0, 0.15, 0.35, 0, 0.50, 0, 0, 0};
+    //     s21::GraphAlgorithms algo;
+    //     int size = probability_list.size();
+    //     int vertex = algo.SelectNextVertex(probability_list);
+    //     cout << "VERTEX " << vertex << endl;
+    //     int i = 1;
+    //     if (vertex <= size && vertex > 0) {
+    //         i = 0;
+    //     }
+    //     ASSERT_EQ(0, i);
+    // }
+
     // TEST(AntTest, RecalculatePheramoneMatrix) {
     //     s21::s21_Graph graph;
     //     s21::GraphAlgorithms algo;
@@ -119,11 +132,11 @@ namespace s21 {
     //     int distance = 10;
     //     int vertex = 1;
     //     std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
-    //     std::vector<std::vector<int>> matrix_adjacency = graph.getAdjacencyMatrix();
+    //     std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
     //     std::vector <double> probability_list(size, 0.0);
 
     //     // int size = probability_list.size();
-    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
     //     algo.PrintResultOfDepthFirstSearch(probability_list);  
 
     //     for (int j = 1; j < size; j++){
@@ -143,15 +156,97 @@ namespace s21 {
     //     int distance = 10;
     //     int vertex = 4;
     //     std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
-    //     std::vector<std::vector<int>> matrix_adjacency = graph.getAdjacencyMatrix();
+    //     std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
     //     std::vector <double> probability_list(size, 0.0);
     //     std::vector <double> reference_list{0, 0, 0.625, 0, 0, 0.375, 0, 0};
 
-    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, matrix_adjacency, vertex);
+    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
     //     algo.PrintResultOfDepthFirstSearch(probability_list);  
 
     //     ASSERT_EQ(probability_list, probability_list);
     //     ASSERT_EQ(0, err);
+    // }
+
+    //    TEST(AntTest, CreateProbabilityPath_3) {
+    //     s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     // std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    //     std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     const int size = graph.get_graph_size(); 
+    //     int distance = 10;
+    //     int vertex = 11;
+    //     std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
+    //     std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
+    //     std::vector <double> probability_list(size, 0.0);
+    //     // std::vector <double> reference_list{0, 0, 0.625, 0, 0, 0.375, 0, 0};
+
+
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+    //     vertex = 10;
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+
+    //     vertex = 9;
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+
+    //     int err = algo.CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
+    //     algo.PrintResultOfDepthFirstSearch(probability_list);  
+
+    //     // ASSERT_EQ(probability_list, probability_list);
+    //     // ASSERT_EQ(0, err);
+    // }
+
+    //  TEST(AntTest, CreateProbabilityPath_4) {
+    //     s21::s21_Graph graph;
+    //     s21::GraphAlgorithms algo;
+    //     // std::string InputFileName = "./examples/graph_3_vert_simply.txt";
+    //     std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+    //     graph.LoadGraphFromFile(InputFileName);
+    //     const int size = graph.get_graph_size(); 
+    //     int distance = 10;
+    //     int vertex = 11;
+    //     std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
+    //     std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
+    //     std::vector <double> probability_list(size, 0.0);
+    //     // std::vector <double> reference_list{0, 0, 0.625, 0, 0, 0.375, 0, 0};
+
+        
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+    //     algo.PrintAdjacencyMatrix(adjacency_matrix);
+    //     cout << "R "  << endl;
+    //     algo.CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
+    //     algo.PrintResultOfDepthFirstSearch(probability_list);  
+    //     vertex = algo.SelectNextVertex(probability_list); 
+
+    //     cout << "VERTEX " << vertex << endl;
+
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+    //     cout << "R2 "  << endl;
+    //     algo.PrintAdjacencyMatrix(adjacency_matrix);
+    //     std::vector <double> probability_list2(size, 0.0);
+    //     cout << "R3 "  << endl;
+    //     algo.CreateProbabilityPath(probability_list2, pheramone_matrix, adjacency_matrix, vertex);
+    //     algo.PrintResultOfDepthFirstSearch(probability_list2);  
+    //     vertex = algo.SelectNextVertex(probability_list2); 
+
+    //     cout << "VERTEX " << vertex << endl;
+    //     for (int i = 0; i < size; i++){
+    //       adjacency_matrix[i][vertex - 1] = 0;
+    //     }
+    //     algo.PrintAdjacencyMatrix(adjacency_matrix);
+        
+    //     // ASSERT_EQ(probability_list, probability_list);
+    //     // ASSERT_EQ(0, err);
     // }
 
    

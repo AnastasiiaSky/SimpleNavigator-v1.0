@@ -85,16 +85,16 @@ class GraphAlgorithms {
   // private:
     // Рассчитывает вероятность прохождения по текущему ребру
     int CreateProbabilityPath(std::vector<double> &pobability_list,
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> matrix_adjacency, int vertex);
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex);
 
     // Пересчитывает количество ферамонта на текущему ребре
     void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);
 
     // Генерируем рандомное число в заданном диапозоне
-    int VertexRandom(int min, int max) const;
+    double VertexRandom(double min, double max) const;
 
     // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (std::vector<double> probability_list, int ver);
+    int SelectNextVertex (std::vector<double> probability_list);
 
     
 

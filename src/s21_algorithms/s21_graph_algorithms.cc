@@ -315,6 +315,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
+                // 3 -> 6 -> 10 -> 4 -> 5 -> 8 -> 9 -> 2 -> 11 -> 1 -> 7 -> 3  = 309
   // !!!  Как поведет себя с отрицательными весами, может ли быть отрицательное количество ферамонов
   // Константы, вводятся самостоятельно
   const int ants = 10000; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
@@ -343,7 +344,8 @@ std::vector <double>  tmp; //!!! временно
   
   
   // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
-    for (int one_ant = 2; one_ant < ants; one_ant++){
+    for (int one_ant = 0; one_ant < ants; one_ant++){
+      // cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
       vertex = (one_ant % size) + 1;
       int prev_vertex = 0;
       int distance_tmp = 0;
@@ -352,26 +354,26 @@ std::vector <double>  tmp; //!!! временно
       // vertex = ; // !!!
   // Создаем текущее расстояние D
   // int distance = 0;  // создаем здесь, чтоб каждый раз обновлялся
-     
+     adjacency_matrix = adjacency_matrix2;
   
   // Зануляем временный путь, чтоб каждый новый муравей прокладывал свой собственны или лучше создаем его тут
     // Создаем временный путь {0}, зануляем, чтоб каждый новый муравей прокладывал свой путь
   std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
+  // std::vector<std::vector<int>> temp_path;
     
   //   // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
     // cout << "T " << vertex << endl;
     // res_path.push_back(vertex);
     int err = 0;
     std::vector<int> res_path;
+    // cout << "______________4 "<< err <<  endl;
   for (int j = 0; j < size && err == 0; j++){ //!!! Заменить на size
-    // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
-    // std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
-    std::vector <double> probability_list(size, 0.0);
+    cout<< "VERTEX0 - - - --  _ : " << vertex << endl;
     // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
     // PrintResultOfDepthFirstSearch(probability_list);
     // PrintAdjacencyMatrix(pheramone_matrix);
     // PrintAdjacencyMatrix(adjacency_matrix);
-    // cout<< "VERTEX _ : " << vertex << endl;
+    // cout<< "VERTEX - - - --  _ : " << vertex << endl;
     
     // Выделить в отдельную функцию, удаления пути в вершины, которые мы посетили
       for (int i = 0; i < size; i++){
@@ -384,26 +386,36 @@ std::vector <double>  tmp; //!!! временно
       
     
     // PrintAdjacencyMatrix(adjacency_matrix);
+    cout<< "VERTEX2 - - - --  _ : " << vertex << endl;
     
-    
+    // Создаем лист вероятности, здесь, чтоб он удалялся после каждого цикла
+    // std::vector<std::vector<double>> pobability_list(size, std::vector<double>(size, 0.0));
+    std::vector <double> probability_list(size, 0.0);
     err = CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
-    // cout << "Чек 0 " << err << endl;
+    cout << "Чек 0 " << err << endl;
     // PrintResultOfDepthFirstSearch (probability_list);
                   
     // Выбираем в какую вершину он пошел из вероятно свободных 
       //   // Сохраняем вершину где были во временный путь
      // Если есть вероятносьб, что пошли в какую-то из вершин, то идем, в противном случае обнуляем данный путь переходим к следующему
       res_path.push_back(vertex);
-    if (err == 0) {
-      
-        
-      // distance_tmp += adjacency_matrix2[vertex - 1][j]; // !!! Заменить посчитать    
+    if (err == 0) {  
       prev_vertex = vertex;
-      if ( one_ant == 3){  /// !!! удалить временно
-         tmp = probability_list;
-         cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
-      }
-      vertex = SelectNextVertex (probability_list, vertex); // !!! , int ver -  убрать
+      // if ( one_ant == 3){  /// !!! удалить временно
+      //    tmp = probability_list;
+        //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+      // }
+      vertex = SelectNextVertex (probability_list); // !!! , int ver -  убрать
+      // cout << "#### " << vertex << endl;
+      // vertex = 0;
+      // cout << "KKKKKK  " << res_path.size() << endl;
+      // PrintResultOfDepthFirstSearch(res_path);
+      if (vertex <= 0 && res_path.size() != size || vertex > size){ // !!!! && res_path.size() != size возможно не надо
+          err = 1;
+          // continue;
+        //  cout << "______________)))))))))))))) "<< err <<  endl;
+      } else {
+    
       // cout << "Вершина из " << prev_vertex << " VERTEX2 _ в: " << vertex << endl;
       
       temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix2[vertex - 1][prev_vertex - 1]; //!!!  Возможно не правильно
@@ -418,10 +430,10 @@ std::vector <double>  tmp; //!!! временно
 
       // Пересчитываем матрицу феромонов c учетом нового проложенного маршрута
         // cout << endl;
-      
-   
+      }
+    // cout << "______________2 "<< err <<  endl;
     }
-      
+      // cout << "______________3 "<< err <<  endl;
       // Считаем пройденный путь
       
     // distance_tmp = 2;
@@ -431,10 +443,14 @@ std::vector <double>  tmp; //!!! временно
   // cout << "Текущая вершина " << vertex << " Первая вершина " << res_path.front() << endl;
   // cout << "Конец и начало значение " << adjacency_matrix2[vertex - 1][res_path.front() - 1] << endl;
 
-     if (adjacency_matrix2[vertex - 1][res_path.front() - 1] != 0) {
+// PrintAdjacencyMatrix(adjacency_matrix2);
+// cout << "______________А "<< err <<  endl;
+// PrintResultOfDepthFirstSearch(res_path);
+// cout << "______________55 "<< err <<  endl;
+// cout << "______________6 "<< adjacency_matrix2[vertex - 1][res_path.front() - 1] <<  endl;
+     if ((err == 0 || res_path.size() == size) && adjacency_matrix2[vertex - 1][res_path.front() - 1] != 0 ) {
+      // cout << "u!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
             res_path.push_back(res_path.front());
-          
-          // cout << "distance0 _ " << distance_tmp << endl;
             distance_tmp += adjacency_matrix2[vertex - 1][res_path.front() - 1];
             temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix2[vertex - 1][res_path.front() - 1]; //!!!  Возможно не правильно
             distance_tmp2 = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
@@ -443,7 +459,7 @@ std::vector <double>  tmp; //!!! временно
           // cout << "distance0 _ " << distance_tmp << endl;
             RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
         // cout << "Distance_1  " << distance_tmp << endl;
-        cout << "Distance_2  " << distance_tmp2 << endl;
+        // cout << "Distance_2  " << distance_tmp2 << endl;
   
     // PrintAdjacencyMatrix(temp_path);
       if ((distance_tmp2 < result_struct.distance)){ //выбрать одно условие // !! временное дурацкое условие
@@ -459,17 +475,18 @@ std::vector <double>  tmp; //!!! временно
             result_struct.path = move (res_path);
 
 
-         if ( one_ant == 2){  /// !!! удалить временно
-         PrintResultOfDepthFirstSearch(res_path);
-        //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+      //    if ( one_ant == 2){  /// !!! удалить временно
+      //    PrintResultOfDepthFirstSearch(res_path);
+      //   //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+      // }
       }
-      }
-      
+      // cout << "1!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
      }
-    //  cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
+    //  cout << "2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
     //   cout << distance_tmp2 << endl;
   //   // Если при заданном графе решение задачи невозможно, выведите ошибку.
   }
+  // cout << "3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!_ " << endl;
 
     
     // PrintAdjacencyMatrix(pheramone_matrix);
@@ -485,6 +502,7 @@ std::vector <double>  tmp; //!!! временно
     const int b = 1; 
     int err = 1;
     // cout << "Чек 1" << endl;
+    // vertex = 1;
     // Расчетные константы
     const int size = probability_list.size(); 
     // cout << "vertex_posib "<< vertex<< endl;
@@ -498,7 +516,7 @@ std::vector <double>  tmp; //!!! временно
         // PrintAdjacencyMatrix(adjacency_matrix);
       for (int j = 0; j < size; j++){
         
-        // cout << "Чек 2.0" << endl;
+        // cout << "Чек 2.0 " << vertex << endl; 
         // cout << vertex << endl;
         if (adjacency_matrix[vertex - 1][j] != 0) {
           // cout << "Чек 2.1" << endl;
@@ -528,7 +546,7 @@ std::vector <double>  tmp; //!!! временно
           // cout << "Test2: " << probability_list[j] << endl;
         }
       }      
-      // PrintResultOfDepthFirstSearch(probability_list);  
+      PrintResultOfDepthFirstSearch(probability_list);  
       
       // cout << "Чек 2" << endl;
       double probably = 0.0; 
@@ -540,40 +558,49 @@ std::vector <double>  tmp; //!!! временно
           err = 0;
         }        
       }
+      // cout << "HHHHHHHHHH " << err << endl;
       return err; //Возможно выделить в отдельную функцию чек, которая проверяет сумму всех вероятностей
   }
   
 
-  int s21::GraphAlgorithms::VertexRandom(int min, int max) const {
+  double s21::GraphAlgorithms::VertexRandom(double min, double max) const {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distribution(min, max);
+    std::uniform_real_distribution<double> distribution(min, max);
     return distribution(gen);
   }
 
-  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list , int ver){ // !!! int ver -  временно !!! const // возможно надо подать матрицу вероятностей
+  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ // !!! int ver -  временно !!! const // возможно надо подать матрицу вероятностей
       int vertex = 0;
       int size = probability_list.size();
-
+      // PrintResultOfDepthFirstSearch (probability_list);
+      // vertex = 10; // !!! временно
       // Запускаем функцию рандома
-      int random_c = VertexRandom(1, 100); // !!! обределиться вероятность 0,3  или 30% // Возможно перенести как аргумент
-      // random_c = 51;
-            if (ver == 1){// !!! временно
-        TsmResult result_struct;
-        result_struct.random = random_c;
-      }
-      // cout << "Random_ " << random_c << endl;
-      if (random_c > 0 && random_c <= 100) {
+      double random_c = VertexRandom(0.0, 1.0); // !!! обределиться вероятность 0,3  или 30% // Возможно перенести как аргумент
+      // if (ver == 1){// !!! временно
+      //   TsmResult result_struct;
+      //   result_struct.random = random_c;
+      // }
+      cout << "Random_ " << random_c << endl;
+      // random_c = 0.99;
+      if (random_c > 0 && random_c <= 1) {
+        // cout << "Random_2 " << random_c << endl;
         // std::list<double>::iterator it_b = probability_list.begin();
         // std::list<double>::iterator it_e = probability_list.end();
         double sum_probability = 0;
         // Находим вершину, в которую попал наш рандом
-        for(int j = 0; j != size && sum_probability * 100 <= random_c; j++){
+        
+        // cout << " PPPPP1 "<< random_c << endl;
+        // cout << " PPPPP2 "<< sum_probability << endl;
+        for(int j = 0; j != size && random_c - sum_probability >= 0.000001; j++){
             sum_probability += probability_list[j];
             // cout << "sum_probability " << sum_probability << endl;
+            // cout << " PPPPP "<<(abs(random_c - sum_probability)) << endl;
            vertex++;
         }
       }
+        cout << "!!!!!!!Vertex_ " << vertex << endl;
+
         return  vertex;
   }
 
@@ -791,6 +818,7 @@ void s21::GraphAlgorithms::PrintAdjacencyMatrix(std::vector<std::vector<int>> ma
     }
     std::cout << std::endl;
   }
+  cout << "FFFFFf " << endl;
 }
 
 // !!! Нужно описание
