@@ -8,38 +8,32 @@
 
 class GraphAlgorithms;
 
-// using Matrix = std::vector<std::vector<int>>; // Возможно заменить для
-// упрощения вида)
-
 namespace s21 {
 class s21_Graph {
  public:
-  s21_Graph() = default;  // базовый конструктор
-  s21_Graph(int size) { this->size_ = size; }  // конструктор с параметром size
-  ~s21_Graph() = default;  // деструктор
+  s21_Graph() = default; 
+  s21_Graph(int size) { this->size_ = size; } 
+  ~s21_Graph() = default;
   std::vector<std::vector<int>>
-  getAdjacencyMatrix();  // геттер матрицы смежности
+  getAdjacencyMatrix(); 
   std::vector<std::vector<int>>
-  getAdjacencyList();  // геттер спискасмежности (списка вершин)
+  getAdjacencyList();
   std::vector<std::pair<int, int>>
-  getEdgesList();  // геттер списка инцидентности(списка ребер)
+  getEdgesList(); 
   int get_graph_size();
   bool CheckFile(const std::string &filename);
-  // void CheckFile(const std::string& filename);
-  // bool IsGraphConnected(s21_Graph &graph);
   bool IsGraphConnected(s21_Graph &graph, std::string filename);
   std::vector<int> FindPath(s21_Graph &graph, int start_vertex);
   void MakeMatrixUndirected(s21::s21_Graph &graph);
   bool IsDerrected(std::vector<std::vector<int>> AdjacencyMatrix);
-
-  void LoadGraphFromFile(std::string filename);  // загрузка графа из файла
-  void ExportGraphToDot(std::string filename);  // выгрузка графа в файл
+  void LoadGraphFromFile(std::string filename);
+  void ExportGraphToDot(std::string filename);
 
  private:
-  int size_;                                       // размер графа
-  std::vector<std::vector<int>> AdjacencyMatrix_;  // матрица смежности
-  std::vector<std::pair<int, int>> edgesList_;   // список ребер
-  std::vector<std::vector<int>> adjacencyList_;  // список вершин
+  int size_;
+  std::vector<std::vector<int>> AdjacencyMatrix_;
+  std::vector<std::pair<int, int>> edgesList_;
+  std::vector<std::vector<int>> adjacencyList_;
 };
 
 }  // namespace s21

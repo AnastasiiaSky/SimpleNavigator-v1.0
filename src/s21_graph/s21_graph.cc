@@ -48,39 +48,17 @@ int s21::s21_Graph::get_graph_size() { return size_; }
 /// @return список смежности из приватного поля, матрицы adjacencyList_
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
-  // std::cout << "Start " << std::endl;
   std::vector<std::vector<int>> adjacencyList_(size_);
   for (int i = 0; i < size_; ++i) {
-    // std::cout << "Size_1 " << adjacencyList_[i].size() << std::endl;
     for (int j = 0; j < size_; ++j) {
-      // std::cout << "Size_2 " << adjacencyList_[i].size() << std::endl;
       if (AdjacencyMatrix_[i][j] != 0) {
         adjacencyList_[i].push_back(j + 1);
       }
     }
-    // std::cout << "Size_A " << adjacencyList_[i].size() << std::endl;
   }
   return adjacencyList_;
 }
 
-// void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
-//   std::ifstream ifs(filename);
-//   if (!ifs.is_open()) {
-//     std::cout << "Error opening file";
-//     return;
-//   }
-//   ifs >> size_;  // read the graph size from file
-//   // change the matrix size
-//   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));
-//   for (int i = 0; i < size_; ++i) {
-//     for (int j = 0; j < size_; ++j) {
-//       ifs >>
-//       // take the values from the files to the  matrix
-//           AdjacencyMatrix_[i][j];
-//     }
-//   }
-//   ifs.close();
-// }
 /// @brief метод CheckFile открывает файл, из которого грузим матрицу смежности
 /// и проверяет на то, чтобы 1) файл открылся, чтоб путь был правильный и имя 2)
 /// чтобы файл не содержал символов 3) матрица квадратная и соответствует
@@ -110,7 +88,6 @@ bool s21::s21_Graph::CheckFile(const std::string& filename) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
     throw std::runtime_error("Error opening file");
-    // std::cout << "Error opening file";
     return false;
   }
 
@@ -122,10 +99,6 @@ bool s21::s21_Graph::CheckFile(const std::string& filename) {
     throw std::runtime_error("Invalid value");
     return false;
   }
-  // else if (ifs >> dimension) {
-  //   if (dimension < 0)
-  //     return false;
-  // }
   std::vector<std::vector<int>> matrix;
   int value;
   int row = 0;
@@ -144,10 +117,6 @@ bool s21::s21_Graph::CheckFile(const std::string& filename) {
   if (col != 0 || row != dimension) {
     return false;
   }
-  // if (!IsGraphConnected()) {
-  //     std::cout << "Graph is not connected";
-  //      return false;
-  // }
   ifs.close();
   return true;
 }
@@ -163,47 +132,37 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   try {
     if (!ifs.is_open()) {
       throw std::runtime_error("Error opening file");
-      // std::cout << "Error opening file";
-      // return;
     }
   } catch (const std::exception& e) {
-    std::cout << "Exception occurred: " << e.what() << std::endl;
+    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
 
   try {
     if (!CheckFile(filename)) {
       throw std::runtime_error("Invalid value");
-      // std::cout << "Error opening file";
     }
   } catch (const std::exception& e) {
-    std::cout << "Exception occurred: " << e.what() << std::endl;
+    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
-  ifs >> size_;  // read the graph size from file
+  ifs >> size_;
   try {
     if (size_ <= 0) {
       throw std::runtime_error("Dimension must be > 0");
     }
   } catch (const std::exception& e) {
-    std::cout << "Exception occurred: " << e.what() << std::endl;
+    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
-  // { std::cout << "Dimension must be > 0"; return;}
   AdjacencyMatrix_.resize(size_,
-                          std::vector<int>(size_));  // change the matrix size
+                          std::vector<int>(size_));
 
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
       ifs >>
           AdjacencyMatrix_[i]
-                          [j];  // take the values from the files to the  matrix
+                          [j];
     }
   }
   ifs.close();
-  //   if (!IsGraphConnected(graph, filename)) {
-  //   std::cout << "Graph is not connected"; // message: user should pick
-  //   another graph
-
-  //   // return false;
-  // }
 }
 
 /// @brief Метод, специально встроенный для определения связности графа
@@ -212,10 +171,6 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 std::vector<int> s21::s21_Graph::FindPath(s21_Graph& graph, int start_vertex) {
-  // if (start_vertex >= tmp.size() || start_vertex < 0) {
-  //   throw std::out_of_range("Start vertex is out of range");
-  // }
-
   std::vector<int> visited_vertices;
   std::stack<int> vertex_stack;
   std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
@@ -290,23 +245,17 @@ bool s21::s21_Graph::IsGraphConnected(s21_Graph& graph, std::string filename) {
   if (IsDerrected(graph.AdjacencyMatrix_) == false) {
     std::vector<int> visited = FindPath(graph, 3);
     if (visited.size() == size_) {
-      std::cout << " graph connected ";
       return true;
-    } else {
-      std::cout << " graph NOT connected ";
-    }
+    } 
   } else {
     MakeMatrixUndirected(graph);
     std::vector<int> visited = FindPath(graph, 3);
     if (visited.size() == size_) {
-      std::cout << " graph connected ";
       graph.LoadGraphFromFile(filename);
       return true;
-    } else {
-      std::cout << " graph NOT connected ";
-    }
+    } 
   }
-  return false;  //
+  return false;
 }
 /// @brief Метод, загружающий матрицу в файл
 /// @param const std::string& filename - входящее имя файла, в формате "строка"
@@ -330,47 +279,3 @@ void s21::s21_Graph::ExportGraphToDot(std::string filename) {
 
   ofs.close();
 }
-
-// int main() {
-//   s21::s21_Graph graph;
-//   s21::GraphAlgorithms algo;
-
-//   std::string InputFileName = "graph_2.txt";
-//   graph.LoadGraphFromFile(InputFileName);
-//   std::vector<std::pair<int, int>> edgesList = graph.getEdgesList();
-//   std::cout << "EdgesList:\n";
-//   for (int i = 0; i < edgesList.size(); ++i) {
-//     std::cout << "(" << edgesList[i].first << ", " << edgesList[i].second <<
-//     ")\n";
-//   }
-//   std::vector<std::vector<int>> adjacencyList = graph.getAdjacencyList();
-//   std::cout << "AdjacencyList:\n";
-//   for (int i = 0; i < adjacencyList.size(); ++i) {
-//     std::cout << i << ": ";
-//     for (int j = 0; j < adjacencyList[i].size(); ++j) {
-//       std::cout << adjacencyList[i][j] << " ";
-//     }
-//     std::cout << "\n";
-//   }
-//    std::string outputFile = "output.dot";
-//    graph.ExportGraphToDot(outputFile);
-
-//    int start = 0;
-//    std::list<int> visited_vertexes;
-//     // visited_vertexes = algo.DepthFirstSearch(graph, start);
-
-//    for(auto element : visited_vertexes) {
-//     std::cout << element << " ";
-//    }
-//    std::cout << std::endl;
-//   return 0;
-// }
-
-// int main() {
-//   s21::s21_Graph graph;
-//   std::string inputFile = "graph_1.txt";
-//   std::string outputFile = "output.dot";
-//   graph.LoadGraphFromFile(inputFile);
-//   graph.ExportGraphToDot(outputFile);
-//   return 0;
-// }

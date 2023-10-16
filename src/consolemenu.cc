@@ -1,3 +1,4 @@
+/// \file
 #include "consolemenu.h"
 
 namespace s21 {

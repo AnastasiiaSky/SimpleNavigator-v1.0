@@ -3,15 +3,12 @@
 
 #include <math.h>
 
-#include <algorithm>  // !!! возможно не надо
+
 #include <iostream>
-#include <list>   /// Заменить на самописные
-#include <queue>  /// Заменить на самописные
+#include <queue>
 #include <random>
-#include <stack>   /// Заменить на самописные
-#include <vector>  /// Заменить на самописные
-// #include <limits> // !!! возможно не надо
-// #include <limits.h> // !!! возможно не надо
+#include <stack>
+#include <vector>
 
 #include "../conteiners/s21_helpsrc.h"
 #include "../conteiners/s21_list.h"
@@ -34,57 +31,31 @@ class GraphAlgorithms {
   const int inf =
       std::numeric_limits<int>::max();  // !!! Перенести в класс, наверное
 
-  // Главный метод алгоритма поиска в глубину
   std::vector<int> DepthFirstSearch(s21_Graph &graph, int start_vertex);
-  // Главный метод алгоритма поиска в ширину
   std::vector<int> BreadthFirstSearch(s21_Graph &graph, int start_vertex);
-
-  // Дейкстра
   int GetShortestPathBetweenVertices(s21_Graph &graph, int vertex1,
                                      int vertex2);
-
-  // Метод поиска пути по алгоритму Флойда Уошера
   std::vector<std::vector<int>> GetShortestPathsBetweenAllVertices(
       s21_Graph &graph);
-
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
-
-  // Метод вывода результата пути
   void PrintResultWay(std::vector<int> visited_vertices) noexcept;
-  // Алгоритм Прима
   std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
-
-  // Получение веса остовного дерева
   int GetGraphWeigt(matrix adjacency_matrix);
-
-  // Метод ввывода матрицы смежности
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
-  // private:
-  // Рассчитывает вероятность прохождения по текущему ребру
+  private:
   void CreateProbabilityMatrix(
       std::vector<std::vector<double>> &pobability_list,
       std::vector<std::vector<double>> pheramone_matrix,
       matrix matrix_adjacency);
-
-  // Пересчитывает количество ферамонта на текущему ребре
   void RecalculatePheramoneMatrix(
       std::vector<std::vector<double>> &pheramone_matrix, int distance);
-
-  // Генерируем рандомное число в заданном диапозоне
   int Vertex_random(int min, int max) const;
-
-  // Выбираем рандомно вершину, в которую идем
   int SelectNextVertex(std::list<double> probability_list);
-
- private:
   bool CheckVisited(std::vector<int> visited_vertices,
                     int current_vertix) noexcept;
-  // Все ли точки посещены
   bool IsAllVisited(std::vector<bool> visited_of_not);
-  // Преобразование направленной матрицы в ненаправленную
   std::vector<std::vector<int>> ConvertToUndirected(const matrix graph_matrix);
-  // Получение минимальных координат
   std::pair<int, int> GetMinCoordinats(matrix working_matrix);
 };
 
