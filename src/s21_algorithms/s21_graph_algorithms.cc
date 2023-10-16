@@ -290,10 +290,40 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
   return min_distance;
 }
 
+/// @brief Алгоритм муравьиной колонии является метаэвристикой, основанной на поведении муравьев 
+/// при поиске пути к источнику пищи. Он может использоваться для решения задач коммивояжера, 
+/// минимального остовного дерева и других оптимизационных задач.
+/// Алгоритм метода таков:
+/// 1. Устанавливаем количество муравьев
+/// 2. Загрузка  графа в матрицe смежности и создание ее временной копии, создаем матрицу ферамонов,
+///  количество муравьев, количество итераций, коэффициент испарения феромона, коэффициент важности расстояния, коэффициент важности феромона.
+/// 3. Для каждого муравья выбирается вершина,
+
+Для каждой итерации:
+Для каждого муравья:
+Выбрать стартовую вершину.
+Пока не пройдены все вершины:
+Выбрать следующую вершину на основе правил выбора следующего шага (например, используя эвристику или феромоны).
+Обновить путь муравья и информацию о феромонах на ребре.
+Обновить глобальный лучший путь, если текущий путь муравья лучше.
+Обновить феромоны на всех ребрах с учетом испарения и отложенных следов муравьев.
+Возврат результата:
+
+Вернуть глобальный лучший путь или матрицу смежности с минимальными расстояниями между всеми вершинами.
+Параметры:
+graph: текущий граф, представленный в виде матрицы смежности.
+num_ants: количество муравьев, принимающих участие в поиске пути.
+num_iterations: количество итераций алгоритма.
+evaporation_rate: коэффициент испарения феромона.
+alpha: коэффициент важности расстояния при выборе следующего шага.
+beta: коэффициент важности феромона при выборе следующего шага.
+Возвращаемое значение:
+Матрица смежности min_distance - результат работы алгоритма, содержащая минимальные расстояния между всеми вершинами графа.
+
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
   // Константы, вводятся самостоятельно
-  const int ants = 100; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
+  const int ants = 5000; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
    
   // Расчетные константы
   const int size = graph.get_graph_size(); 
@@ -313,7 +343,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   int vertex = 0;
  
   // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
-    for (int one_ant = 1; one_ant < ants; one_ant++){
+    for (int one_ant = 0; one_ant < ants; one_ant++){
       vertex = (one_ant % size) + 1;
 
       int prev_vertex = 0; // Предыдущая вершина
@@ -323,7 +353,6 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
      // Актуализируем временную матрицу связностей
      tmp_adjacency_matrix = adjacency_matrix;
   
-    
     // Создаем матрицу пройденного пути !!!
     std::vector<std::vector<int>> temp_path (size, std::vector<int>(size, 0));
      
@@ -348,6 +377,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   
       // Сохраняем вершину где были во временный путь
       res_path.push_back(vertex);
+
       // Если есть вероятнось, что можем пойти в свободную вершину, то идем, 
       // в противном случае переходим к следующему муравью
       if (err == 0) {  
@@ -366,28 +396,29 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     // что в результирующей структуре: Начинаем сначала. 
   }
 
-  // Если прошли все вершины прокладывае путь до первой, если это возможно
+  // Если прошли все вершины прокладываем путь до первой, если это возможно
   if ((err == 0 || res_path.size() == size) && adjacency_matrix[vertex - 1][res_path.front() - 1] != 0 ) {
-            res_path.push_back(res_path.front());
-            distance_tmp += adjacency_matrix[vertex - 1][res_path.front() - 1];
-            temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix[vertex - 1][res_path.front() - 1];
-            distance_tmp2 = GetGraphWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
-            RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
-      // Записываем минимальное растояние и путь в результирующую структуру
-      if ((distance_tmp2 < result_struct.distance)){ 
-            result_struct.distance = distance_tmp;
-            result_struct.distance2 = distance_tmp2;
+      res_path.push_back(res_path.front());
+      distance_tmp += adjacency_matrix[vertex - 1][res_path.front() - 1];
+      temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix[vertex - 1][res_path.front() - 1];
+      distance_tmp2 = GetGraphWeigt(temp_path); // умнажаем 2 так как она написана для ненаправленного графа
+      RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
 
-          // Прибавлем в путь стартовую вершину, и + к дистанции
-            result_struct.vertices = res_path.front(); 
-            result_struct.path = move (res_path);
+      // Записываем минимальное растояние и путь в результирующую структуру
+      if ((distance_tmp < result_struct.distance)){ 
+        result_struct.distance = distance_tmp;
+        result_struct.distance2 = distance_tmp2;
+
+      // Прибавлем в путь стартовую вершину, и + к дистанции
+        result_struct.vertices = res_path.front(); 
+        result_struct.path = move (res_path);
       }
-     }
+    }
   }
   return result_struct;
 }
 
-  // возможно сделать, чтоб сразу возвращала матрицу
+  // 
   int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, 
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> tmp_adjacency_matrix, int vertex){
     
@@ -434,6 +465,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     std::uniform_real_distribution<double> distribution(min, max);
     return distribution(gen);
   }
+
 
   int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ 
       int vertex = 0;
