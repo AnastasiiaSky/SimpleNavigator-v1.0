@@ -1,22 +1,26 @@
 /// \file
 #include "s21_graph.h"
+
+#include <errno.h>
+
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
-#include <errno.h>
-/// @brief Метод-геттер
-/// @param () Без параметров
-/// @return Возвращает матрицу векторов из приватного поля AdjacencyMatrix_
+/// @brief РњРµС‚РѕРґ-РіРµС‚С‚РµСЂ
+/// @param () Р‘РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+/// @return Р’РѕР·РІСЂР°С‰Р°РµС‚ РјР°С‚СЂРёС†Сѓ РІРµРєС‚РѕСЂРѕРІ РёР· РїСЂРёРІР°С‚РЅРѕРіРѕ РїРѕР»СЏ AdjacencyMatrix_
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
   if (AdjacencyMatrix_.size() < 1) return std::vector<std::vector<int>>();
   return AdjacencyMatrix_;
 }
 
-/// @brief Метод-геттер бежит по матрице смежности, создает  вектор
-/// edgesList_, который состоит из сущностей-пар(иными словами двух вершин между которыми есть ребро). 
-/// В такой паре - первое значение вершина, из которой выходит ребро, а второе значение - вторая вершина докуда идет ребро
-/// @param () Без параметров
-/// @return  Возвращает вектор из пар из приватного поля edgesList_
+/// @brief РњРµС‚РѕРґ-РіРµС‚С‚РµСЂ Р±РµР¶РёС‚ РїРѕ РјР°С‚СЂРёС†Рµ СЃРјРµР¶РЅРѕСЃС‚Рё, СЃРѕР·РґР°РµС‚  РІРµРєС‚РѕСЂ
+/// edgesList_, РєРѕС‚РѕСЂС‹Р№ СЃРѕСЃС‚РѕРёС‚ РёР· СЃСѓС‰РЅРѕСЃС‚РµР№-РїР°СЂ(РёРЅС‹РјРё СЃР»РѕРІР°РјРё РґРІСѓС… РІРµСЂС€РёРЅ РјРµР¶РґСѓ
+/// РєРѕС‚РѕСЂС‹РјРё РµСЃС‚СЊ СЂРµР±СЂРѕ). Р’ С‚Р°РєРѕР№ РїР°СЂРµ - РїРµСЂРІРѕРµ Р·РЅР°С‡РµРЅРёРµ РІРµСЂС€РёРЅР°, РёР· РєРѕС‚РѕСЂРѕР№
+/// РІС‹С…РѕРґРёС‚ СЂРµР±СЂРѕ, Р° РІС‚РѕСЂРѕРµ Р·РЅР°С‡РµРЅРёРµ - РІС‚РѕСЂР°СЏ РІРµСЂС€РёРЅР° РґРѕРєСѓРґР° РёРґРµС‚ СЂРµР±СЂРѕ
+/// @param () Р‘РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+/// @return  Р’РѕР·РІСЂР°С‰Р°РµС‚ РІРµРєС‚РѕСЂ РёР· РїР°СЂ РёР· РїСЂРёРІР°С‚РЅРѕРіРѕ РїРѕР»СЏ edgesList_
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
@@ -29,18 +33,19 @@ std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   }
   return edgesList_;
 }
-/// @brief Метод-геттер, возвращающий размер графа
-/// @param () Без параметров
-/// @return  Возвращает размер графа из приватного поля size_
+/// @brief РњРµС‚РѕРґ-РіРµС‚С‚РµСЂ, РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ СЂР°Р·РјРµСЂ РіСЂР°С„Р°
+/// @param () Р‘РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+/// @return  Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ РіСЂР°С„Р° РёР· РїСЂРёРІР°С‚РЅРѕРіРѕ РїРѕР»СЏ size_
 int s21::s21_Graph::get_graph_size() { return size_; }
 
-/// @brief Метод-геттер, возвращающий список смежности (список вершин-соседей) для каждой из вершин 
-/// в рамках этого метода создается матрица смежности  adjacencyList_ размером size_ 
-/// пробегая по исходной матрице смежности находим ненулевые позиции, и для каждого ряда (то есть вершины) 
-///  adjacencyList_ записываем номера непустых столбцов
-/// получая такми образом список смежных вершин
-/// @param () Без параметров
-/// @return список смежности из приватного поля, матрицы adjacencyList_
+/// @brief РњРµС‚РѕРґ-РіРµС‚С‚РµСЂ, РІРѕР·РІСЂР°С‰Р°СЋС‰РёР№ СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё (СЃРїРёСЃРѕРє РІРµСЂС€РёРЅ-СЃРѕСЃРµРґРµР№)
+/// РґР»СЏ РєР°Р¶РґРѕР№ РёР· РІРµСЂС€РёРЅ РІ СЂР°РјРєР°С… СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃРѕР·РґР°РµС‚СЃСЏ РјР°С‚СЂРёС†Р° СЃРјРµР¶РЅРѕСЃС‚Рё
+/// adjacencyList_ СЂР°Р·РјРµСЂРѕРј size_ РїСЂРѕР±РµРіР°СЏ РїРѕ РёСЃС…РѕРґРЅРѕР№ РјР°С‚СЂРёС†Рµ СЃРјРµР¶РЅРѕСЃС‚Рё РЅР°С…РѕРґРёРј
+/// РЅРµРЅСѓР»РµРІС‹Рµ РїРѕР·РёС†РёРё, Рё РґР»СЏ РєР°Р¶РґРѕРіРѕ СЂСЏРґР° (С‚Рѕ РµСЃС‚СЊ РІРµСЂС€РёРЅС‹)
+///  adjacencyList_ Р·Р°РїРёСЃС‹РІР°РµРј РЅРѕРјРµСЂР° РЅРµРїСѓСЃС‚С‹С… СЃС‚РѕР»Р±С†РѕРІ
+/// РїРѕР»СѓС‡Р°СЏ С‚Р°РєРјРё РѕР±СЂР°Р·РѕРј СЃРїРёСЃРѕРє СЃРјРµР¶РЅС‹С… РІРµСЂС€РёРЅ
+/// @param () Р‘РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
+/// @return СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё РёР· РїСЂРёРІР°С‚РЅРѕРіРѕ РїРѕР»СЏ, РјР°С‚СЂРёС†С‹ adjacencyList_
 
 std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
   // std::cout << "Start " << std::endl;
@@ -66,91 +71,125 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyList() {
 //   }
 //   ifs >> size_;  // read the graph size from file
 //   // change the matrix size
-//   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));  
+//   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));
 //   for (int i = 0; i < size_; ++i) {
 //     for (int j = 0; j < size_; ++j) {
 //       ifs >>
 //       // take the values from the files to the  matrix
-//           AdjacencyMatrix_[i][j];  
+//           AdjacencyMatrix_[i][j];
 //     }
 //   }
 //   ifs.close();
 // }
-/// @brief метод checkFile открывает файл, из которого грузим матрицу смежности и проверяет на то, чтобы
-/// 1) файл открылся, чтоб путь был правильный и имя 2) чтобы файл не содержал символов 
-/// 3) матрица квадратная и соответствует указанной размерности 4) веса графа (если взвешенный) - не отрицательные
-/// @param const std::string& filename - входящее имя файла, в формате "строка"
+/// @brief РјРµС‚РѕРґ CheckFile РѕС‚РєСЂС‹РІР°РµС‚ С„Р°Р№Р», РёР· РєРѕС‚РѕСЂРѕРіРѕ РіСЂСѓР·РёРј РјР°С‚СЂРёС†Сѓ СЃРјРµР¶РЅРѕСЃС‚Рё
+/// Рё РїСЂРѕРІРµСЂСЏРµС‚ РЅР° С‚Рѕ, С‡С‚РѕР±С‹ 1) С„Р°Р№Р» РѕС‚РєСЂС‹Р»СЃСЏ, С‡С‚РѕР± РїСѓС‚СЊ Р±С‹Р» РїСЂР°РІРёР»СЊРЅС‹Р№ Рё РёРјСЏ 2)
+/// С‡С‚РѕР±С‹ С„Р°Р№Р» РЅРµ СЃРѕРґРµСЂР¶Р°Р» СЃРёРјРІРѕР»РѕРІ 3) РјР°С‚СЂРёС†Р° РєРІР°РґСЂР°С‚РЅР°СЏ Рё СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚
+/// СѓРєР°Р·Р°РЅРЅРѕР№ СЂР°Р·РјРµСЂРЅРѕСЃС‚Рё 4) РІРµСЃР° РіСЂР°С„Р° (РµСЃР»Рё РІР·РІРµС€РµРЅРЅС‹Р№) - РЅРµ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рµ
+/// @param const std::string& filename - РІС…РѕРґСЏС‰РµРµ РёРјСЏ С„Р°Р№Р»Р°, РІ С„РѕСЂРјР°С‚Рµ "СЃС‚СЂРѕРєР°"
 /// @param int dimention
-/// переменная int dimention  принимает с помощью инструкции ifs >> dimension первую цифру над матрицей в файле 
-/// dimension - int и если туда придет не число, то будет ошибка приведения типов,
-///   по аналогии с dimentsion контроль типов остальных данных файла осуществляет переменная int value: в усвловии (ifs >> value && value >=0)
-/// оно означает что будут приходить неотрицательные инты
-/// Таким образом мы проверили п №2 выше
-/// п3-4 проверяются следующим алгоритмом: заводим переменную, в которую принимаем данные value два счетчика col row
-/// 1) начиная с нулевой колонки создаем пустой вектор. Находясь на текущем ряду
-///  пушим  неотрицательные инты в текущий ряд, увеличивая сччетчик колонок +1; 
-/// 2) как только счетчик сравнялся  с размерностью size_
-/// мы его обнуляем и начинаем считать ряды, таким образом заполняя матрицу с нового ряда
-/// который пустым сразу создаем в соответствии с условием col == 0 выше
-/// 3) когда закончились значения в файле, мы сравниваем. сколько насчитали рядов
-/// и если они не равны значению dimension, значит raw !=col: checkFile вернул  false 
-/// @return список смежности из приватного поля, матрицы adjacencyList_
+/// РїРµСЂРµРјРµРЅРЅР°СЏ int dimention  РїСЂРёРЅРёРјР°РµС‚ СЃ РїРѕРјРѕС‰СЊСЋ РёРЅСЃС‚СЂСѓРєС†РёРё ifs >> dimension
+/// РїРµСЂРІСѓСЋ С†РёС„СЂСѓ РЅР°Рґ РјР°С‚СЂРёС†РµР№ РІ С„Р°Р№Р»Рµ dimension - int Рё РµСЃР»Рё С‚СѓРґР° РїСЂРёРґРµС‚ РЅРµ
+/// С‡РёСЃР»Рѕ, С‚Рѕ Р±СѓРґРµС‚ РѕС€РёР±РєР° РїСЂРёРІРµРґРµРЅРёСЏ С‚РёРїРѕРІ,
+///   РїРѕ Р°РЅР°Р»РѕРіРёРё СЃ dimentsion РєРѕРЅС‚СЂРѕР»СЊ С‚РёРїРѕРІ РѕСЃС‚Р°Р»СЊРЅС‹С… РґР°РЅРЅС‹С… С„Р°Р№Р»Р°
+///   РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїРµСЂРµРјРµРЅРЅР°СЏ int value: РІ СѓСЃРІР»РѕРІРёРё (ifs >> value && value >=0)
+/// РѕРЅРѕ РѕР·РЅР°С‡Р°РµС‚ С‡С‚Рѕ Р±СѓРґСѓС‚ РїСЂРёС…РѕРґРёС‚СЊ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рµ РёРЅС‚С‹
+/// РўР°РєРёРј РѕР±СЂР°Р·РѕРј РјС‹ РїСЂРѕРІРµСЂРёР»Рё Рї в„–2 РІС‹С€Рµ
+/// Рї3-4 РїСЂРѕРІРµСЂСЏСЋС‚СЃСЏ СЃР»РµРґСѓСЋС‰РёРј Р°Р»РіРѕСЂРёС‚РјРѕРј: Р·Р°РІРѕРґРёРј РїРµСЂРµРјРµРЅРЅСѓСЋ, РІ РєРѕС‚РѕСЂСѓСЋ
+/// РїСЂРёРЅРёРјР°РµРј РґР°РЅРЅС‹Рµ value РґРІР° СЃС‡РµС‚С‡РёРєР° col row 1) РЅР°С‡РёРЅР°СЏ СЃ РЅСѓР»РµРІРѕР№ РєРѕР»РѕРЅРєРё
+/// СЃРѕР·РґР°РµРј РїСѓСЃС‚РѕР№ РІРµРєС‚РѕСЂ. РќР°С…РѕРґСЏСЃСЊ РЅР° С‚РµРєСѓС‰РµРј СЂСЏРґСѓ
+///  РїСѓС€РёРј  РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рµ РёРЅС‚С‹ РІ С‚РµРєСѓС‰РёР№ СЂСЏРґ, СѓРІРµР»РёС‡РёРІР°СЏ СЃС‡С‡РµС‚С‡РёРє РєРѕР»РѕРЅРѕРє +1;
+/// 2) РєР°Рє С‚РѕР»СЊРєРѕ СЃС‡РµС‚С‡РёРє СЃСЂР°РІРЅСЏР»СЃСЏ  СЃ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊСЋ size_
+/// РјС‹ РµРіРѕ РѕР±РЅСѓР»СЏРµРј Рё РЅР°С‡РёРЅР°РµРј СЃС‡РёС‚Р°С‚СЊ СЂСЏРґС‹, С‚Р°РєРёРј РѕР±СЂР°Р·РѕРј Р·Р°РїРѕР»РЅСЏСЏ РјР°С‚СЂРёС†Сѓ СЃ
+/// РЅРѕРІРѕРіРѕ СЂСЏРґР° РєРѕС‚РѕСЂС‹Р№ РїСѓСЃС‚С‹Рј СЃСЂР°Р·Сѓ СЃРѕР·РґР°РµРј РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ СѓСЃР»РѕРІРёРµРј col == 0
+/// РІС‹С€Рµ 3) РєРѕРіРґР° Р·Р°РєРѕРЅС‡РёР»РёСЃСЊ Р·РЅР°С‡РµРЅРёСЏ РІ С„Р°Р№Р»Рµ, РјС‹ СЃСЂР°РІРЅРёРІР°РµРј. СЃРєРѕР»СЊРєРѕ РЅР°СЃС‡РёС‚Р°Р»Рё
+/// СЂСЏРґРѕРІ Рё РµСЃР»Рё РѕРЅРё РЅРµ СЂР°РІРЅС‹ Р·РЅР°С‡РµРЅРёСЋ dimension, Р·РЅР°С‡РёС‚ raw !=col: CheckFile
+/// РІРµСЂРЅСѓР» В false
+/// @return СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё РёР· РїСЂРёРІР°С‚РЅРѕРіРѕ РїРѕР»СЏ, РјР°С‚СЂРёС†С‹ adjacencyList_
 
-bool s21::s21_Graph::checkFile(const std::string& filename) {
-    std::ifstream ifs(filename);
-    if (!ifs.is_open()) {
-        std::cout << "Error opening file";
-        return false;
-    }
-
-    int dimension = 0;
-    if (!(ifs >> dimension)) {
-        return false;
-    }
-    // else if (ifs >> dimension) {
-    //   if (dimension < 0)
-    //     return false;
-    // }
-    std::vector<std::vector<int>> matrix;
-    int value;
-    int row = 0;
-    int col = 0;
-    while (ifs >> value && value >= 0) {
-    
-        if (col == 0) {
-            matrix.push_back(std::vector<int>());
-        }
-        matrix[row].push_back(value);
-        col++;
-        if (col == dimension) {
-            col = 0;
-            row++;
-        }
-    }
-    if (col != 0 || row != dimension) {
-        return false;
-    }
-
-    ifs.close();
-    return true;
-}
-/// @brief Метод, выгружающий матрицу  из файла 
-/// @param const std::string& filename - входящее имя файла, в формате "строка"
-/// 3) чтобы размерность  матрицы была положительным и ненулевым значением выполняется проверка
-/// if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
-/// @return  no
-void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
+bool s21::s21_Graph::CheckFile(const std::string& filename) {
   std::ifstream ifs(filename);
   if (!ifs.is_open()) {
-    std::cout << "Error opening file";
-    return;
+    throw std::runtime_error("Error opening file");
+    // std::cout << "Error opening file";
+    return false;
   }
-  if(!checkFile(filename)) {std::cout << "Error opening file";}
+
+  if (ifs.peek() == std::ifstream::traits_type::eof()) {
+    throw std::runtime_error("File is empty: " + filename);
+  }
+  int dimension = 0;
+  if (!(ifs >> dimension)) {
+    throw std::runtime_error("Invalid value");
+    return false;
+  }
+  // else if (ifs >> dimension) {
+  //   if (dimension < 0)
+  //     return false;
+  // }
+  std::vector<std::vector<int>> matrix;
+  int value;
+  int row = 0;
+  int col = 0;
+  while (ifs >> value && value >= 0) {
+    if (col == 0) {
+      matrix.push_back(std::vector<int>());
+    }
+    matrix[row].push_back(value);
+    col++;
+    if (col == dimension) {
+      col = 0;
+      row++;
+    }
+  }
+  if (col != 0 || row != dimension) {
+    return false;
+  }
+  // if (!IsGraphConnected()) {
+  //     std::cout << "Graph is not connected";
+  //      return false;
+  // }
+  ifs.close();
+  return true;
+}
+/// @brief РњРµС‚РѕРґ, РІС‹РіСЂСѓР¶Р°СЋС‰РёР№ РјР°С‚СЂРёС†Сѓ  РёР· С„Р°Р№Р»Р°
+/// @param const std::string& filename - РІС…РѕРґСЏС‰РµРµ РёРјСЏ С„Р°Р№Р»Р°, РІ С„РѕСЂРјР°С‚Рµ "СЃС‚СЂРѕРєР°"
+/// 3) С‡С‚РѕР±С‹ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ  РјР°С‚СЂРёС†С‹ Р±С‹Р»Р° РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј Рё РЅРµРЅСѓР»РµРІС‹Рј Р·РЅР°С‡РµРЅРёРµРј
+/// РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ РїСЂРѕРІРµСЂРєР° if(size_ <= 0) { std::cout << "Dimension must be > 0";
+/// return;}
+/// @return  no
+
+void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
+  std::ifstream ifs(filename);
+  try {
+    if (!ifs.is_open()) {
+      throw std::runtime_error("Error opening file");
+      // std::cout << "Error opening file";
+      // return;
+    }
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+  }
+
+  try {
+    if (!CheckFile(filename)) {
+      throw std::runtime_error("Invalid value");
+      // std::cout << "Error opening file";
+    }
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+  }
   ifs >> size_;  // read the graph size from file
-  //3) чтобы размерность  матрицы была положительным и ненулевым значением
-  if(size_ <= 0) { std::cout << "Dimension must be > 0"; return;}
+  try {
+    if (size_ <= 0) {
+      throw std::runtime_error("Dimension must be > 0");
+    }
+  } catch (const std::exception& e) {
+    std::cout << "Exception occurred: " << e.what() << std::endl;
+  }
+  // { std::cout << "Dimension must be > 0"; return;}
   AdjacencyMatrix_.resize(size_,
                           std::vector<int>(size_));  // change the matrix size
+
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
       ifs >>
@@ -159,10 +198,118 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
     }
   }
   ifs.close();
+  //   if (!IsGraphConnected(graph, filename)) {
+  //   std::cout << "Graph is not connected"; // message: user should pick
+  //   another graph
+
+  //   // return false;
+  // }
 }
 
-/// @brief Метод, загружающий матрицу в файл
-/// @param const std::string& filename - входящее имя файла, в формате "строка"
+/// @brief РњРµС‚РѕРґ, СЃРїРµС†РёР°Р»СЊРЅРѕ РІСЃС‚СЂРѕРµРЅРЅС‹Р№ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ СЃРІСЏР·РЅРѕСЃС‚Рё РіСЂР°С„Р°
+/// @param graph - С‚РµРєСѓС‰РёР№ РіСЂР°С„.
+/// @param start_vertex - С‚РѕС‡РєР° РЅР°С‡Р°Р»Р° РїСЂРѕРёСЃРєР° РїСѓС‚Рё.
+/// @return std::vector<int> visited_vertices - СЂРµР·СѓР»СЊС‚Р°С‚РѕРј СЂР°Р±РѕС‚С‹ РјРµС‚РѕРґР°
+/// СЏРІР»СЏРµС‚СЃСЏ РІРµРєС‚РѕСЂ РїРѕСЃРµС‰РµРЅРЅС‹С… С‚РѕС‡РµРє
+std::vector<int> s21::s21_Graph::FindPath(s21_Graph& graph, int start_vertex) {
+  // if (start_vertex >= tmp.size() || start_vertex < 0) {
+  //   throw std::out_of_range("Start vertex is out of range");
+  // }
+
+  std::vector<int> visited_vertices;
+  std::stack<int> vertex_stack;
+  std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
+
+  vertex_stack.push(start_vertex);
+
+  while (!vertex_stack.empty()) {
+    int current_vertex = vertex_stack.top();
+    vertex_stack.pop();
+    if (std::find(visited_vertices.begin(), visited_vertices.end(),
+                  current_vertex) != visited_vertices.end()) {
+      continue;
+    }
+    visited_vertices.push_back(current_vertex);
+    std::vector<int> adjacent_vertices = adjacency_list[current_vertex - 1];
+    for (int it = adjacent_vertices.size() - 1; it >= 0; --it) {
+      int adjacent_vertex = adjacent_vertices[it];
+      if (std::find(visited_vertices.begin(), visited_vertices.end(),
+                    adjacent_vertex) == visited_vertices.end()) {
+        vertex_stack.push(adjacent_vertex);
+      }
+    }
+  }
+  return visited_vertices;
+}
+
+/// @brief РњРµС‚РѕРґ, РјРµРЅСЏСЋС‰РёР№ РјР°С‚СЂРёС†Сѓ СЃРјРµР¶РЅРѕСЃС‚Рё РѕСЂРёРµРЅС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ РіСЂР°С„Р° РЅР° РјР°С‚СЂРёС†Сѓ
+/// СЃРјРµР¶РЅРѕСЃС‚Рё РЅРµРѕСЂРёРµРЅС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ Сѓ РЅР°СЃ РІ РјР°С‚СЂРёС†Рµ РѕСЂРёРµРЅС‚РёСЂРѕРІР°РЅРЅРѕРіРѕ РіСЂР°С„Р° РјРѕРіСѓС‚
+/// Р±С‹С‚СЊ СЂР°Р·РЅС‹Рµ РІРµСЃР°
+///  РїРѕСЌС‚РѕРјСѓ СѓСЃР»РѕРІРёРµ AdjacencyMatrix_[i][j] != AdjacencyMatrix_[j][i] Р±СѓРґРµС‚
+///  СЂР°Р±РѕС‚Р°С‚СЊ С‚РѕР»СЊРєРѕ РґР»СЏ РЅСѓР»РµР№ Рё РµРґРёРЅРёС†
+/// РїСЂРѕРІРµСЂСЏРµРј РєР°Р¶РґСѓСЋ РїР°СЂСѓ РІРµСЂС€РёРЅ (i, j) Рё (j, i) РЅРµ РїСѓСЃС‚С‹Рµ Р»Рё. РЎСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё
+/// СЂРµР±СЂРѕ РјРµР¶РґСѓ i РёР»Рё j. Р•СЃР»Рё AdjacencyMatrix_[i][j] != 0 Р·РЅР°С‡РёС‚
+///  СЂРµР±СЂРѕ РµСЃС‚СЊ РІ РІРёРґРµ РµРіРѕ РІРµСЃР°. РњС‹ РЅРµ Р·РЅР°РµРј РєР°РєРѕР№ РёР· РЅРёС… РјРѕР¶РµС‚ Р±С‹С‚СЊ РЅРµРЅСѓР»РµРІС‹Рј
+///  РїРѕСЌС‚РѕРјСѓ РІС‹Р±РёСЂР°РµРј РјР°РєСЃРёРјСѓРј РёР· РЅРёС…
+/// Рё СЃРѕС…СЂР°РЅСЏРµРј РІ РѕР±Рµ РІРµСЂС€РёРЅС‹
+/// @param graph - С‚РµРєСѓС‰РёР№ РіСЂР°С„.
+/// @return РЅРёС‡РµРіРѕ РЅРµ РІРѕР·РІСЂР°С‰Р°РµС‚
+
+void s21::s21_Graph::MakeMatrixUndirected(s21::s21_Graph& graph) {
+  for (int i = 0; i < size_; ++i) {
+    for (int j = i + 1; j < size_; ++j) {
+      if (AdjacencyMatrix_[i][j] != 0 || AdjacencyMatrix_[j][i] != 0) {
+        int weight = std::max(AdjacencyMatrix_[i][j], AdjacencyMatrix_[j][i]);
+        AdjacencyMatrix_[i][j] = weight;
+        AdjacencyMatrix_[j][i] = weight;
+      }
+    }
+  }
+}
+/// @brief РњРµС‚РѕРґ, РѕРїСЂРµРґРµР»СЏСЋС‰РёР№, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РіСЂР°С„ РЅР°РїСЂР°РІР»РµРЅРЅС‹Рј
+/// @param std::vector<std::vector<int>> AdjacencyMatrix - РјР°С‚СЂРёС†Р° СЃРјРµР¶РЅРѕСЃС‚Рё
+/// РіСЂР°С„Р°
+/// @return РІРѕР·РІСЂР°С‰Р°РµС‚ Р»РёР±Рѕ false Р»РёР±Рѕ true
+bool s21::s21_Graph::IsDerrected(
+    std::vector<std::vector<int>> AdjacencyMatrix) {
+  for (int i = 0; i < size_; ++i) {
+    for (int j = 0; j < size_; ++j) {
+      if (AdjacencyMatrix[i][j] != AdjacencyMatrix[j][i]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+/// @brief РњРµС‚РѕРґ, РѕРїСЂРµРґРµР»СЏСЋС‰РёР№, СЏРІР»СЏРµС‚СЃСЏ Р»Рё РіСЂР°С„ СЃРІСЏР·РЅС‹Рј
+/// @param  graph - С‚РµРєСѓС‰РёР№ РіСЂР°С„.
+/// @param filename - С„Р°Р№Р», РёР· РєРѕС‚РѕСЂРѕРіРѕ РїСЂРёС…РѕРґРёС‚ РјР°С‚СЂРёС†Р°
+/// @return РІРѕР·РІСЂР°С‰Р°РµС‚ Р»РёР±Рѕ false Р»РёР±Рѕ true
+bool s21::s21_Graph::IsGraphConnected(s21_Graph& graph, std::string filename) {
+  if (IsDerrected(graph.AdjacencyMatrix_) == false) {
+    std::vector<int> visited = FindPath(graph, 3);
+    if (visited.size() == size_) {
+      std::cout << " graph connected ";
+      return true;
+    } else {
+      std::cout << " graph NOT connected ";
+    }
+  } else {
+    MakeMatrixUndirected(graph);
+    std::vector<int> visited = FindPath(graph, 3);
+    if (visited.size() == size_) {
+      std::cout << " graph connected ";
+      graph.LoadGraphFromFile(filename);
+      return true;
+    } else {
+      std::cout << " graph NOT connected ";
+    }
+  }
+  return false;  //
+}
+/// @brief РњРµС‚РѕРґ, Р·Р°РіСЂСѓР¶Р°СЋС‰РёР№ РјР°С‚СЂРёС†Сѓ РІ С„Р°Р№Р»
+/// @param const std::string& filename - РІС…РѕРґСЏС‰РµРµ РёРјСЏ С„Р°Р№Р»Р°, РІ С„РѕСЂРјР°С‚Рµ "СЃС‚СЂРѕРєР°"
 /// @return  no
 void s21::s21_Graph::ExportGraphToDot(std::string filename) {
   std::ofstream ofs(filename);

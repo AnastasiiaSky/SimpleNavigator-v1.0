@@ -2,19 +2,21 @@
 // !!! Нарушена последовательность алгоритмов
 
 #include "s21_graph_algorithms.h"
-using namespace std; //  !!!  Потом убрать
-// std::vector<std::vector<int>> !!! Заменить на Matrix
+using namespace std;  //  !!!  Потом убрать
 
 /// @brief Метод поиска пути в глубину в графе.
-/// Алгоритм метода таков: 1) Создаем списое пройденныйх точек типа
-/// std::vector<int> 2) Создаем стэк для работы с точками. 3) Получаем список
-/// смежности adjacency_list из класса s21_Graph 4) Добавляем в стэк первую
-/// точку - start_vertex. 5) Далее в цикле, условием выхода из которого является
-/// опустошение стэка, проверяем, является ли вершина с вершины стэка
-/// посещенной, а так же удаляем эту вершину из стэка. 6) Если вершина уже
-/// посещена, переходим к следующей итерации цикла, если не посещена, проверяем
-/// список вершин для текщей вершины, проверяя, являются ли смежные вершины
-/// посещенными, если не являются, добавляем их на вершину стэка
+/// Алгоритм метода таков:
+/// 1. Создаем списое пройденныйх точек типа std::vector<int>
+/// 2. Создаем стэк для работы с точками.
+/// 3. Получаем список смежности adjacency_list из класса s21_Graph
+/// 4. Добавляем в стэк первую точку - start_vertex.
+/// 5. Далее в цикле, условием выхода из которого является опустошение стэка,
+///    проверяем, является ли вершина с вершины стэка посещенной, а так же
+///    удаляем эту вершину из стэка.
+/// 6. Если вершина уже посещена, переходим к следующей итерации цикла, если не
+///    посещена, проверяем список вершин для текщей вершины, проверяя, являются
+///    ли смежные вершины посещенными, если не являются, добавляем их на вершину
+///    стэка
 
 /// @param graph - текущий граф.
 /// @param start_vertex - точка начала происка пути.
@@ -27,8 +29,8 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
     throw std::length_error("Start vertex is incorrect");
   }
   std::vector<int> visited_vertices;
-  std::stack<int> vertex_stack;
-  std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
+  s21::Stack<int> vertex_stack;
+  matrix adjacency_list = graph.getAdjacencyList();
 
   vertex_stack.push(start_vertex);
 
@@ -51,62 +53,34 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
   return visited_vertices;
 }
 
-// std::vector<int>
-// s21::GraphAlgorithms::DepthFirstSearch(std::vector<std::vector<int>>
-// adjacency_list, int start_point)
-// {
-//   if (start_point > adjacency_list.size() || start_point < 0) {
-//     throw std::length_error("Start vertex is incorrect");
-//   }
-//   std::vector<int> visited_vertices;
-//   std::stack<int> vertex_stack;
-
-//   vertex_stack.push(start_point);
-
-//   while (!vertex_stack.empty()) {
-//     int current_vertex = vertex_stack.top();
-//     vertex_stack.pop();
-//     if (CheckVisited(visited_vertices, current_vertex) == false) {
-//       continue;
-//     }
-
-//     std::vector<int> adjacent_vertices = adjacency_list[current_vertex - 1];
-//     visited_vertices.push_back(current_vertex);
-
-//     for (int it = adjacent_vertices.size() - 1; it >= 0; --it) {
-//       if (CheckVisited(visited_vertices, adjacent_vertices[it]) == true) {
-//         vertex_stack.push(adjacent_vertices[it]);
-//       }
-//     }
-//   }
-//   return visited_vertices;
-// }
-
 /// @brief Метод поиска пути в ширину в графе.
-/// Алгоритм метода таков: 1) Создаем списое пройденныйх точек типа
-/// std::vector<int> 2) Создаем очередь для работы с точками. 3) Получаем список
-/// смежности adjacency_list из класса s21_Graph 4) Добавляем в очередь первую
-/// точку - start_vertex. 5) Далее в цикле, условием выхода из которого является
-/// опустошение очереди, проверяем, является ли вершина с вершины очереди
-/// посещенной, а так же удаляем эту вершину из очереди. 6) Если вершина еще
-/// не посещена была, пушим в пройденный путь. 7) В цикле поочереди забираем
-/// из листа смежности следующую вершину, если мы ее не посещали, то пушим в
-/// очередь.
+/// Алгоритм метода таков:
+/// 1. Создаем списое пройденныйх точек типа std::vector<int>
+/// 2. Создаем очередь для работы с точками.
+/// 3. Получаем список смежности adjacency_list из класса s21_Graph
+/// 4. Добавляем в очередь первую точку - start_vertex.
+/// 5. Далее в цикле, условием выхода из которого является опустошение очереди,
+///    проверяем, является ли вершина с вершины очереди посещенной, а так же
+///    удаляем эту вершину из очереди.
+/// 6. Если вершина еще не посещена была, пушим в пройденный путь.
+/// 7. В цикле поочереди забираем из листа смежности следующую вершину, если мы
+///    ее не посещали, то пушим в очередь.
 
 /// @param graph - текущий граф.
 /// @param start_vertex - точка начала происка пути.
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
 
-std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph, int start_vertex) {
+std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
+                                                          int start_vertex) {
   if (start_vertex > graph.get_graph_size() || start_vertex <= 0) {
     throw std::length_error("Start vertex is incorrect");
   }
 
   // std::cout << "Algorithm Breadth First Search" << std::endl;
   std::vector<int> visited_vertices;
-  std::queue<int> queue_vertices_add;
-  std::vector<std::vector<int>> adjacency_list = graph.getAdjacencyList();
+  s21::Queue<int> queue_vertices_add;
+  matrix adjacency_list = graph.getAdjacencyList();
   int adjacent_vertices;
   queue_vertices_add.push(start_vertex);
   while (!queue_vertices_add.empty()) {
@@ -119,7 +93,7 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph, int 
     // Ищем по листу проходим по смежным вершинам
     for (int j = 0; j < adjacency_list[current_vertex - 1].size(); j++) {
       // Забираем из графа следующую вершину
-      adjacent_vertices = adjacency_list[current_vertex - 1][j];  
+      adjacent_vertices = adjacency_list[current_vertex - 1][j];
       // Если мы ее не посещали, то пушим ее в очередь
       if (CheckVisited(visited_vertices, adjacent_vertices)) {
         queue_vertices_add.push(adjacent_vertices);
@@ -205,7 +179,7 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
     throw std::invalid_argument("Incorrect input vertices");
   }
 
-  std::vector<std::vector<int>> adjacencyMatrix = graph.getAdjacencyMatrix();
+  matrix adjacencyMatrix = graph.getAdjacencyMatrix();
   // std::cout << "Adjacency Matrix:" << std::endl;
   // for (int i = 0; i < graphSize; ++i) {
   //   for (int j = 0; j < graphSize; ++j) {
@@ -250,40 +224,46 @@ int s21::GraphAlgorithms::GetShortestPathBetweenVertices(s21_Graph &graph,
   return distances[vertex2];
 }
 
-
 /// @brief Метод поиска минимального пути между всеми вершинами графа.
 /// Алгоритм Флойда-Уоршелла
-/// Алгоритм метода таков: 1) Создаем матрицу смежности графа 
-/// 2) Заменяем все "0" максимальным значением 3) В первом цикле путь проходит через
-/// каждую промежуточную вершину V, начиная с положение, когда нет промежуточной 
-/// вершины  V = 0 3) Находим минимальное значение между (Значением между двумя  
-/// вершина в текущем положение  и Суммой значений между стартовой точкой и 
-/// промежуточной V и значением между промежуточной вершиной V и конечной вершиной 
-/// 4) Преобразуем результирующую матрицу: Заменяем максимальное значени                                                                                                                                                                                                                                                                                                                                          е 0 
+/// Алгоритм метода таков:
+/// 1. Создаем матрицу смежности графа.
+/// 2. Заменяем все "0" максимальным значением
+/// 3. В первом цикле путь проходит через каждую промежуточную вершину V,
+///    начиная с положение, когда нет промежуточной вершины  V = 0.
+/// 4. Находим минимальное значение между (Значением между двумя вершина в
+///    текущем положении и суммой значений между стартовой точкой и
+///    промежуточной V и значением между промежуточной вершиной V и конечной
+///    вершиной.
+/// 5. Преобразуем результирующую матрицу: Заменяем максимальное значени е 0
 
 /// @param graph - текущий граф.
-/// @return std::vector<std::vector<int>> min_distance - результатом работы метода 
-/// в виде матрицы смежности
+/// @return matrix (std::vector<std::vector<int>>) min_distance - результатом
+/// работы метода в виде матрицы смежности
 
-std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph)
-{
+std::vector<std::vector<int>>
+s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
   // std::cout << "FloydWarshall:" << std::endl;
   // !!! Проверка на связность и другие ограничения
-  std::vector<std::vector<int>> min_distance = graph.getAdjacencyMatrix();
+  matrix min_distance = graph.getAdjacencyMatrix();
   // std::vector<std::vector<int>> copy_min_distance = min_distance; // временно
 
-  const int size = graph.get_graph_size();  
-  for (int v = 0; v <= size; v++){
-    for (int i = 0; i < size; i++){
-      for (int j = 0; j < size; j++){
+  const int size = graph.get_graph_size();
+  for (int v = 0; v <= size; v++) {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
         if (v == 0) {
-          if(min_distance[i][j] == 0) {
-            min_distance[i][j] = inf;         
+          if (min_distance[i][j] == 0) {
+            min_distance[i][j] = inf;
           }
         } else {
           // !!! Возможно условие вывести в отдельную функцию
-          if((i != j && (v - 1) != i && (v - 1) != j) && (min_distance[i][v - 1] != inf && min_distance[v - 1][j] != inf)) { 
-            min_distance[i][j] = std::min(min_distance[i][j], min_distance[i][v - 1] + min_distance[v - 1][j]);
+          if ((i != j && (v - 1) != i && (v - 1) != j) &&
+              (min_distance[i][v - 1] != inf &&
+               min_distance[v - 1][j] != inf)) {
+            min_distance[i][j] =
+                std::min(min_distance[i][j],
+                         min_distance[i][v - 1] + min_distance[v - 1][j]);
           }
         }
       }
@@ -292,7 +272,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
     // for (int i = 0; i < size; i++){  // !!! Для сдачи не нужен удалить
     //   for (int j = 0; j < size; j++){
     //       if(min_distance[i][j] == inf ) {
-    //         copy_min_distance[i][j] = 0; 
+    //         copy_min_distance[i][j] = 0;
     //       } else {
     //         copy_min_distance[i][j] = min_distance[i][j];
     //       }
@@ -300,18 +280,15 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetShortestPathsBetweenAllVe
     // }
   }
   // Пребразует бесконечность в 0
-  for (int i = 0; i < size; i++){
-      for (int j = 0; j < size; j++){
-          if(min_distance[i][j] == inf ) {
-            min_distance[i][j] = 0; 
-          }
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      if (min_distance[i][j] == inf) {
+        min_distance[i][j] = 0;
       }
     }
+  }
   return min_distance;
 }
-
-
-
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
@@ -321,10 +298,10 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   // Расчетные константы
   const int size = graph.get_graph_size(); 
 
-  // Создаем матрицу связностей графа
-  std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix();
-  std::vector<std::vector<int>> adjacency_matrix2 = graph.getAdjacencyMatrix(); // пока так дублирую, потом либо кпией, лтюо сохранить в векторо инт
-
+  // Создаем матрицу связностей графа и ее временную копию
+  std::vector<std::vector<int>> adjacency_matrix = graph.getAdjacencyMatrix(); 
+  std::vector<std::vector<int>> tmp_adjacency_matrix = graph.getAdjacencyMatrix();
+  
   // Создаем матрицу ферамонов, равную 0
   std::vector<std::vector<double>> pheramone_matrix(size, std::vector<double>(size, 1.0));
   
@@ -332,13 +309,11 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   TsmResult result_struct;
   result_struct.distance = inf;
   result_struct.vertices = 0;
-  
-  
 
   int vertex = 0;
  
   // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
-    for (int one_ant = 0; one_ant < ants; one_ant++){
+    for (int one_ant = 1; one_ant < ants; one_ant++){
       vertex = (one_ant % size) + 1;
 
       int prev_vertex = 0; // Предыдущая вершина
@@ -346,7 +321,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
       int distance_tmp2 = 0;
 
      // Актуализируем временную матрицу связностей
-     adjacency_matrix = adjacency_matrix2;
+     tmp_adjacency_matrix = adjacency_matrix;
   
     
     // Создаем матрицу пройденного пути !!!
@@ -360,24 +335,17 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     // Цикл похода одного муравья из текущей вершины, через все вершин, его путь {
     for (int j = 0; j < size && err == 0; j++){ //!!! Заменить на size
 
-    
-
-    
     // Удаления пути в текущую вершину из других вершин
       for (int i = 0; i < size; i++){
-        adjacency_matrix[i][vertex - 1] = 0;
+        tmp_adjacency_matrix[i][vertex - 1] = 0;
       }
       
     // Создаем лист вероятности, здесь, чтоб он удалялся после каждой вершины
     std::vector <double> probability_list(size, 0.0);
 
     // Считаем вероятность прохождения муравья по всем доступным вершинам из текущей, сохраняем в листе
-    err = CreateProbabilityPath(probability_list, pheramone_matrix, adjacency_matrix, vertex);
-                   
-    
-      //   
-     
-      
+    err = CreateProbabilityPath(probability_list, pheramone_matrix, tmp_adjacency_matrix, vertex);
+  
       // Сохраняем вершину где были во временный путь
       res_path.push_back(vertex);
       // Если есть вероятнось, что можем пойти в свободную вершину, то идем, 
@@ -390,8 +358,8 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
         if (vertex <= 0 || vertex > size){ 
           err = 1;
         } else {         
-          temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix2[vertex - 1][prev_vertex - 1]; 
-          distance_tmp += adjacency_matrix2[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
+          temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix[vertex - 1][prev_vertex - 1]; 
+          distance_tmp += adjacency_matrix[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
         }
     }
     // Если все мы прошли все вершины и если новое расстояние короче, того, 
@@ -399,11 +367,11 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   }
 
   // Если прошли все вершины прокладывае путь до первой, если это возможно
-  if ((err == 0 || res_path.size() == size) && adjacency_matrix2[vertex - 1][res_path.front() - 1] != 0 ) {
+  if ((err == 0 || res_path.size() == size) && adjacency_matrix[vertex - 1][res_path.front() - 1] != 0 ) {
             res_path.push_back(res_path.front());
-            distance_tmp += adjacency_matrix2[vertex - 1][res_path.front() - 1];
-            temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix2[vertex - 1][res_path.front() - 1];
-            distance_tmp2 = GetSpanningTreeWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
+            distance_tmp += adjacency_matrix[vertex - 1][res_path.front() - 1];
+            temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix[vertex - 1][res_path.front() - 1];
+            distance_tmp2 = GetGraphWeigt(temp_path) * 2; // умнажаем 2 так как она написана для ненаправленного графа
             RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
       // Записываем минимальное растояние и путь в результирующую структуру
       if ((distance_tmp2 < result_struct.distance)){ 
@@ -421,7 +389,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
   // возможно сделать, чтоб сразу возвращала матрицу
   int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, 
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex){
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> tmp_adjacency_matrix, int vertex){
     
     // Константы, вводятся самостоятельно
     const int a = 1; 
@@ -435,15 +403,15 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 
       // Сумма всех значений ферамонов всех ребер на 1 единицу пути
       for (int j = 0; j < size; j++){
-        if (adjacency_matrix[vertex - 1][j] != 0) {
-          sum_feramont_distance += std::pow(1.0/adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a);
+        if (tmp_adjacency_matrix[vertex - 1][j] != 0) {
+          sum_feramont_distance += std::pow(1.0/tmp_adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a);
         }
       }
 
       // читаем вероятность опираясь на количество ферамонов на этом ребре и расстояния
       for (int j = 0; j < size; j++){
-        if (adjacency_matrix[vertex - 1][j] != 0 && sum_feramont_distance != 0) {
-          feramont_distance = std::pow(1.0/adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
+        if (tmp_adjacency_matrix[vertex - 1][j] != 0 && sum_feramont_distance != 0) {
+          feramont_distance = std::pow(1.0/tmp_adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
           probability_list[j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
         }
       }      
@@ -506,13 +474,12 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
    }
 
 
-
 /// @brief Метод отображения пройденного пути в графе
 
 /// @param visited_vertices - результатом работы алгоритмов,
 /// вектор посещенных точек
 
-void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
+void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch( // по другому называется !!!!
     std::vector<int> visited_vertices) noexcept {
   for (int it = 0; it < visited_vertices.size(); ++it) {
     if (it == visited_vertices.size() - 1) {
@@ -550,33 +517,40 @@ void s21::GraphAlgorithms::PrintResultOfDepthFirstSearch(
 
 /// @brief Реализация алгоритма Прима.
 /// В ходе работы алгоритма производится поиск минимального остовного дерева.
-/// Если на вход поступает орикнтированный граф, мы преобразуем его в
-/// неориентированный и продолжаем работу. Создаем структуру std::vector<bool>
-/// visited_or_not для отслеживания посещенных и непосещенных точек,
-/// std::vector<std::vector<int>>result_matrix для хранения матрицы минимального
-/// остовного дерева, и std::vector<std::vector<int>> working_matrix для работы
-/// с весами ребер. Устанавливаем первую посещенную вершину. Пока все вершины не
-/// посещены выполняем следующие действия: 1) Для каждой посещенной вершины,
-/// обновляем working_matrix соответствующими весами ребер, если эти вершины
-/// связаны и не посещены. 2) Находим координаты ребра с минимальным весом в
-/// working_matrix с помощью функции GetMinCoordinats. 3) Если вершина,
-/// соответствующая минимальному ребру, уже посещена, установливаем вес этого
-/// ребра в inf и находим новое минимальное ребро. 4) Если вершина,
-/// соответствующая минимальному ребру, еще не посещена, добавляем это ребро в
-/// result_matrix, устанавливаем вес этого ребра в inf в working_matrix, и
-/// помечаем вершину как посещенную.
+/// 1. Если на вход поступает ориентированный граф, мы преобразуем его в
+///    неориентированный и продолжаем работу.
+/// 2. Создаем структуру std::vector<bool> visited_or_not для отслеживания
+///    посещенных и непосещенных точек.
+/// 2.1. Создаем структуру matrix (std::vector<std::vector<int>>) result_matrix
+/// для
+///      хранения матрицы минимального остовного дерева.
+/// 2.2. Создаем структуру matrix (std::vector<std::vector<int>>) working_matrix
+/// для
+///      работы с весами ребер.
+/// 3. Устанавливаем первую посещенную вершину.
+/// 4. Пока все вершины не посещены выполняем следующие действия:
+/// 4.1. Для каждой посещенной вершины, обновляем working_matrix
+///      соответствующими весами ребер, если эти вершины связаны и не посещены.
+/// 4.2. Находим координаты ребра с минимальным весом в working_matrix с помощью
+///      функции GetMinCoordinats.
+/// 4.3. Если вершина, соответствующая минимальному ребру, уже посещена,
+///      установливаем вес этого ребра в inf и находим новое минимальное ребро.
+/// 4.4. Если вершина, соответствующая минимальному ребру, еще не посещена,
+///      добавляем это ребро в result_matrix, устанавливаем вес этого ребра в
+///      inf в working_matrix, и помечаем вершину как посещенную.
+
 /// @param graph - объект класса граф.
-/// @return std::vector<std::vector<int>> - возвращаемое значение матрица
-/// смежности минимально оставного дерева графа.
+/// @return matrix (std::vector<std::vector<int>>) - возвращаемое значение
+/// матрица смежности минимально оставного дерева графа.
 std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
-    s21_Graph& graph) {
-  std::vector<std::vector<int>> graph_matrix = graph.getAdjacencyMatrix();
+    s21_Graph &graph) {
+  matrix graph_matrix = graph.getAdjacencyMatrix();
   graph_matrix = ConvertToUndirected(graph_matrix);
   std::vector<bool> visited_or_not(graph.get_graph_size(), false);
-  std::vector<std::vector<int>> result_matrix(
-      graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), 0));
-  std::vector<std::vector<int>> working_matrix(
-      graph.get_graph_size(), std::vector<int>(graph.get_graph_size(), inf));
+  matrix result_matrix(graph.get_graph_size(),
+                       std::vector<int>(graph.get_graph_size(), 0));
+  matrix working_matrix(graph.get_graph_size(),
+                        std::vector<int>(graph.get_graph_size(), inf));
 
   int start_vertex = 0;
   visited_or_not[start_vertex] = true;
@@ -631,15 +605,15 @@ bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
 /// @param graph_matrix - исходная матрица
 /// @return преобразованная матрица
 std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
-    const std::vector<std::vector<int>> graph_matrix) {
+    const matrix graph_matrix) {
   int n = graph_matrix.size();
-  std::vector<std::vector<int>> undirected_adj_matrix(n,
-                                                      std::vector<int>(n, 0));
-  for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      if (graph_matrix[i][j] != 0) {
-        undirected_adj_matrix[i][j] = undirected_adj_matrix[j][i] =
-            graph_matrix[i][j];
+  matrix undirected_adj_matrix(n, std::vector<int>(n, 0));
+  for (int i = 0; i < graph_matrix.size(); ++i) {
+    for (int j = i + 1; j < graph_matrix.size(); ++j) {
+      if (graph_matrix[i][j] != 0 || graph_matrix[j][i] != 0) {
+        int weight = std::max(graph_matrix[i][j], graph_matrix[j][i]);
+        undirected_adj_matrix[i][j] = weight;
+        undirected_adj_matrix[j][i] = weight;
       }
     }
   }
@@ -653,7 +627,7 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
 /// @param working_matrix - матрица для работы с весами ребер.
 /// @return пара значений в которой первый эллемент - i, а второй элемент - j;
 std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
-    std::vector<std::vector<int>> working_matrix) {
+    matrix working_matrix) {
   int min = inf, res_i = 0, res_j = 0;
   for (int i = 0; i < working_matrix.size(); ++i) {
     for (int j = 0; j < working_matrix[0].size(); ++j) {
@@ -672,19 +646,16 @@ std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
 /// виде матрицы least_spanning_tree.
 /// @param least_spanning_tree - матрица смежности минимального остовного дерева
 /// @return суммарный вес остовного дерева
-int s21::GraphAlgorithms::GetSpanningTreeWeigt(
-    std::vector<std::vector<int>> least_spanning_tree) {
+int s21::GraphAlgorithms::GetGraphWeigt(matrix tmp_adjacency_matrix) {
   int result = 0;
-  for (int i = 0; i < least_spanning_tree.size(); ++i) {
-    for (int j = 0; j < least_spanning_tree.size(); ++j) {
-      result += least_spanning_tree[i][j];
+  for (int i = 0; i < tmp_adjacency_matrix.size(); ++i) {
+    for (int j = 0; j < tmp_adjacency_matrix.size(); ++j) {
+      result += tmp_adjacency_matrix[i][j];
     }
   }
-  result /= 2;
+  // result /= 2;
   return result;
 }
-
-
 
 // !!! Нужно описание
 void s21::GraphAlgorithms::PrintAdjacencyMatrix(std::vector<std::vector<int>> matrix) noexcept

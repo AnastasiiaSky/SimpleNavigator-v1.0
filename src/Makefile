@@ -32,7 +32,7 @@ s21_algorithms.a:
 	rm -rf *.o *.dSYM
 
 tests: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/tests.cc -o navigator_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/main_tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
 testa: clean
@@ -41,9 +41,14 @@ testa: clean
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 
-	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h
-	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h
+	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc
+	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.h
+	
 	rm -rf .clang-format
+
+console:
+	g++ main.cc consolemenu.cc ./s21_algorithms/s21_graph_algorithms.cc ./s21_graph/s21_graph.cc
+	./a.out
 
 clean:
 	@rm -rf *.out
@@ -60,14 +65,14 @@ main: $(OBJS)
 
 
 
-# gcov_report: tests
-# 	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
-# 	genhtml coverage.info -o ./coverage
-# 	open coverage/index.html
-# 	@rm -rf *.gcda
-# 	@rm -rf *.gcno
+gcov_report: tests
+	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
+	genhtml coverage.info -o ./coverage
+	open coverage/index.html
+	@rm -rf *.gcda
+	@rm -rf *.gcno
 
-# leaks: tests
-# 	leaks -atExit -- ./mazeTest
-# #	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.cc *.h model/*.cc model/*.h ../view/*.cc ../view/*.h 
+leaks: tests
+	leaks -atExit -- ./navigator_tests
+#	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.cc *.h model/*.cc model/*.h ../view/*.cc ../view/*.h 
 
