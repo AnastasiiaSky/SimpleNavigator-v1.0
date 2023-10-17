@@ -152,14 +152,11 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
   } catch (const std::exception& e) {
     // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
-  AdjacencyMatrix_.resize(size_,
-                          std::vector<int>(size_));
+  AdjacencyMatrix_.resize(size_, std::vector<int>(size_));
 
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
-      ifs >>
-          AdjacencyMatrix_[i]
-                          [j];
+      ifs >> AdjacencyMatrix_[i][j];
     }
   }
   ifs.close();
@@ -246,14 +243,14 @@ bool s21::s21_Graph::IsGraphConnected(s21_Graph& graph, std::string filename) {
     std::vector<int> visited = FindPath(graph, 3);
     if (visited.size() == size_) {
       return true;
-    } 
+    }
   } else {
     MakeMatrixUndirected(graph);
     std::vector<int> visited = FindPath(graph, 3);
     if (visited.size() == size_) {
       graph.LoadGraphFromFile(filename);
       return true;
-    } 
+    }
   }
   return false;
 }

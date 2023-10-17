@@ -3,14 +3,13 @@
 
 #include <math.h>
 
-
-#include <iostream>
-#include <list> /// Заменить на самописные
-#include <queue> /// Заменить на самописные
-#include <stack> /// Заменить на самописные
-#include <vector> /// Заменить на самописные
 #include <cmath>
-#include <random> 
+#include <iostream>
+#include <list>   /// Заменить на самописные
+#include <queue>  /// Заменить на самописные
+#include <random>
+#include <stack>   /// Заменить на самописные
+#include <vector>  /// Заменить на самописные
 // #include <limits> // !!! возможно не надо
 // #include <limits.h> // !!! возможно не надо
 
@@ -22,13 +21,14 @@
 
 namespace s21 {
 
-  struct TsmResult {
-    std::vector<int> path;
-    int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
-    double distance;  // длина этого маршрута
-    double distance2;  // длина этого маршрута
-
-  };
+struct TsmResult {
+  std::vector<int> path;
+  int vertices;  // !!! надо со * // массив с искомым маршрутом (с порядком
+                 // обхода вершин). Вместо int* можно использовать
+                 // std::vector<int>
+  double distance;   // длина этого маршрута
+  double distance2;  // длина этого маршрута
+};
 
 class s21_Graph;
 class GraphAlgorithms {
@@ -50,20 +50,22 @@ class GraphAlgorithms {
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
   // private:
-    // Рассчитывает вероятность прохождения по текущему ребру
-    int CreateProbabilityPath(std::vector<double> &pobability_list,
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex);
+  // Рассчитывает вероятность прохождения по текущему ребру
+  int CreateProbabilityPath(std::vector<double> &pobability_list,
+                            std::vector<std::vector<double>> pheramone_matrix,
+                            std::vector<std::vector<int>> adjacency_matrix,
+                            int vertex);
 
-    // Пересчитывает количество ферамонта на текущему ребре
-    void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance);
+  // Пересчитывает количество ферамонта на текущему ребре
+  void RecalculatePheramoneMatrix(
+      std::vector<std::vector<double>> &pheramone_matrix,
+      std::vector<std::vector<int>> temp_path, int distance);
 
-    // Генерируем рандомное число в заданном диапозоне
-    double VertexRandom(double min, double max) const;
+  // Генерируем рандомное число в заданном диапозоне
+  double VertexRandom(double min, double max) const;
 
-    // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (std::vector<double> probability_list);
-
-    
+  // Выбираем рандомно вершину, в которую идем
+  int SelectNextVertex(std::vector<double> probability_list);
 
  private:
   bool CheckVisited(std::vector<int> visited_vertices,

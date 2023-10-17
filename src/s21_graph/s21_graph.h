@@ -11,15 +11,12 @@ class GraphAlgorithms;
 namespace s21 {
 class s21_Graph {
  public:
-  s21_Graph() = default; 
-  s21_Graph(int size) { this->size_ = size; } 
+  s21_Graph() = default;
+  s21_Graph(int size) { this->size_ = size; }
   ~s21_Graph() = default;
-  std::vector<std::vector<int>>
-  getAdjacencyMatrix(); 
-  std::vector<std::vector<int>>
-  getAdjacencyList();
-  std::vector<std::pair<int, int>>
-  getEdgesList(); 
+  std::vector<std::vector<int>> getAdjacencyMatrix();
+  std::vector<std::vector<int>> getAdjacencyList();
+  std::vector<std::pair<int, int>> getEdgesList();
   int get_graph_size();
   bool CheckFile(const std::string &filename);
   bool IsGraphConnected(s21_Graph &graph, std::string filename);

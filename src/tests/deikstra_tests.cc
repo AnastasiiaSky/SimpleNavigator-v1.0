@@ -158,4 +158,21 @@ TEST(GraphAlgorithmsTest, VeryBigGraph) {
   finish = 49;
   EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 104);
 }
+
+TEST(GraphAlgorithmsTest, Deikstra_graph_with_loops) {
+  s21::s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
+  graph.LoadGraphFromFile(InputFileName);
+
+  int start = 1, finish = 6;
+
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 21);
+
+  start = 4;
+  finish = 6;
+
+  EXPECT_EQ(algo.GetShortestPathBetweenVertices(graph, start, finish), 16);
+}
+
 }  // namespace s21

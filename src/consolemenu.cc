@@ -18,7 +18,7 @@ void ConsoleMenuInterface::Deploy() {
       std::cout << "(Use simple numbers from 1 to 8)." << std::endl;
     }
     std::cout << std::endl;
-    if(number < 1 || number > 8) {
+    if (number < 1 || number > 8) {
       std::cout << "Plese, choose from menu!" << std::endl;
       ShowMenu();
     }
@@ -27,52 +27,64 @@ void ConsoleMenuInterface::Deploy() {
         CallGraphLoading(pathToFile);
         break;
       case 2: {
-        if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallBFS();
         break;
       }
       case 3: {
-                if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallDFS();
         break;
       }
       case 4: {
-                if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallDeikstra();
         break;
       }
       case 5: {
-                if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallFloid();
         break;
       }
       case 6: {
-                if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallPrim();
-         break;
+        break;
       }
       case 7: {
-        if(graph_.get_graph_size() < 1) {
-          std::cout << "* Warning!!! Plese, load a graph before using algorithms!" << std::endl;
+        if (graph_.get_graph_size() < 1) {
+          std::cout
+              << "* Warning!!! Plese, load a graph before using algorithms!"
+              << std::endl;
           break;
         }
         CallAnt();
-          break;
+        break;
       }
     }
   }
@@ -296,19 +308,17 @@ void ConsoleMenuInterface::CallAnt() {
   distance = result.distance;
 
   std::cout << "Way is  -  ";
-  for(int it = 0; it < way.size(); ++it) {
-    if(it != way.size() - 1) {
-    std::cout << way[it] << " -> ";
+  for (int it = 0; it < way.size(); ++it) {
+    if (it != way.size() - 1) {
+      std::cout << way[it] << " -> ";
     } else {
-    std::cout << way[it] << std::endl;;
-
+      std::cout << way[it] << std::endl;
+      ;
     }
   }
 
   std::cout << "Distance is   -  " << distance << std::endl;
-
 }
-
 
 std::string ConsoleMenuInterface::RemoveSrcPrefix(const std::string& path) {
   std::string srcPrefix = "src/";
@@ -317,6 +327,5 @@ std::string ConsoleMenuInterface::RemoveSrcPrefix(const std::string& path) {
   }
   return path;
 }
-
 
 }  // namespace s21
