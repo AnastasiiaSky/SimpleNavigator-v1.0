@@ -24,5 +24,6 @@ class ConsoleMenuInterface {
   void CallPrim();
   void CallAnt();
   std::string RemoveSrcPrefix(const std::string& path);
+  void SendMassegeToUser();
 };
 }  // namespace s21

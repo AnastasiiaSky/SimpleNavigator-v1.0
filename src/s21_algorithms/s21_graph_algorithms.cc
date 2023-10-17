@@ -97,8 +97,6 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
   return visited_vertices;
 }
 
-
-
 /// @brief Метод для поиска кратчайшего пути между двумя вершинами в графе с
 /// использованием алгоритма Дейкстры.
 ///

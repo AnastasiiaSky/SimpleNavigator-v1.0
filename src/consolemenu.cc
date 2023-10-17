@@ -2,11 +2,23 @@
 #include "consolemenu.h"
 
 namespace s21 {
-
+/// @brief Метод ConsoleMenuInterface::Deploy() представляет собой цикл, в
+/// котором отображается меню консольного интерфейса и выполняются определенные
+/// действия в зависимости от выбранного пользователем пункта меню. Вот описание
+/// каждой части метода:
+/// 1. case 1: Вызывается функция CallGraphLoading(pathToFile), которая
+///    загружает граф из файла, указанного в переменной pathToFile.
+/// 2. case 2 - case 7: Проверяется значение флага flag. Если флаг равен 0,
+///    вызывается функция SendMassegeToUser() для отправки сообщения
+///    пользователю о необходимости загрузки графа. В противном случае
+///    вызывается соответствующая функция для выполнения выбранного алгоритма.
+///    Если значение флага не равно 0, то вызывается функция CallBFS(),
+///    CallDFS(), CallDeikstra(), CallFloid(), CallPrim() или CallAnt() в
+///    зависимости от выбранного пункта меню.
 void ConsoleMenuInterface::Deploy() {
   std::string pathToFile;
   s21::s21_Graph graph;
-  s21::GraphAlgorithms algo;
+  int flag = 0;
   int number = 0;
   while (number != 8) {
     ShowMenu();
@@ -25,62 +37,51 @@ void ConsoleMenuInterface::Deploy() {
     switch (number) {
       case 1:
         CallGraphLoading(pathToFile);
+        if (graph_.get_graph_size() > 1) flag += 1;
         break;
       case 2: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallBFS();
         break;
       }
       case 3: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallDFS();
         break;
       }
       case 4: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallDeikstra();
         break;
       }
       case 5: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallFloid();
         break;
       }
       case 6: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallPrim();
         break;
       }
       case 7: {
-        if (graph_.get_graph_size() < 1) {
-          std::cout
-              << "* Warning!!! Plese, load a graph before using algorithms!"
-              << std::endl;
+        if (flag == 0) {
+          SendMassegeToUser();
           break;
         }
         CallAnt();
@@ -89,6 +90,9 @@ void ConsoleMenuInterface::Deploy() {
     }
   }
 }
+/// @brief Метод ConsoleMenuInterface::ShowMenu() отображает меню консольного
+/// интерфейса для пользователя. Он выводит на экран список доступных операций с
+/// соответствующими номерами, чтобы пользователь мог выбрать желаемое действие.
 void ConsoleMenuInterface::ShowMenu() {
   std::cout << "..............................................................."
                "........................................................."
@@ -186,6 +190,9 @@ void ConsoleMenuInterface::CallGraphLoading(std::string pathToFile) {
     }
   }
 }
+
+/// @brief Метод ConsoleMenuInterface::CallBFS() вызывает метод поиска в
+/// ширину (BreadthFirstSearch) в графе и выводит результат на консоль.
 void ConsoleMenuInterface::CallBFS() {
   s21::GraphAlgorithms algo;
   int start_for_bfs = GetNumForAlgo();
@@ -199,6 +206,8 @@ void ConsoleMenuInterface::CallBFS() {
   std::cout << std::endl;
 }
 
+/// @brief Метод ConsoleMenuInterface::CallDFS() вызывает метод поиска в
+/// глубину (DepthFirstSearch) в графе и выводит результат на консоль.
 void ConsoleMenuInterface::CallDFS() {
   s21::GraphAlgorithms algo;
   int start_for_dfs = GetNumForAlgo();
@@ -211,7 +220,10 @@ void ConsoleMenuInterface::CallDFS() {
   algo.PrintResultWay(result1);
   std::cout << std::endl;
 }
-
+/// @brief Метод ConsoleMenuInterface::GetNumForAlgo() получает от пользователя
+/// номер вершины, с которой нужно выполнить операцию алгоритма и проверяет ее
+/// на валидность.
+/// @return возвращает проверенную введенную пользователем вершину
 int ConsoleMenuInterface::GetNumForAlgo() {
   int vertex = 0;
   std::string input = "\0";
@@ -228,6 +240,10 @@ int ConsoleMenuInterface::GetNumForAlgo() {
   }
   return vertex;
 }
+/// @brief Метод ConsoleMenuInterface::GetNumForAlgo() получает от пользователя
+/// номер вершины, с которой нужно выполнить операцию алгоритма и проверяет ее
+/// на валидность.
+/// @return возвращает проверенную введенную пользователем вершину
 int ConsoleMenuInterface::GetNumForAlgoB() {
   int vertex = 0;
   std::string input = "\0";
@@ -244,7 +260,9 @@ int ConsoleMenuInterface::GetNumForAlgoB() {
   }
   return vertex;
 }
-
+/// @brief Метод ConsoleMenuInterface::CallDeikstra() вызывает метод поиска
+/// кратчайшего пути (GetShortestPathBetweenVertices) в графе и выводит
+/// результат на консоль.
 void ConsoleMenuInterface::CallDeikstra() {
   s21::GraphAlgorithms algo;
   int vertex1 = GetNumForAlgo();
@@ -264,6 +282,9 @@ void ConsoleMenuInterface::CallDeikstra() {
             << std::endl;
 }
 
+/// @brief Метод ConsoleMenuInterface::CallFloid() вызывает метод поиска
+/// кратчайших путей между всеми вершинами(GetShortestPathsBetweenAllVertices) в
+/// графе и выводит результат на консоль.
 void ConsoleMenuInterface::CallFloid() {
   s21::GraphAlgorithms algo;
   std::cout << std::endl;
@@ -278,6 +299,9 @@ void ConsoleMenuInterface::CallFloid() {
   std::cout << std::endl;
 }
 
+/// @brief Метод ConsoleMenuInterface::CallPrim() вызывает метод поиска
+/// минимального оставного дерева(GetLeastSpanningTree) в графе и выводит
+/// результат на консоль.
 void ConsoleMenuInterface::CallPrim() {
   s21::GraphAlgorithms algo;
 
@@ -293,7 +317,9 @@ void ConsoleMenuInterface::CallPrim() {
 
   std::cout << "Spanning Tree Weight = " << weight / 2 << std::endl;
 }
-
+/// @brief Метод ConsoleMenuInterfaceCallAntCallPrim() вызывает метод поиска
+/// пути при помощи муравьинного алгоритма(SolveTravelingSalesmanProblem) в
+/// графе и выводит результат на консоль.
 void ConsoleMenuInterface::CallAnt() {
   s21::GraphAlgorithms algo;
 
@@ -319,13 +345,20 @@ void ConsoleMenuInterface::CallAnt() {
 
   std::cout << "Distance is   -  " << distance << std::endl;
 }
-
+/// @brief Метод ConsoleMenuInterface::RemoveSrcPrefix(const std::string& path)
+/// удаляет префикс "src/" из заданного пути path.
 std::string ConsoleMenuInterface::RemoveSrcPrefix(const std::string& path) {
   std::string srcPrefix = "src/";
   if (path.substr(0, srcPrefix.size()) == srcPrefix) {
     return path.substr(srcPrefix.size());
   }
   return path;
+}
+/// @brief Метод ConsoleMenuInterface::SendMessageToUser() выводит
+/// предупреждение пользователю о том что граф не загружен в консоль.
+void ConsoleMenuInterface::SendMassegeToUser() {
+  std::cout << "* Warning!!! Plese, load a graph before using algorithms!"
+            << std::endl;
 }
 
 }  // namespace s21

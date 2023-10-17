@@ -58,6 +58,8 @@ clean:
 	@rm -rf navigator_tests
 	@rm -rf *.gcda
 	@rm -rf *.gcno
+	@rm -rf *info
+	@rm -rf coverage
 
 main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS)
