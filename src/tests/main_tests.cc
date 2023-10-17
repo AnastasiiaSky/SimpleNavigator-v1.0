@@ -2,6 +2,7 @@
 
 #include "../s21_algorithms/s21_graph_algorithms.cc"
 #include "../s21_graph/s21_graph.cc"
+#include "ant_tests.cc"
 #include "bfs_tests.cc"
 #include "deikstra_tests.cc"
 #include "dfs_tests.cc"
