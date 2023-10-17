@@ -97,22 +97,7 @@ std::vector<int> s21::GraphAlgorithms::BreadthFirstSearch(s21_Graph &graph,
   return visited_vertices;
 }
 
-/// @brief Метод проверки посещенных точек, в которм происходит итерация по
-/// эллементам вектора посещенных точек и сравнение с текущей точкой.
 
-/// @param visited_vertices - результатом работы алгоритмов,
-/// вектор посещенных точек
-/// @param current_vertix - текущая вершина графа.
-
-bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
-                                        int current_vertix) noexcept {
-  for (int it = 0; it < visited_vertices.size(); ++it) {
-    if (visited_vertices[it] == current_vertix) {
-      return false;
-    }
-  }
-  return true;
-}
 
 /// @brief Метод для поиска кратчайшего пути между двумя вершинами в графе с
 /// использованием алгоритма Дейкстры.
@@ -308,77 +293,6 @@ std::vector<std::vector<int>> s21::GraphAlgorithms::GetLeastSpanningTree(
     }
   }
   return result_matrix;
-}
-
-/// @brief Данный метод IsAllVisited проверяет, все ли вершины графа были
-/// посещены, на основе вектора visited_or_not, который содержит информацию о
-/// посещении каждой вершины.
-/// @param visited_of_not
-/// @return true - если все вершины посещены, false - если еще не все вершины
-/// посещены
-bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
-  for (int it = 0; it < visited_of_not.size(); ++it) {
-    if (visited_of_not[it] == false) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/// @brief Данный метод ConvertToUndirected преобразует матрицу смежности
-/// ориентированного графа в матрицу смежности неориентированного графа.
-/// @param graph_matrix - исходная матрица
-/// @return преобразованная матрица
-std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
-    const matrix graph_matrix) {
-  int n = graph_matrix.size();
-  matrix undirected_adj_matrix(n, std::vector<int>(n, 0));
-  for (int i = 0; i < graph_matrix.size(); ++i) {
-    for (int j = i + 1; j < graph_matrix.size(); ++j) {
-      if (graph_matrix[i][j] != 0 || graph_matrix[j][i] != 0) {
-        int weight = std::max(graph_matrix[i][j], graph_matrix[j][i]);
-        undirected_adj_matrix[i][j] = weight;
-        undirected_adj_matrix[j][i] = weight;
-      }
-    }
-  }
-
-  return undirected_adj_matrix;
-}
-
-/// @brief Данный метод GetMinCoordinats находит координаты (индексы) элемента с
-/// минимальным значением в матрице working_matrix и возвращает их в виде пары
-/// значений.
-/// @param working_matrix - матрица для работы с весами ребер.
-/// @return пара значений в которой первый эллемент - i, а второй элемент - j;
-std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
-    matrix working_matrix) {
-  int min = inf, res_i = 0, res_j = 0;
-  for (int i = 0; i < working_matrix.size(); ++i) {
-    for (int j = 0; j < working_matrix[0].size(); ++j) {
-      if (working_matrix[i][j] < min) {
-        min = working_matrix[i][j];
-        res_i = i;
-        res_j = j;
-      }
-    }
-  }
-  std::pair<int, int> result(res_i, res_j);
-  return result;
-}
-
-/// @brief Метод вычисляет суммарный вес остовного дерева, представленного в
-/// виде матрицы least_spanning_tree.
-/// @param least_spanning_tree - матрица смежности минимального остовного дерева
-/// @return суммарный вес остовного дерева
-int s21::GraphAlgorithms::GetGraphWeigt(matrix tmp_adjacency_matrix) {
-  int result = 0;
-  for (int i = 0; i < tmp_adjacency_matrix.size(); ++i) {
-    for (int j = 0; j < tmp_adjacency_matrix.size(); ++j) {
-      result += tmp_adjacency_matrix[i][j];
-    }
-  }
-  return result;
 }
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(
@@ -591,6 +505,94 @@ void s21::GraphAlgorithms::RecalculatePheramoneMatrix(
       }
     }
   }
+}
+
+/// @brief Данный метод IsAllVisited проверяет, все ли вершины графа были
+/// посещены, на основе вектора visited_or_not, который содержит информацию о
+/// посещении каждой вершины.
+/// @param visited_of_not
+/// @return true - если все вершины посещены, false - если еще не все вершины
+/// посещены
+bool s21::GraphAlgorithms::IsAllVisited(std::vector<bool> visited_of_not) {
+  for (int it = 0; it < visited_of_not.size(); ++it) {
+    if (visited_of_not[it] == false) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/// @brief Данный метод ConvertToUndirected преобразует матрицу смежности
+/// ориентированного графа в матрицу смежности неориентированного графа.
+/// @param graph_matrix - исходная матрица
+/// @return преобразованная матрица
+std::vector<std::vector<int>> s21::GraphAlgorithms::ConvertToUndirected(
+    const matrix graph_matrix) {
+  int n = graph_matrix.size();
+  matrix undirected_adj_matrix(n, std::vector<int>(n, 0));
+  for (int i = 0; i < graph_matrix.size(); ++i) {
+    for (int j = i + 1; j < graph_matrix.size(); ++j) {
+      if (graph_matrix[i][j] != 0 || graph_matrix[j][i] != 0) {
+        int weight = std::max(graph_matrix[i][j], graph_matrix[j][i]);
+        undirected_adj_matrix[i][j] = weight;
+        undirected_adj_matrix[j][i] = weight;
+      }
+    }
+  }
+
+  return undirected_adj_matrix;
+}
+
+/// @brief Данный метод GetMinCoordinats находит координаты (индексы) элемента с
+/// минимальным значением в матрице working_matrix и возвращает их в виде пары
+/// значений.
+/// @param working_matrix - матрица для работы с весами ребер.
+/// @return пара значений в которой первый эллемент - i, а второй элемент - j;
+std::pair<int, int> s21::GraphAlgorithms::GetMinCoordinats(
+    matrix working_matrix) {
+  int min = inf, res_i = 0, res_j = 0;
+  for (int i = 0; i < working_matrix.size(); ++i) {
+    for (int j = 0; j < working_matrix[0].size(); ++j) {
+      if (working_matrix[i][j] < min) {
+        min = working_matrix[i][j];
+        res_i = i;
+        res_j = j;
+      }
+    }
+  }
+  std::pair<int, int> result(res_i, res_j);
+  return result;
+}
+
+/// @brief Метод вычисляет суммарный вес остовного дерева, представленного в
+/// виде матрицы least_spanning_tree.
+/// @param least_spanning_tree - матрица смежности минимального остовного дерева
+/// @return суммарный вес остовного дерева
+int s21::GraphAlgorithms::GetGraphWeigt(matrix tmp_adjacency_matrix) {
+  int result = 0;
+  for (int i = 0; i < tmp_adjacency_matrix.size(); ++i) {
+    for (int j = 0; j < tmp_adjacency_matrix.size(); ++j) {
+      result += tmp_adjacency_matrix[i][j];
+    }
+  }
+  return result;
+}
+
+/// @brief Метод проверки посещенных точек, в которм происходит итерация по
+/// эллементам вектора посещенных точек и сравнение с текущей точкой.
+
+/// @param visited_vertices - результатом работы алгоритмов,
+/// вектор посещенных точек
+/// @param current_vertix - текущая вершина графа.
+
+bool s21::GraphAlgorithms::CheckVisited(std::vector<int> visited_vertices,
+                                        int current_vertix) noexcept {
+  for (int it = 0; it < visited_vertices.size(); ++it) {
+    if (visited_vertices[it] == current_vertix) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /// @brief Метод отображения пройденного пути в графе

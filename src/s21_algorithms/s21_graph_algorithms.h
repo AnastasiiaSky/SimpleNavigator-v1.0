@@ -43,9 +43,9 @@ class GraphAlgorithms {
                                      int vertex2);
   std::vector<std::vector<int>> GetShortestPathsBetweenAllVertices(
       s21_Graph &graph);
+  std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
   TsmResult SolveTravelingSalesmanProblem(s21_Graph &graph);
   void PrintResultWay(std::vector<int> visited_vertices) noexcept;
-  std::vector<std::vector<int>> GetLeastSpanningTree(s21_Graph &graph);
   int GetGraphWeigt(matrix adjacency_matrix);
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
