@@ -433,7 +433,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   /// нас есть доступ ло какой-либо свободной не посещаемой вершины.  1 = ошибка
 
   int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, 
-    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> tmp_adjacency_matrix, int vertex){
+    std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> tmp_adjacency_matrix, int vertex) noexcept {
     
     // Константы, вводятся самостоятельно
     const int a = 1; 
@@ -478,7 +478,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 /// @param  max - минимальое число при рандоме <= 1
 /// @return double - сгенерированное дабл число от 0 до 1
 
-  double s21::GraphAlgorithms::VertexRandom(double min, double max) const {
+  double s21::GraphAlgorithms::VertexRandom(double min, double max) const { // !!! Не уверена, что не выкидывает исключений 
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> distribution(min, max);
@@ -514,7 +514,7 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
 /// @param  temp_path - матрица смежности пройденного пути
 /// @param  distance - расстояние, которое прошел текущий муравей
 
-  void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ 
+  void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance) noexcept { 
 
     // Константы, вводятся самостоятельно !!!  
     const int q = 100.0; // Количество ферамонов у одного муравья 
