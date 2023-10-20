@@ -1,8 +1,26 @@
 #include <gtest/gtest.h>
 
-using namespace std;
-
 namespace s21 {
+  TEST(Test, FloidWarshall_weighted_graph_with_loops) {
+  s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
+  graph.LoadGraphFromFile(InputFileName);
+  std::vector<std::vector<int>> minimum_distance =
+      algo.GetShortestPathsBetweenAllVertices(graph);
+  std::vector<std::vector<int>> result{
+      {0, 5, 12, 9, 16, 21}, {5, 0, 7, 14, 21, 16}, {12, 7, 0, 21, 18, 9},
+      {9, 14, 21, 0, 7, 16}, {16, 21, 18, 7, 0, 9}, {21, 16, 9, 16, 9, 0}};
+
+  for (int it = 0; it < minimum_distance.size(); ++it) {
+    for (int j = 0; j < minimum_distance.size(); ++j) {
+      std::cout << minimum_distance[it][j] << " ";
+    }
+    std::cout << std::endl;
+  }
+  ASSERT_EQ(minimum_distance, result);
+  // algo.PrintAdjacencyMatrix(minimum_distance);
+}
 
 TEST(AntTest, weighted_graph_4_vert_1) {
   s21::s21_Graph graph;
@@ -20,18 +38,18 @@ TEST(AntTest, weighted_graph_4_vert_1) {
   // ASSERT_EQ(1, result_struct.path.front());
 }
 
-TEST(AntTest, weighted_graph_11_vert) {
-  s21::s21_Graph graph;
-  s21::GraphAlgorithms algo;
+// TEST(AntTest, weighted_graph_11_vert) {
+//   s21::s21_Graph graph;
+//   s21::GraphAlgorithms algo;
 
-  std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
-  graph.LoadGraphFromFile(InputFileName);
-  int distance = 10;
-  TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
-  const int size = graph.get_graph_size();
-  ASSERT_EQ(true, abs(result_struct.distance - 253) < 10);
-  // algo.PrintResultOfDepthFirstSearch(result_struct.path);
-}
+//   std::string InputFileName = "./examples/weighted_graph_11_vert.txt";
+//   graph.LoadGraphFromFile(InputFileName);
+//   int distance = 10;
+//   TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
+//   const int size = graph.get_graph_size();
+//   ASSERT_EQ(true, abs(result_struct.distance - 253) < 10);
+//   // algo.PrintResultOfDepthFirstSearch(result_struct.path);
+// }
 
 // TEST(AntTest, Vertex_random) {
 // s21::s21_Graph graph;

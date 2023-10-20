@@ -198,7 +198,7 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
         if (v == 0) {
-          if (min_distance[i][j] == 0) {
+          if (min_distance[i][j] == 0 || i == j) {
             min_distance[i][j] = inf;
           }
         } else {
