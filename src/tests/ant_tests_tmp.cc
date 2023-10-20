@@ -32,7 +32,7 @@ namespace s21 {
         TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
         const int size = graph.get_graph_size(); 
         ASSERT_EQ(true, abs(result_struct.distance - 253) < 10);
-          cout << "Distance_* " << result_struct.distance << endl;
+          // cout << "Distance_* " << result_struct.distance << endl;
           // algo.PrintResultOfDepthFirstSearch(result_struct.path);
     }
 

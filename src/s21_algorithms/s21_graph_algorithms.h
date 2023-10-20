@@ -23,19 +23,15 @@
 namespace s21 {
 
   struct TsmResult {
-    std::vector<int> path;
-    int vertices;   // !!! надо со * // массив с искомым маршрутом (с порядком обхода вершин). Вместо int* можно использовать std::vector<int>
-    double distance;  // длина этого маршрута
-    double distance2;  // длина этого маршрута
-
+    std::vector<int> path; 
+    double distance;  
   };
 
 class s21_Graph;
 class GraphAlgorithms {
  public:
   using matrix = std::vector<std::vector<int>>;
-  const int inf =
-      std::numeric_limits<int>::max();  // !!! Перенести в класс, наверное
+  const int inf = std::numeric_limits<int>::max();  
 
   // Главный метод алгоритма поиска в глубину
   std::vector<int> DepthFirstSearch(s21_Graph &graph, int start_vertex);
@@ -84,7 +80,7 @@ class GraphAlgorithms {
     double VertexRandom(double min, double max) const;
 
     // Выбираем рандомно вершину, в которую идем 
-    int SelectNextVertex (std::vector<double> probability_list);
+    int SelectNextVertex (std::vector<double> probability_list) const noexcept;
 
     
 

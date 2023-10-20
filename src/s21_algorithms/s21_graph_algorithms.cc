@@ -18,7 +18,7 @@ using namespace std;  //  !!!  Потом убрать
 ///    ли смежные вершины посещенными, если не являются, добавляем их на вершину
 ///    стэка
 
-/// @param graph - текущий граф.
+/// @param graph - ссылкана  текущий граф.
 /// @param start_vertex - точка начала происка пути.
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
@@ -66,7 +66,7 @@ std::vector<int> s21::GraphAlgorithms::DepthFirstSearch(s21_Graph &graph,
 /// 7. В цикле поочереди забираем из листа смежности следующую вершину, если мы
 ///    ее не посещали, то пушим в очередь.
 
-/// @param graph - текущий граф.
+/// @param graph - ссылка на  текущий граф.
 /// @param start_vertex - точка начала происка пути.
 /// @return std::vector<int> visited_vertices - результатом работы метода
 /// является вектор посещенных точек
@@ -290,40 +290,37 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
   return min_distance;
 }
 
-/// @brief Алгоритм муравьиной колонии является метаэвристикой, основанной на поведении муравьев 
-/// при поиске пути к источнику пищи. Он может использоваться для решения задач коммивояжера, 
-/// минимального остовного дерева и других оптимизационных задач.
+/// @brief Алгоритм муравьиной колонии является метаэвристикой, основанной 
+/// на поведении муравьев при поиске пути к источнику пищи. Он может 
+/// использоваться для решения задач коммивояжера, минимального остовного 
+/// дерева и других оптимизационных задач.
 /// Алгоритм метода таков:
 /// 1. Устанавливаем количество муравьев
-/// 2. Загрузка  графа в матрицe смежности и создание ее временной копии, создаем матрицу ферамонов,
-///  количество муравьев, количество итераций, коэффициент испарения феромона, коэффициент важности расстояния, коэффициент важности феромона.
-/// 3. Для каждого муравья выбирается вершина,
+/// 2. Загрузка  графа в матрицe смежности и создание ее временной копии,
+///  создаем матрицу ферамонов, количество муравьев, количество итераций, 
+/// коэффициент испарения феромона, коэффициент важности расстояния, 
+/// коэффициент важности феромона.
+/// 3. Для каждого муравья выбирается вершина и запускаеться цикл пока 
+/// муравей не пройдет все вершины
+/// 4. До цикла создаем временный путь посещения муравья,
+/// 5. Если посетили все вершиы графа и есть ребро из последней вершины до 
+/// первой, то прокладдываем, добаляем вес ребра к итоговой сумме и добаляем
+///  первую вершину и в конец.
+/// 6. Если текущее расстояни (сумма весов пути) меньше, чем записана в 
+/// итоговой структуре,  заменяее итоговые зачения выходной струкуры 
+/// текущим значениям.
 
-// Для каждой итерации:
-// Для каждого муравья:
-// Выбрать стартовую вершину.
-// Пока не пройдены все вершины:
-// Выбрать следующую вершину на основе правил выбора следующего шага (например, используя эвристику или феромоны).
-// Обновить путь муравья и информацию о феромонах на ребре.
-// Обновить глобальный лучший путь, если текущий путь муравья лучше.
-// Обновить феромоны на всех ребрах с учетом испарения и отложенных следов муравьев.
-// Возврат результата:
-
-// Вернуть глобальный лучший путь или матрицу смежности с минимальными расстояниями между всеми вершинами.
-// Параметры:
-// graph: текущий граф, представленный в виде матрицы смежности.
-// num_ants: количество муравьев, принимающих участие в поиске пути.
-// num_iterations: количество итераций алгоритма.
-// evaporation_rate: коэффициент испарения феромона.
-// alpha: коэффициент важности расстояния при выборе следующего шага.
-// beta: коэффициент важности феромона при выборе следующего шага.
-// Возвращаемое значение:
-// Матрица смежности min_distance - результат работы алгоритма, содержащая минимальные расстояния между всеми вершинами графа.
+/// @param graph - текущий граф, представленный в виде матрицы смежности.
+/// @return result_struct -  структура с результатом работы алгоритма,
+/// содержащая 
+/// минимальные расстояния, которые прошел муровей между всеми вершинами 
+/// графа и путь этот путь.
+ 
 
 s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &graph)
 {
   // Константы, вводятся самостоятельно
-  const int ants = 20000; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
+  const int num_ants = 20000; // Количеству муравьев в колонии, при условии, что у нас их больше чем вершин
    
   // Расчетные константы
   const int size = graph.get_graph_size(); 
@@ -338,17 +335,17 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   // Создаем результирующую структуру, стартовое расстояние макимально возможное
   TsmResult result_struct;
   result_struct.distance = inf;
-  result_struct.vertices = 0;
+  // result_struct.vertices = 0;
 
   int vertex = 0;
  
-  // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины{
-    for (int one_ant = 0; one_ant < ants; one_ant++){
+  // Цикл пока все муравье из колоние не пройдут по графу, каждый из своей вершины
+    for (int one_ant = 0; one_ant < num_ants; one_ant++){
       vertex = (one_ant % size) + 1;
 
       int prev_vertex = 0; // Предыдущая вершина
-      int distance_tmp = 0; //
-      int distance_tmp2 = 0;
+      int min_distance = 0; //
+      // int min_distance2 = 0;
 
      // Актуализируем временную матрицу связностей
      tmp_adjacency_matrix = adjacency_matrix;
@@ -389,28 +386,28 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
           err = 1;
         } else {         
           temp_path[vertex - 1][prev_vertex - 1] = adjacency_matrix[vertex - 1][prev_vertex - 1]; 
-          distance_tmp += adjacency_matrix[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
+          // min_distance2 += adjacency_matrix[vertex - 1][prev_vertex - 1]; // !!! Заменить посчитать
         }
     }
-    // Если все мы прошли все вершины и если новое расстояние короче, того, 
-    // что в результирующей структуре: Начинаем сначала. 
   }
 
-  // Если прошли все вершины прокладываем путь до первой, если это возможно
+  // Если прошли все вершины прокладываем путь до первой, если это возможно в противном случае переходим к следующему муравью
   if ((err == 0 || res_path.size() == size) && adjacency_matrix[vertex - 1][res_path.front() - 1] != 0 ) {
       res_path.push_back(res_path.front());
-      distance_tmp += adjacency_matrix[vertex - 1][res_path.front() - 1];
+      // min_distance2 += adjacency_matrix[vertex - 1][res_path.front() - 1];
       temp_path[vertex - 1][res_path.front() - 1] = adjacency_matrix[vertex - 1][res_path.front() - 1];
-      distance_tmp2 = GetGraphWeigt(temp_path); // умнажаем 2 так как она написана для ненаправленного графа
-      RecalculatePheramoneMatrix (pheramone_matrix, temp_path, distance_tmp);
+      min_distance = GetGraphWeigt(temp_path);
+      
+      // Пересчитываем матрицу ферамонов, исходя из пройденного маршрута
+      RecalculatePheramoneMatrix (pheramone_matrix, temp_path, min_distance);
 
       // Записываем минимальное растояние и путь в результирующую структуру
-      if ((distance_tmp < result_struct.distance)){ 
-        result_struct.distance = distance_tmp;
-        result_struct.distance2 = distance_tmp2;
+      if ((min_distance < result_struct.distance)){ 
+        result_struct.distance = min_distance;
+        // result_struct.distance2 = min_distanc;
 
       // Прибавлем в путь стартовую вершину, и + к дистанции
-        result_struct.vertices = res_path.front(); 
+        // result_struct.vertices = res_path.front(); 
         result_struct.path = move (res_path);
       }
     }
@@ -418,7 +415,23 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
   return result_struct;
 }
 
-  // 
+
+  /// @brief - Метод cчитает с какой вероятностью из текуей вершины муравей 
+  /// попадет в другие возможные и не посещенные вершины 
+  /// Алгоритм метода таков:
+  /// 1. Вводим значения констант: a: коэффициент важности расстояния при 
+  /// выборе следующего шага. b: коэффициент важности феромона при выборе 
+  /// следующего шага.
+
+  /// @param probability_list - итоговый лист вероятности посеения 
+  /// возможых вершин
+  /// @param pheramone_matrix - текущая матрица ферамонта на всем графе
+  /// @param tmp_adjacency_matrix - временная матрица связностьи. актуальные 
+  /// вершины
+  /// @param vertex - текуая вершина из которой считаем вероятность
+  /// @return int - если 0, то вероятность посчитана корректна и в принципе у 
+  /// нас есть доступ ло какой-либо свободной не посещаемой вершины.  1 = ошибка
+
   int s21::GraphAlgorithms::CreateProbabilityPath(std::vector<double> &probability_list, 
     std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> tmp_adjacency_matrix, int vertex){
     
@@ -439,11 +452,11 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
         }
       }
 
-      // читаем вероятность опираясь на количество ферамонов на этом ребре и расстояния
+      // Cчитаем вероятность опираясь на количество ферамонов на этом ребре и расстояния
       for (int j = 0; j < size; j++){
         if (tmp_adjacency_matrix[vertex - 1][j] != 0 && sum_feramont_distance != 0) {
-          feramont_distance = std::pow(1.0/tmp_adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); // !!! А если у нас 0, то есть нет маршрута
-          probability_list[j] = feramont_distance / sum_feramont_distance; // возможно все пушим в лист
+          feramont_distance = std::pow(1.0/tmp_adjacency_matrix[vertex - 1][j], b) * std::pow(pheramone_matrix[vertex - 1][j], a); 
+          probability_list[j] = feramont_distance / sum_feramont_distance; 
         }
       }      
 
@@ -457,7 +470,13 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
       }
       return err; //Возможно выделить в отдельную функцию чек, которая проверяет сумму всех вероятностей
   }
+
   
+/// @brief - Метод, генерирующий дабл число 
+
+/// @param  min - минимальое число при рандоме > 0
+/// @param  max - минимальое число при рандоме <= 1
+/// @return double - сгенерированное дабл число от 0 до 1
 
   double s21::GraphAlgorithms::VertexRandom(double min, double max) const {
     std::random_device rd;
@@ -466,15 +485,20 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
     return distribution(gen);
   }
 
+/// @brief - Метод, который на основе листа вероятности, выбирает следующую вершину 
 
-  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list){ 
+/// @param  probability_list - лист вероятности посещения той или иной вершины
+/// @return int - 0 - у нас есть вершина, куда мы можем пойти, 1 - более
+/// не посещенныъ вершин нет
+
+  int s21::GraphAlgorithms::SelectNextVertex (std::vector<double> probability_list)  const noexcept { 
       int vertex = 0;
       int size = probability_list.size();
       double random_c = VertexRandom(0.0, 1.0); 
       if (random_c > 0 && random_c <= 1) {
         double sum_probability = 0;
         // Находим вершину, в которую попал наш рандом
-        for(int j = 0; j != size && random_c - sum_probability >= 0.000001; j++){
+        for(int j = 0; j != size && random_c - sum_probability >= 0.000001;j++){
             sum_probability += probability_list[j];
            vertex++;
         }
@@ -482,10 +506,19 @@ s21::TsmResult s21::GraphAlgorithms::SolveTravelingSalesmanProblem(s21_Graph &gr
       return  vertex;
   }
 
+
+/// @brief - Метод пересчитывающий матрицу ферамонов, исходя из пройденного
+///  пути текущим муравьем
+
+/// @param  pheramone_matrix - предыдущая матрица ферамонов
+/// @param  temp_path - матрица смежности пройденного пути
+/// @param  distance - расстояние, которое прошел текущий муравей
+
   void s21::GraphAlgorithms::RecalculatePheramoneMatrix(std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance){ 
+
     // Константы, вводятся самостоятельно !!!  
     const int q = 100.0; // Количество ферамонов у одного муравья 
-    const double k = 0.0000; // Коэффициент испарения ферамона 
+    const double k = 0.01; // Коэффициент испарения ферамона 
 
     // Расчетные константы
     const double p = 1 - k; // Обратный коэфициент, уменьшаюший  старое кол-во ферамонов
