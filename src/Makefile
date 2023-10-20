@@ -41,8 +41,8 @@ testa: clean
 
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 
-	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc
-	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.h
+	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc consolemenu.cc consolemenu.h
+	clang-format -style=Google -n *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc consolemenu.cc consolemenu.h
 	
 	rm -rf .clang-format
 
@@ -58,6 +58,8 @@ clean:
 	@rm -rf navigator_tests
 	@rm -rf *.gcda
 	@rm -rf *.gcno
+	@rm -rf *info
+	@rm -rf coverage
 
 main: $(OBJS)
 	$(CXX) $(CXXFLAGS) $(OBJS)
@@ -66,7 +68,8 @@ main: $(OBJS)
 
 
 gcov_report: tests
-	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
+	lcov -t "gcov_report" -o coverage.info -c -d ./
+#	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
 	genhtml coverage.info -o ./coverage
 	open coverage/index.html
 	@rm -rf *.gcda

@@ -250,4 +250,31 @@ TEST(GraphAlgorithmsTest, test_DFS_very_big_graph) {
     ASSERT_EQ(visited_vertices[it], result[it]);
   }
 }
+
+TEST(GraphAlgorithmsTest, test_DFS_simple_graph_with_loops) {
+  s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
+  graph.LoadGraphFromFile(InputFileName);
+
+  int start = 1;
+  std::vector<int> visited_vertices;
+  std::vector<int> result;
+  visited_vertices = algo.DepthFirstSearch(graph, start);
+  result = {1, 2, 3, 6, 5, 4};
+
+  for (int it = 0; it < result.size(); ++it) {
+    ASSERT_EQ(visited_vertices[it], result[it]);
+  }
+  result.clear();
+
+  start = 3;
+  result = {3, 2, 1, 4, 5, 6};
+
+  visited_vertices = algo.DepthFirstSearch(graph, start);
+
+  for (int it = 0; it < result.size(); ++it) {
+    ASSERT_EQ(visited_vertices[it], result[it]);
+  }
+}
 }  // namespace s21

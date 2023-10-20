@@ -264,4 +264,25 @@ TEST(GraphAlgorithmsTest, test_GetLeastSpanningTree_very_big_graph) {
   }
 }
 
+TEST(GraphAlgorithmsTest, test_GetLeastSpanningTree_graph_with_loop) {
+  s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
+  graph.LoadGraphFromFile(InputFileName);
+  std::vector<std::vector<int>> spanning_tree =
+      algo.GetLeastSpanningTree(graph);
+  std::vector<std::vector<int>> result{{0, 5, 0, 9, 0, 0}, {5, 0, 7, 0, 0, 0},
+                                       {0, 7, 0, 0, 0, 9}, {9, 0, 0, 0, 7, 0},
+                                       {0, 0, 0, 7, 0, 0}, {0, 0, 9, 0, 0, 0}};
+
+  for (int i = 0; i < result.size(); ++i) {
+    for (int j = 0; j < result.size(); ++j) {
+      ASSERT_EQ(spanning_tree[i][j], result[i][j]);
+    }
+
+    int weight = algo.GetGraphWeigt(spanning_tree) / 2;
+    ASSERT_EQ(weight, 37);
+  }
+}
+
 }  // namespace s21

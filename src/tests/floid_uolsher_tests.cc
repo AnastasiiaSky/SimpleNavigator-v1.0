@@ -2,18 +2,6 @@
 
 namespace s21 {
 
-TEST(GraphAlgorithmsTest, FloidWarshall_graph_3_vert_simply) {
-  s21_Graph graph;
-  s21::GraphAlgorithms algo;
-  std::string InputFileName = "./examples/weight_graph_4_vert.txt";
-  graph.LoadGraphFromFile(InputFileName);
-  std::vector<std::vector<int>> minimum_distance =
-      algo.GetShortestPathsBetweenAllVertices(graph);
-  std::vector<std::vector<int>> result{
-      {0, 2, 3, 3}, {2, 0, 5, 1}, {3, 5, 0, 6}, {3, 1, 6, 0}};
-  ASSERT_EQ(minimum_distance, result);
-}
-
 TEST(Test, FloidWarshall_weighted_directed_graph_4_vert) {
   s21_Graph graph;
   s21::GraphAlgorithms algo;
@@ -252,6 +240,26 @@ TEST(GraphAlgorithmsTest, FloidWarshall_very_big_graph) {
        13, 80, 110, 92, 91,  98, 117, 110, 103, 91, 64, 54,  43, 52, 13, 0}
 
   };
+  ASSERT_EQ(minimum_distance, result);
+}
+
+TEST(Test, FloidWarshall_weighted_graph_with_loops) {
+  s21_Graph graph;
+  s21::GraphAlgorithms algo;
+  std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
+  graph.LoadGraphFromFile(InputFileName);
+  std::vector<std::vector<int>> minimum_distance =
+      algo.GetShortestPathsBetweenAllVertices(graph);
+  std::vector<std::vector<int>> result{
+      {0, 5, 12, 9, 16, 21}, {5, 0, 7, 14, 21, 16}, {12, 7, 0, 21, 18, 9},
+      {9, 14, 21, 0, 7, 16}, {16, 21, 18, 7, 0, 9}, {21, 16, 9, 16, 9, 0}};
+
+  for (int it = 0; it < minimum_distance.size(); ++it) {
+    for (int j = 0; j < minimum_distance.size(); ++j) {
+      std::cout << minimum_distance[it][j] << " ";
+    }
+    std::cout << std::endl;
+  }
   ASSERT_EQ(minimum_distance, result);
 }
 }  // namespace s21
