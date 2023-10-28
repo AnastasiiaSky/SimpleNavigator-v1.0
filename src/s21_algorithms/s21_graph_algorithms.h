@@ -21,21 +21,16 @@
 
 namespace s21 {
 
-struct TsmResult {
-  std::vector<int> path;
-  int vertices;  // !!! надо со * // массив с искомым маршрутом (с порядком
-                 // обхода вершин). Вместо int* можно использовать
-                 // std::vector<int>
-  double distance;   // длина этого маршрута
-  double distance2;  // длина этого маршрута
-};
+  struct TsmResult {
+    std::vector<int> path; 
+    double distance;  
+  };
 
 class s21_Graph;
 class GraphAlgorithms {
  public:
   using matrix = std::vector<std::vector<int>>;
-  const int inf =
-      std::numeric_limits<int>::max();  // !!! Перенести в класс, наверное
+  const int inf = std::numeric_limits<int>::max();  
 
   std::vector<int> DepthFirstSearch(s21_Graph &graph, int start_vertex);
   std::vector<int> BreadthFirstSearch(s21_Graph &graph, int start_vertex);
@@ -49,25 +44,20 @@ class GraphAlgorithms {
   int GetGraphWeigt(matrix adjacency_matrix);
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
-  // private:
-  // Рассчитывает вероятность прохождения по текущему ребру
+  private:
+   // Рассчитывает вероятность прохождения по текущему ребру
   int CreateProbabilityPath(std::vector<double> &pobability_list,
-                            std::vector<std::vector<double>> pheramone_matrix,
-                            std::vector<std::vector<int>> adjacency_matrix,
-                            int vertex);
+  std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex) noexcept;
 
   // Пересчитывает количество ферамонта на текущему ребре
-  void RecalculatePheramoneMatrix(
-      std::vector<std::vector<double>> &pheramone_matrix,
-      std::vector<std::vector<int>> temp_path, int distance);
+  void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance) noexcept;
 
   // Генерируем рандомное число в заданном диапозоне
   double VertexRandom(double min, double max) const;
 
-  // Выбираем рандомно вершину, в которую идем
-  int SelectNextVertex(std::vector<double> probability_list);
-
- private:
+  // Выбираем рандомно вершину, в которую идем 
+  int SelectNextVertex (std::vector<double> probability_list) const noexcept;
+  
   bool CheckVisited(std::vector<int> visited_vertices,
                     int current_vertix) noexcept;
   bool IsAllVisited(std::vector<bool> visited_of_not);

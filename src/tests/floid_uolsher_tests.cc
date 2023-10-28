@@ -2,7 +2,7 @@
 
 namespace s21 {
 
-TEST(Test, FloidWarshall_weighted_directed_graph_4_vert) {
+TEST(GraphAlgorithmsTest, FloidWarshall_weighted_directed_graph_4_vert) {
   s21_Graph graph;
   s21::GraphAlgorithms algo;
   std::string InputFileName = "./examples/weighted_directed_graph_4_vert.txt";
@@ -243,7 +243,7 @@ TEST(GraphAlgorithmsTest, FloidWarshall_very_big_graph) {
   ASSERT_EQ(minimum_distance, result);
 }
 
-TEST(Test, FloidWarshall_weighted_graph_with_loops) {
+TEST(GraphAlgorithmsTest, FloidWarshall_weighted_graph_with_loops) {
   s21_Graph graph;
   s21::GraphAlgorithms algo;
   std::string InputFileName = "./examples/weighted_graph_6_vert_with_loops.txt";
@@ -261,5 +261,6 @@ TEST(Test, FloidWarshall_weighted_graph_with_loops) {
     std::cout << std::endl;
   }
   ASSERT_EQ(minimum_distance, result);
+  // algo.PrintAdjacencyMatrix(minimum_distance);
 }
 }  // namespace s21

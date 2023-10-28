@@ -36,7 +36,7 @@ tests: clean
 	./navigator_tests
 
 testa: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests_tmp.cc -o ant_tests $(GTEST)
+	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests.cc -o ant_tests $(GTEST)
 	./ant_tests	
 
 stylecheck:
