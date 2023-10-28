@@ -1,13 +1,11 @@
 CXX = g++
 CXXFLAGS=-lstdc++ -std=c++17
-# !!! Переписать все через флаги, разделить их
 TFLAGS=-g -c -lstdc++ -std=c++17 -lgtest -Wuninitialized -pedantic
 RFLAGS=-Wall -Werror -Wextra
 GTEST=-lgtest -lgtest_main -pthread 
 ASAN=-fsanitize=address
 COVER=-fprofile-arcs -ftest-coverage
 COVFLAGS = -fprofile-arcs -ftest-coverage
-# TARGET=./tests/mazeTest
 VGFLAGS=--trace-children=yes --track-fds=all  --leak-check=full --show-leak-kinds=all --track-origins=yes
 VAR = $(shell pkg-config --cflags --libs check)
 
@@ -68,8 +66,7 @@ main: $(OBJS)
 
 
 gcov_report: tests
-	lcov -t "gcov_report" -o coverage.info -c -d ./
-#	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
+	geninfo --ignore-errors mismatch . -b . -o ./coverage.info --no-external 
 	genhtml coverage.info -o ./coverage
 	open coverage/index.html
 	@rm -rf *.gcda

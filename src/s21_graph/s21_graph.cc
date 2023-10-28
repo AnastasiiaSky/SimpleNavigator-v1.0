@@ -24,9 +24,7 @@ std::vector<std::vector<int>> s21::s21_Graph::getAdjacencyMatrix() {
 std::vector<std::pair<int, int>> s21::s21_Graph::getEdgesList() {
   for (int i = 0; i < size_; ++i) {
     for (int j = 0; j < size_; ++j) {
-      // go thru cells and see if they don't include '0'
       if (AdjacencyMatrix_[i][j] != 0) {
-        // if (they): push the position number into the edgesList
         edgesList_.push_back(std::make_pair(i + 1, j + 1));
       }
     }
@@ -134,7 +132,6 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
       throw std::runtime_error("Error opening file");
     }
   } catch (const std::exception& e) {
-    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
 
   try {
@@ -142,7 +139,6 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
       throw std::runtime_error("Invalid value");
     }
   } catch (const std::exception& e) {
-    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
   ifs >> size_;
   try {
@@ -150,7 +146,6 @@ void s21::s21_Graph::LoadGraphFromFile(std::string filename) {
       throw std::runtime_error("Dimension must be > 0");
     }
   } catch (const std::exception& e) {
-    // std::cout << "Exception occurred: " << e.what() << std::endl;
   }
   AdjacencyMatrix_.resize(size_, std::vector<int>(size_));
 

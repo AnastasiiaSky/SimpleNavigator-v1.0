@@ -1,6 +1,4 @@
 /// \file
-// !!! Нарушена последовательность алгоритмов
-
 #include "s21_graph_algorithms.h"
 
 /// @brief Метод поиска пути в глубину в графе.
@@ -222,18 +220,6 @@ s21::GraphAlgorithms::GetShortestPathsBetweenAllVertices(s21_Graph &graph) {
   }
   return min_distance;
 }
-
-
-
-// bool s21::GraphAlgorithms::IsGraphConnected(std::vector<std::vector<int>>
-// adjacency_list)
-// {
-//   std::vector<int> result_of_dfs = DepthFirstSearch(adjacency_list, 1);
-//   if(result_of_dfs.size() < adjacency_list.size()) {
-//     return false;
-//   }
-// return true;
-// }
 
 /// @brief Реализация алгоритма Прима.
 /// В ходе работы алгоритма производится поиск минимального остовного дерева.
@@ -659,17 +645,7 @@ void s21::GraphAlgorithms::PrintResultWay(
   }
 }
 
-// bool s21::GraphAlgorithms::IsGraphConnected(std::vector<std::vector<int>>
-// adjacency_list)
-// {
-//   std::vector<int> result_of_dfs = DepthFirstSearch(adjacency_list, 1);
-//   if(result_of_dfs.size() < adjacency_list.size()) {
-//     return false;
-//   }
-// return true;
-// }
-
-// !!! Нужно описание
+/// @brief Данный метод PrintAdjacencyMatrix выводит матрицу смежности в консоль
 void s21::GraphAlgorithms::PrintAdjacencyMatrix(
     std::vector<std::vector<int>> matrix) noexcept {
   std::cout << "AdjacencyMatrix:" << std::endl;

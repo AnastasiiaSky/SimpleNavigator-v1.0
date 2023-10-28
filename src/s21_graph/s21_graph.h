@@ -2,7 +2,7 @@
 #define SRC_S21_GRAPH_H_
 #include <cstring>
 #include <iostream>
-#include <vector>  /// Заменить на самописные
+#include <vector>
 
 #include "../s21_algorithms/s21_graph_algorithms.h"
 

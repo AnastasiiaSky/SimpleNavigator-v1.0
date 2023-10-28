@@ -5,13 +5,11 @@
 
 #include <cmath>
 #include <iostream>
-#include <list>   /// Заменить на самописные
-#include <queue>  /// Заменить на самописные
+#include <list>
+#include <queue>
 #include <random>
-#include <stack>   /// Заменить на самописные
-#include <vector>  /// Заменить на самописные
-// #include <limits> // !!! возможно не надо
-// #include <limits.h> // !!! возможно не надо
+#include <stack>
+#include <vector>
 
 #include "../conteiners/s21_helpsrc.h"
 #include "../conteiners/s21_list.h"
@@ -45,19 +43,11 @@ class GraphAlgorithms {
   void PrintAdjacencyMatrix(matrix adjacency_matrix) noexcept;
 
   private:
-   // Рассчитывает вероятность прохождения по текущему ребру
   int CreateProbabilityPath(std::vector<double> &pobability_list,
   std::vector<std::vector<double>> pheramone_matrix, std::vector<std::vector<int>> adjacency_matrix, int vertex) noexcept;
-
-  // Пересчитывает количество ферамонта на текущему ребре
   void RecalculatePheramoneMatrix (std::vector<std::vector<double>> &pheramone_matrix, std::vector<std::vector<int>> temp_path, int distance) noexcept;
-
-  // Генерируем рандомное число в заданном диапозоне
   double VertexRandom(double min, double max) const;
-
-  // Выбираем рандомно вершину, в которую идем 
   int SelectNextVertex (std::vector<double> probability_list) const noexcept;
-  
   bool CheckVisited(std::vector<int> visited_vertices,
                     int current_vertix) noexcept;
   bool IsAllVisited(std::vector<bool> visited_of_not);
