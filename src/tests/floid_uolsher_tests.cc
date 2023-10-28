@@ -254,13 +254,7 @@ TEST(GraphAlgorithmsTest, FloidWarshall_weighted_graph_with_loops) {
       {0, 5, 12, 9, 16, 21}, {5, 0, 7, 14, 21, 16}, {12, 7, 0, 21, 18, 9},
       {9, 14, 21, 0, 7, 16}, {16, 21, 18, 7, 0, 9}, {21, 16, 9, 16, 9, 0}};
 
-  for (int it = 0; it < minimum_distance.size(); ++it) {
-    for (int j = 0; j < minimum_distance.size(); ++j) {
-      std::cout << minimum_distance[it][j] << " ";
-    }
-    std::cout << std::endl;
-  }
   ASSERT_EQ(minimum_distance, result);
-  // algo.PrintAdjacencyMatrix(minimum_distance);
+
 }
 }  // namespace s21

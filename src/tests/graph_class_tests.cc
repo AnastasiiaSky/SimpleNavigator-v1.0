@@ -23,7 +23,7 @@ TEST(GraphAlgorithmsTest, getEdgeList) {
 }
 
 TEST(GraphAlgorithmsTest,
-     errorOpeningFile) {  // !!! Возможно тест работает неккоректно
+     errorOpeningFile) {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
   std::string InputFileName = "./examples/graph_155_vert_simply.txt";
@@ -219,11 +219,4 @@ TEST(Graph, Graph_connectivity_7) {
   ASSERT_EQ(result, expected);
 }
 
-}  // namespace s21
-
-// // std::cout << "Class Graph" << std::endl;
-// !!! Добавить тест и пример на не связный граф  где
-// - 2 графа полноценных
-// - где второй граф только 1 вершина
-// - когда все вершина направлены в одну вершину
-// - когда 2 вершины и ребра из одного графа направлены во второй граф
+}  
