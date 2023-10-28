@@ -255,6 +255,5 @@ TEST(GraphAlgorithmsTest, FloidWarshall_weighted_graph_with_loops) {
       {9, 14, 21, 0, 7, 16}, {16, 21, 18, 7, 0, 9}, {21, 16, 9, 16, 9, 0}};
 
   ASSERT_EQ(minimum_distance, result);
-
 }
 }  // namespace s21

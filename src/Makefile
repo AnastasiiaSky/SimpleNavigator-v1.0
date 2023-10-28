@@ -33,10 +33,6 @@ tests: clean
 	@ g++ $(CXXFLAGS) $(COVER) tests/main_tests.cc -o navigator_tests $(GTEST)
 	./navigator_tests
 
-testa: clean
-	@ g++ $(CXXFLAGS) $(COVER) tests/ant_tests.cc -o ant_tests $(GTEST)
-	./ant_tests	
-
 stylecheck:
 	cp ../materials/linters/.clang-format .clang-format 
 	clang-format -style=Google -i *.cc s21_algorithms/*.cc s21_algorithms/*.h s21_graph/*.cc s21_graph/*.h tests/*.cc consolemenu.cc consolemenu.h

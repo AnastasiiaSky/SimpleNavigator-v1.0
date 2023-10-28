@@ -22,8 +22,7 @@ TEST(GraphAlgorithmsTest, getEdgeList) {
   ASSERT_EQ(GetedgesList, expected);
 }
 
-TEST(GraphAlgorithmsTest,
-     errorOpeningFile) {
+TEST(GraphAlgorithmsTest, errorOpeningFile) {
   s21::s21_Graph graph;
   s21::GraphAlgorithms algo;
   std::string InputFileName = "./examples/graph_155_vert_simply.txt";
@@ -219,4 +218,4 @@ TEST(Graph, Graph_connectivity_7) {
   ASSERT_EQ(result, expected);
 }
 
-}  
+}  // namespace s21

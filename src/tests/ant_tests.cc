@@ -26,7 +26,6 @@ TEST(AntTest, weighted_graph_11_vert) {
   TsmResult result_struct = algo.SolveTravelingSalesmanProblem(graph);
   const int size = graph.get_graph_size();
   ASSERT_EQ(true, abs(result_struct.distance - 253) < 10);
-
 }
 
 }  // namespace s21
